@@ -36,12 +36,10 @@ class CustomMaterialButton extends StatelessWidget {
       ),
       minWidth: minWidth ?? double.infinity,
       padding: padding,
-      height: height ?? 54.h,
+      height: height ?? 43.h,
       child: Text(
         textButton,
-        style: TextStyles.font16WhiteMedium.copyWith(
-          color: textColor,
-        ),
+        style: TextStyles.font16WhiteMedium.copyWith(color: textColor),
       ),
     );
   }

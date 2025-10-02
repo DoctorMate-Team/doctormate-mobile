@@ -1,9 +1,11 @@
 import 'package:doctor_mate/core/helper/app_images.dart';
 import 'package:doctor_mate/core/helper/spacing.dart';
+import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -77,6 +79,12 @@ class _SplashScreenState extends State<SplashScreen>
     if (mounted) {
       _textController.forward();
     }
+
+    // Navigate to onboarding after all animations complete
+    await Future.delayed(const Duration(milliseconds: 1500));
+    if (mounted) {
+      context.goNamed(Routes.onBoarding);
+    }
   }
 
   @override
@@ -106,6 +114,7 @@ class _SplashScreenState extends State<SplashScreen>
                         AppImages.logo,
                         height: 100.h,
                         width: 100.w,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   );

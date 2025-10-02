@@ -1,4 +1,5 @@
 import 'package:doctor_mate/core/routing/routes.dart';
+import 'package:doctor_mate/features/onBoarding/ui/onBoarding_screen.dart';
 import 'package:doctor_mate/features/splash/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +13,11 @@ class AppRouter {
           path: Routes.splash,
           name: Routes.splash,
           builder: (context, state) => const SplashScreen(),
+        ),
+        GoRoute(
+          path: Routes.onBoarding,
+          name: Routes.onBoarding,
+          builder: (context, state) => const OnboardingScreen(),
         ),
       ],
       errorBuilder:
