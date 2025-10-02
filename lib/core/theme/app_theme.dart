@@ -16,7 +16,7 @@ abstract class AppTheme {
         selectedItemColor: ColorsManager.primaryColor,
         unselectedItemColor: ColorsManager.lightGreen,
         backgroundColor: Colors.white,
-        selectedLabelStyle: TextStyles.font12BlueSemiBold,
+        selectedLabelStyle: TextStyles.font12GreenSemiBold,
         unselectedLabelStyle: TextStyles.font11GrayRegular,
       ),
     );
