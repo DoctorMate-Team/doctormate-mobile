@@ -1,4 +1,8 @@
 {
   "app_name": "DoctorMate",
-  "welcome": "Welcome"
+  "welcome": "Welcome",
+  "language": {
+    "en": "En",
+    "ar": "Ar"
+  }
 }

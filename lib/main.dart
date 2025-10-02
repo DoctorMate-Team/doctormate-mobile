@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   Bloc.observer = MyBlocObserver();
@@ -18,7 +18,7 @@ void main() async{
   // to fix .sp font size and text hidden
   await ScreenUtil.ensureScreenSize();
 
-   // منع دوران الشاشة
+  // منع دوران الشاشة
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp, // الوضع الرأسي فقط
   ]);

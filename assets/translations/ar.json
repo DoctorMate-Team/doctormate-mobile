@@ -1,4 +1,8 @@
 {
   "app_name": "دكتور ميت",
-  "welcome": "مرحبا"
+  "welcome": "مرحبا",
+  "language": {
+    "en": "En",
+    "ar": "ع"
+  }
 }
