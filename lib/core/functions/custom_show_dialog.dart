@@ -13,7 +13,7 @@ Future<dynamic> showCustomDialog(BuildContext context,
       return AlertDialog(
         title: Text(
           title,
-          style: TextStyles.font24BlueBold,
+          style: TextStyles.font24GreenBold,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
