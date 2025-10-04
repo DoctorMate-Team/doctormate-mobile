@@ -1,5 +1,7 @@
 import 'package:doctor_mate/core/theme/app_color.dart';
+import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomDropDownFormField extends StatefulWidget {
@@ -38,7 +40,7 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       value: _selectedValue,
-      icon: const Icon(FontAwesomeIcons.angleDown),
+      icon: const Icon(FontAwesomeIcons.angleDown, size: 16),
       decoration: _buildInputDecoration(),
       isExpanded: true,
       onChanged: (value) {
@@ -64,27 +66,46 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
 
   InputDecoration _buildInputDecoration() {
     return InputDecoration(
-      contentPadding: widget.contentPadding ??
-          const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+      contentPadding:
+          widget.contentPadding ??
+          EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
       isDense: true,
       filled: true,
-      fillColor: widget.backgroundColor ?? Colors.white,
-      enabledBorder:
-          widget.enabledBorder ?? _defaultBorder(const Color(0xFFB8B8B8)),
-      focusedBorder:
-          widget.focusedBorder ?? _defaultBorder(ColorsManager.primaryColor),
-      errorBorder: _defaultBorder(Colors.red),
-      focusedErrorBorder: _defaultBorder(Colors.red, borderRadius: 16.0),
+      fillColor: widget.backgroundColor ?? ColorsManager.moreLighterGray,
       hintText: widget.hintText,
-      hintStyle:
-          widget.hintStyle ?? const TextStyle(fontSize: 14, color: Colors.grey),
-    );
-  }
-
-  OutlineInputBorder _defaultBorder(Color color, {double borderRadius = 8.0}) {
-    return OutlineInputBorder(
-      borderSide: BorderSide(color: color, width: 1.3),
-      borderRadius: BorderRadius.circular(borderRadius),
+      hintStyle: widget.hintStyle ?? TextStyles.font14GrayRegular,
+      enabledBorder:
+          widget.enabledBorder ??
+          OutlineInputBorder(
+            borderSide: BorderSide(
+              color: ColorsManager.moreLightGray,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+      focusedBorder:
+          widget.focusedBorder ??
+          OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: ColorsManager.primaryColor,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+      errorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: ColorsManager.warningRed,
+          width: 1.3,
+        ),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: ColorsManager.warningRed,
+          width: 1.3,
+        ),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
     );
   }
 
@@ -92,10 +113,7 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
     return widget.listOfValues.map((String value) {
       return DropdownMenuItem<String>(
         value: value,
-        child: Text(
-          value,
-          style: widget.textStyle,
-        ),
+        child: Text(value, style: widget.textStyle),
       );
     }).toList();
   }

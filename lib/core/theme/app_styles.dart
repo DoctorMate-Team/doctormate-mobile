@@ -46,10 +46,22 @@ class TextStyles {
     color: ColorsManager.primaryColor,
   );
 
+  static TextStyle font20GreenBold = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: ColorsManager.primaryColor,
+  );
+
   static TextStyle font24GreenBold = TextStyle(
     fontSize: 24.sp,
     fontWeight: FontWeightHelper.bold,
     color: ColorsManager.primaryColor,
+  );
+
+  static TextStyle font24WhiteBold = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.white,
   );
 
   static TextStyle font16WhiteSemiBold = TextStyle(
