@@ -69,25 +69,33 @@ class CustomTextFormField extends StatelessWidget {
       onChanged: onChanged,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
-        contentPadding: contentPadding ??
+        contentPadding:
+            contentPadding ??
             EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
         isDense: true,
         filled: true,
-        fillColor: backgroundColor ?? ColorsManager.lightGray,
+        fillColor: backgroundColor ?? ColorsManager.moreLighterGray,
         hintText: hintText,
         hintStyle: hintStyle ?? TextStyles.font14GrayRegular,
         prefixIcon: prefix,
-        enabledBorder: enabledBorder ??
+        enabledBorder:
+            enabledBorder ??
             OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: borderColor ?? ColorsManager.lightGray,
-                    width: 1),
-                borderRadius: BorderRadius.circular(8)),
-        focusedBorder: focusedBorder ??
+              borderSide: BorderSide(
+                color: borderColor ?? ColorsManager.moreLightGray,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+        focusedBorder:
+            focusedBorder ??
             OutlineInputBorder(
-                borderSide: const BorderSide(
-                    color: ColorsManager.primaryColor, width: 1),
-                borderRadius: BorderRadius.circular(8)),
+              borderSide: const BorderSide(
+                color: ColorsManager.primaryColor,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: ColorsManager.warningRed,
