@@ -1,18 +1,19 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
-import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/widgets/custom_material_button.dart';
 import 'package:doctor_mate/core/widgets/custom_text_form_field.dart';
+import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/auth_header.dart';
+import 'package:doctor_mate/features/auth/ui/widgets/reset_password_bloc_listener.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/terms_and_conditions_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
-
+  const ResetPasswordScreen({super.key, required this.email});
+  final String email;
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
@@ -90,11 +91,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
 
   @override
   Widget build(BuildContext context) {
+    var authCubit = context.read<AuthCubit>();
     return Scaffold(
       backgroundColor: ColorsManager.primaryColor,
-       bottomNavigationBar: Container(
-         color: Colors.white,
-         child: SafeArea(
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
             child: Column(
@@ -103,7 +105,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                 CustomMaterialButton(
                   textButton: "Reset Password",
                   onPressed: () {
-                    context.goNamed(Routes.completeProfile);
+                    validateAndSubmit(context.read<AuthCubit>());
                   },
                 ),
                 verticalSpacing(16),
@@ -111,8 +113,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
               ],
             ),
           ),
-               ),
-       ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
@@ -148,41 +150,57 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                           opacity: _contentFadeAnimation,
                           child: SingleChildScrollView(
                             physics: const BouncingScrollPhysics(),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Reset Password",
-                                  style: TextStyles.font20GreenBold,
-                                ),
-                                verticalSpacing(24),
-                                Text(
-                                  "Enter new password and confirm password to reset your password.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyles.font14GrayRegular,
-                                ),
-                                verticalSpacing(24),
-                                CustomTextFormField(
-                                  hintText: "New Password",
-                                  validator: (value) {},
-                                ),
-                                verticalSpacing(24),
-                                CustomTextFormField(
-                                  hintText: "Confirm Password",
-                                  validator: (value) {},
-                                ),
-                                verticalSpacing(
-                                  MediaQuery.sizeOf(context).height * 0.26,
-                                ),
-                                CustomMaterialButton(
-                                  textButton: "Reset Password",
-                                  onPressed: () {
-                                    context.goNamed(Routes.completeProfile);
-                                  },
-                                ),
-                                verticalSpacing(16),
-                                const TermsAndConditionsText(),
-                              ],
+                            child: Form(
+                              key: authCubit.formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Reset Password",
+                                    style: TextStyles.font20GreenBold,
+                                  ),
+                                  verticalSpacing(24),
+                                  Text(
+                                    "Enter new password and confirm password to reset your password.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyles.font14GrayRegular,
+                                  ),
+                                  verticalSpacing(24),
+                                  CustomTextFormField(
+                                    controller: authCubit.passwordController,
+                                    hintText: "New Password",
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your new password';
+                                      }
+                                      if (value.length < 6) {
+                                        return 'Password must be at least 6 characters long';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  verticalSpacing(24),
+                                  CustomTextFormField(
+                                    controller:
+                                        authCubit
+                                            .passwordConfirmationController,
+                                    hintText: "Confirm Password",
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please confirm your password';
+                                      }
+                                      if (value !=
+                                          authCubit.passwordController.text) {
+                                        return 'Passwords do not match';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  verticalSpacing(
+                                    MediaQuery.sizeOf(context).height * 0.35,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -191,10 +209,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                   ),
                 ),
               ),
+              const ResetPasswordBlocListener(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void validateAndSubmit(AuthCubit authCubit) {
+    if (authCubit.formKey.currentState!.validate()) {
+      authCubit.resetPassword(email: widget.email);
+    }
   }
 }

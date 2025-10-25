@@ -1,4 +1,6 @@
 import 'package:doctor_mate/core/helper/app_images.dart';
+import 'package:doctor_mate/core/helper/cache_helper.dart';
+import 'package:doctor_mate/core/helper/constants.dart';
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
@@ -83,7 +85,15 @@ class _SplashScreenState extends State<SplashScreen>
     // Navigate to onboarding after all animations complete
     await Future.delayed(const Duration(milliseconds: 1500));
     if (mounted) {
-      context.goNamed(Routes.onBoarding);
+      if (await CacheHelper.getSecuredValue(
+            AppConstants.userToken,
+            type: String,
+          ) !=
+          null) {
+        context.goNamed(Routes.home);
+      } else {
+        context.goNamed(Routes.onBoarding);
+      }
     }
   }
 

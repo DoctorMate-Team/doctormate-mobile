@@ -1,46 +1,59 @@
+import 'package:doctor_mate/core/helper/app_regex.dart';
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
-import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/widgets/custom_text_form_field.dart';
+import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
   @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  @override
+  void initState() {
+    context.read<AuthCubit>().emailController.text = '';
+    context.read<AuthCubit>().passwordController.text = '';
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomTextFormField(hintText: "Email", validator: (value) {}),
-        verticalSpacing(24),
-        CustomTextFormField(hintText: "Password", validator: (value) {}),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //CheckBox Remember Me
-            Row(
-              children: [
-                Checkbox(
-                  value: false,
-                  onChanged: (value) {},
-                  activeColor: ColorsManager.primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.r),
-                  ),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  visualDensity: VisualDensity.compact,
-                  side: BorderSide(color: ColorsManager.primaryColor),
-                  checkColor: Colors.white,
-                  focusColor: ColorsManager.primaryColor,
-                  hoverColor: ColorsManager.primaryColor,
-                ),
-                Text("Remember Me", style: TextStyles.font14GrayRegular),
-              ],
-            ),
-            TextButton(
+    var authCubit = context.read<AuthCubit>();
+    return Form(
+      key: authCubit.formKey,
+      child: Column(
+        children: [
+          CustomTextFormField(
+            controller: authCubit.emailController,
+            hintText: "Email or Phone Number",
+            validator: (value) {
+              if (value == null ||
+                  value.isEmpty ||
+                  !AppRegex.isPhoneNumberOrEmailValid("2$value")) {
+                return "Please enter a valid email or phone number";
+              }
+            },
+          ),
+          verticalSpacing(24),
+          CustomTextFormField(
+            controller: authCubit.passwordController,
+            hintText: "Password",
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter a password";
+              }
+            },
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
               onPressed: () {
                 context.pushNamed(Routes.forgetPassword);
               },
@@ -49,9 +62,9 @@ class LoginForm extends StatelessWidget {
                 style: TextStyles.font14GreenSemiBold,
               ),
             ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

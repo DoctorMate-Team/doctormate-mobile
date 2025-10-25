@@ -9,22 +9,23 @@ class DatePickerFormField extends StatefulWidget {
     super.key,
     required this.hintText,
     this.validator,
+    this.controller,
   });
 
   final String hintText;
   final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   @override
   State<DatePickerFormField> createState() => _DatePickerFormFieldState();
 }
 
 class _DatePickerFormFieldState extends State<DatePickerFormField> {
-  final TextEditingController _controller = TextEditingController();
   DateTime? _selectedDate;
 
   @override
   void dispose() {
-    _controller.dispose();
+    widget.controller?.dispose();
     super.dispose();
   }
 
@@ -52,7 +53,8 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        _controller.text = "${picked.day}/${picked.month}/${picked.year}";
+        widget.controller?.text =
+            "${picked.day}/${picked.month}/${picked.year}";
       });
     }
   }
@@ -60,7 +62,7 @@ class _DatePickerFormFieldState extends State<DatePickerFormField> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-      controller: _controller,
+      controller: widget.controller,
       readOnly: true,
       onTap: _selectDate,
       validator: widget.validator ?? (value) => null,

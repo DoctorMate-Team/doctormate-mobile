@@ -13,4 +13,6 @@ class AppConstants {
   static const String fcmToken = 'fcm_token';
   static const String userToken = 'user_token';
   static const String unreadNotificationsCount = 'unread_notifications_count';
+
+  static String userTokenProvider = '';
 }
