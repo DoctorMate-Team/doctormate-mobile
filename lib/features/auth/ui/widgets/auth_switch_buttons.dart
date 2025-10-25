@@ -1,11 +1,13 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/widgets/custom_material_button.dart';
+import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/login_buttons.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/login_form.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/signup_form.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/terms_and_conditions_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthSwitchButtons extends StatefulWidget {
@@ -172,7 +174,9 @@ class _AuthSwitchButtonsState extends State<AuthSwitchButtons>
                         ? const LoginButtons()
                         : CustomMaterialButton(
                           textButton: "Sign Up",
-                          onPressed: () {},
+                          onPressed: () {
+                            validateRegister(context.read<AuthCubit>());
+                          },
                         ),
                     verticalSpacing(16),
                     const TermsAndConditionsText(),
@@ -184,5 +188,11 @@ class _AuthSwitchButtonsState extends State<AuthSwitchButtons>
         ),
       ],
     );
+  }
+
+  void validateRegister(AuthCubit authCubit) {
+    if (authCubit.formKey.currentState!.validate()) {
+      authCubit.register();
+    }
   }
 }

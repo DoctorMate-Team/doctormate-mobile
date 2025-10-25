@@ -4,9 +4,12 @@ import 'package:doctor_mate/core/widgets/custom_drop_down_form_field.dart';
 import 'package:doctor_mate/core/widgets/custom_material_button.dart';
 import 'package:doctor_mate/core/widgets/custom_text_form_field.dart';
 import 'package:doctor_mate/core/widgets/date_picker_form_field.dart';
+import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
+import 'package:doctor_mate/features/auth/ui/widgets/complete_profile_bloc_listener.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/custom_profile_screen_image.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/terms_and_conditions_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
@@ -75,6 +78,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen>
 
   @override
   Widget build(BuildContext context) {
+    var authCubit = context.read<AuthCubit>();
     return Scaffold(
       bottomNavigationBar: SafeArea(
         child: Padding(
@@ -85,7 +89,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen>
               CustomMaterialButton(
                 textButton: "Complete Profile",
                 onPressed: () {
-                  // Handle profile completion
+                  if (authCubit.formKey.currentState!.validate()) {
+                    authCubit.completeProfile();
+                  }
                 },
               ),
               verticalSpacing(16),
@@ -94,100 +100,118 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen>
           ),
         ),
       ),
-      body: SafeArea(
-        child: AnimatedBuilder(
-          animation: _contentController,
-          builder: (context, child) {
-            return SlideTransition(
-              position: _contentSlideAnimation,
-              child: FadeTransition(
-                opacity: _contentFadeAnimation,
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                    vertical: 16.h,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Complete your profile",
-                        style: TextStyles.font20GreenBold,
+      body: Stack(
+        children: [
+          SafeArea(
+            child: AnimatedBuilder(
+              animation: _contentController,
+              builder: (context, child) {
+                return SlideTransition(
+                  position: _contentSlideAnimation,
+                  child: FadeTransition(
+                    opacity: _contentFadeAnimation,
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 16.h,
                       ),
-                      verticalSpacing(16),
-                      Text(
-                        "Please take a few minutes to fill out your profile with as much detail as possible",
-                        textAlign: TextAlign.center,
-                        style: TextStyles.font14GrayRegular,
-                      ),
-                      verticalSpacing(32),
-                      Center(
-                        child: CustomProfileScreenImage(
-                          onTap: () {
-                            // Handle image selection
-                          },
-                          isEdit: true,
+                      child: Form(
+                        key: authCubit.formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Complete your profile",
+                              style: TextStyles.font20GreenBold,
+                            ),
+                            verticalSpacing(16),
+                            Text(
+                              "Please take a few minutes to fill out your profile with as much detail as possible",
+                              textAlign: TextAlign.center,
+                              style: TextStyles.font14GrayRegular,
+                            ),
+                            verticalSpacing(32),
+                            Center(
+                              child: CustomProfileScreenImage(
+                                onTap: () {
+                                  // Handle image selection
+                                },
+                                isEdit: true,
+                              ),
+                            ),
+                            verticalSpacing(32),
+                            CustomTextFormField(
+                              controller: authCubit.addressController,
+                              hintText: "Address",
+                              validator: (value) {
+                                if (value?.isEmpty ?? true) {
+                                  return 'Please enter your address';
+                                }
+                                return null;
+                              },
+                            ),
+                            verticalSpacing(16),
+                            DatePickerFormField(
+                              controller: authCubit.dateOfBirthController,
+                              hintText: "Date of Birth",
+                              validator: (value) {
+                                if (value?.isEmpty ?? true) {
+                                  return 'Please select your date of birth';
+                                }
+                                return null;
+                              },
+                            ),
+                            verticalSpacing(16),
+                            CustomDropDownFormField(
+                              hintText: "Gender",
+                              validator: (value) {
+                                if (value?.isEmpty ?? true) {
+                                  return 'Please enter your gender';
+                                }
+                                return null;
+                              },
+                              listOfValues: ["Male", "Female"],
+                              onChanged: (value) {
+                                authCubit.genderController.text = value ?? '';
+                              },
+                            ),
+                            verticalSpacing(16),
+                            CustomDropDownFormField(
+                              hintText: "Blood Type",
+                              validator: (value) {
+                                if (value?.isEmpty ?? true) {
+                                  return 'Please enter your blood type';
+                                }
+                                return null;
+                              },
+                              listOfValues: [
+                                "O+",
+                                "O-",
+                                "A+",
+                                "A-",
+                                "B+",
+                                "B-",
+                                "AB+",
+                                "AB-",
+                              ],
+                              onChanged: (value) {
+                                authCubit.bloodTypeController.text =
+                                    value ?? '';
+                              },
+                            ),
+                          ],
                         ),
                       ),
-                      verticalSpacing(32),
-                      CustomTextFormField(
-                        hintText: "Address",
-                        validator: (value) {
-                          if (value?.isEmpty ?? true) {
-                            return 'Please enter your address';
-                          }
-                          return null;
-                        },
-                      ),
-                      verticalSpacing(16),
-                      DatePickerFormField(
-                        hintText: "Date of Birth",
-                        validator: (value) {
-                          if (value?.isEmpty ?? true) {
-                            return 'Please select your date of birth';
-                          }
-                          return null;
-                        },
-                      ),
-                      verticalSpacing(16),
-                      CustomDropDownFormField(
-                        hintText: "Gender",
-                        validator: (value) {
-                          if (value?.isEmpty ?? true) {
-                            return 'Please enter your gender';
-                          }
-                          return null;
-                        },
-                        listOfValues: ["Male", "Female"],
-                      ),
-                      verticalSpacing(16),
-                      CustomDropDownFormField(
-                        hintText: "Blood Type",
-                        validator: (value) {
-                          if (value?.isEmpty ?? true) {
-                            return 'Please enter your blood type';
-                          }
-                          return null;
-                        },
-                        listOfValues: [
-                          "O+",
-                          "O-",
-                          "A+",
-                          "A-",
-                          "B+",
-                          "B-",
-                          "AB+",
-                          "AB-",
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          ),
+          // Add the BlocListener
+          const CompleteProfileBlocListener(),
+        ],
       ),
     );
   }

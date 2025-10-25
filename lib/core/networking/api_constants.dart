@@ -1,17 +1,12 @@
 class ApiConstants {
-  // static const apiBaseUrl = "https://vcare.integration25.com/api/";
-
-  static const apiBaseUrl = "http://10.0.2.2:4000/";
+  static const apiBaseUrl = "http://doctormeta.runasp.net/api/";
   //Auth Endpoints
-  static const login = "auth/login";
-  static const register = "auth/register";
-
-  //Home Endpoints
-  static const home = "home/index";
-
-  //Appointment Endpoints
-  static const appointment = "appointment/index";
-  static const appointmentCreate = "appointment/store";
+  static const login = "Login";
+  static const register = "Register";
+  static const completeProfile = "CompleteProfile/complete";
+  static const sendOtp = "Otp/send";
+  static const resetPassword = "PasswordReset/reset-password";
+  static const verifyOtp = "Otp/verify";
 }
 
 class ApiErrors {

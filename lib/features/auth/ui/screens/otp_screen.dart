@@ -1,18 +1,20 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
-import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/widgets/custom_material_button.dart';
+import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/auth_header.dart';
+import 'package:doctor_mate/features/auth/ui/widgets/send_otp_bloc_listener.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/terms_and_conditions_text.dart';
+import 'package:doctor_mate/features/auth/ui/widgets/verify_otp_bloc_listener.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
-
+  const OtpScreen({super.key, required this.isForgetPass});
+  final bool isForgetPass;
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
@@ -102,7 +104,9 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
                 CustomMaterialButton(
                   textButton: "Resend OTP",
                   onPressed: () {
-                    // Handle OTP resend
+                    context.read<AuthCubit>().sendOtp(
+                      isForgetPass: widget.isForgetPass,
+                    );
                   },
                 ),
                 verticalSpacing(16),
@@ -112,28 +116,32 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
-          child: Column(
-            children: [
-              // Animated Header
-              AnimatedBuilder(
-                animation: _headerController,
-                builder: (context, child) {
-                  return SlideTransition(
-                    position: _headerSlideAnimation,
-                    child: FadeTransition(
-                      opacity: _headerFadeAnimation,
-                      child: const AuthHeader(isBack: true),
-                    ),
-                  );
-                },
-              ),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  color: Colors.white,
+      body: Column(
+        children: [
+          // Animated Header
+          SafeArea(
+            bottom: false,
+            child: AnimatedBuilder(
+              animation: _headerController,
+              builder: (context, child) {
+                return SlideTransition(
+                  position: _headerSlideAnimation,
+                  child: FadeTransition(
+                    opacity: _headerFadeAnimation,
+                    child: const AuthHeader(isBack: true),
+                  ),
+                );
+              },
+            ),
+          ),
+          // Content Area
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              color: Colors.white,
+              child: SafeArea(
+                top: false,
+                child: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
                     horizontal: 20.w,
                     vertical: 16.h,
@@ -145,37 +153,43 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
                         position: _contentSlideAnimation,
                         child: FadeTransition(
                           opacity: _contentFadeAnimation,
-                          child: SingleChildScrollView(
-                            physics: const BouncingScrollPhysics(),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Send OTP Code",
-                                  style: TextStyles.font20GreenBold,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Send OTP Code",
+                                style: TextStyles.font20GreenBold,
+                              ),
+                              verticalSpacing(24),
+                              Center(
+                                child: Text(
+                                  "Enter the 6-digit that we have sent",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyles.font14GrayRegular,
                                 ),
-                                verticalSpacing(24),
-                                Center(
-                                  child: Text(
-                                    "Enter the 6-digit that we have sent",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyles.font14GrayRegular,
-                                  ),
+                              ),
+                              verticalSpacing(24),
+                              Center(
+                                child: Pinput(
+                                  controller:
+                                      context.read<AuthCubit>().otpController,
+                                  length: 6,
+                                  onCompleted: (pin) {
+                                    context.read<AuthCubit>().verifyOtp(
+                                      isForgetPass: widget.isForgetPass,
+                                    );
+                                  },
+                                  validator: (pin) {
+                                    if (pin == null ||
+                                        pin.isEmpty ||
+                                        pin.length < 6) {
+                                      return "Please enter a valid OTP";
+                                    }
+                                    return null;
+                                  },
                                 ),
-                                verticalSpacing(24),
-                                Center(
-                                  child: Pinput(
-                                    length: 6,
-                                    onCompleted: (pin) {
-                                      context.goNamed(Routes.resetPassword);
-                                    },
-                                    validator: (pin) {
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       );
@@ -183,9 +197,12 @@ class _OtpScreenState extends State<OtpScreen> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          // BlocListener at the bottom level
+          VerifyOtpBlocListener(isForgetPass: widget.isForgetPass),
+          const SendOtpBlocListener(),
+        ],
       ),
     );
   }

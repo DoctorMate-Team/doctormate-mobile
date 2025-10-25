@@ -16,6 +16,7 @@ class CustomDropDownFormField extends StatefulWidget {
     this.hintStyle,
     this.textStyle,
     required this.validator,
+    this.onChanged,
   });
 
   final List<String> listOfValues;
@@ -27,6 +28,7 @@ class CustomDropDownFormField extends StatefulWidget {
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
   final String? Function(String?) validator;
+  final ValueChanged<String?>? onChanged;
 
   @override
   State<CustomDropDownFormField> createState() =>
@@ -44,12 +46,12 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
       decoration: _buildInputDecoration(),
       isExpanded: true,
       onChanged: (value) {
-        /*
         setState(() {
-          context.read<AuthCubit>().gender = value!;
           _selectedValue = value;
         });
-        */
+        if (widget.onChanged != null) {
+          widget.onChanged!(value);
+        }
       },
       onSaved: (value) {
         /*

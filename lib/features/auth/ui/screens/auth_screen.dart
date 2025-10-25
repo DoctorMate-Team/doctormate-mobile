@@ -3,6 +3,8 @@ import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/auth_header.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/auth_switch_buttons.dart';
+import 'package:doctor_mate/features/auth/ui/widgets/login_bloc_listener.dart';
+import 'package:doctor_mate/features/auth/ui/widgets/register_bloc_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -140,6 +142,8 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                   ),
                 ),
               ),
+              const LoginBlocListener(),
+              const RegisterBlocListener(),
             ],
           ),
         ),
