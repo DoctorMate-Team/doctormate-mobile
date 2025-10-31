@@ -7,4 +7,6 @@ abstract class AppImages {
   static const String auth1 = 'assets/images/auth1.png';
   static const String auth2 = 'assets/images/auth2.png';
   static const String auth3 = 'assets/images/auth3.png';
+  static const String homeBanner = 'assets/images/home_banner.png';
+  static const String homeDoctorBanner = 'assets/images/doctor_image.png';
 }

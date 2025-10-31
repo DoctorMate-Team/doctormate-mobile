@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const apiBaseUrl = "http://doctormeta.runasp.net/api/";
+  static const apiBaseUrl = "https://doctormate.runasp.net/api/";
   //Auth Endpoints
   static const login = "Login";
   static const register = "Register";

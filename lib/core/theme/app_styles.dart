@@ -70,10 +70,22 @@ class TextStyles {
     color: Colors.white,
   );
 
-  static TextStyle font18BlackBold = TextStyle(
+  static TextStyle font16DarkGreenBold = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: ColorsManager.primaryColor,
+  );
+
+  static TextStyle font18DarkGreenBold = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeightHelper.bold,
     color: ColorsManager.primaryColor,
+  );
+
+  static TextStyle font18DarkGreySemiBold = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    color: Colors.grey.shade800,
   );
 
   static TextStyle font18WhiteMedium = TextStyle(
@@ -82,8 +94,26 @@ class TextStyles {
     color: Colors.white,
   );
 
+  static TextStyle font28WhiteBold = TextStyle(
+    fontSize: 28.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.white,
+  );
+
   static TextStyle font11GrayRegular = TextStyle(
     fontSize: 11.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: ColorsManager.gray,
+  );
+
+  static TextStyle font12DarkGreenSemiBold = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    color: ColorsManager.primaryColor,
+  );
+
+  static TextStyle font12GrayRegular = TextStyle(
+    fontSize: 12.sp,
     fontWeight: FontWeightHelper.regular,
     color: ColorsManager.gray,
   );
@@ -117,6 +147,14 @@ class TextStyles {
     fontWeight: FontWeightHelper.medium,
     color: ColorsManager.primaryColor,
   );
+
+  static TextStyle font10DarkGreenRegular = TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: ColorsManager.primaryColor,
+  );
+
+
   static TextStyle font16WhiteMedium = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.medium,
@@ -127,6 +165,12 @@ class TextStyles {
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.semiBold,
     color: ColorsManager.primaryColor,
+  );
+
+  static TextStyle font14WhiteRegular = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: Colors.white,
   );
 
   static TextStyle font15DarkGreenMedium = TextStyle(

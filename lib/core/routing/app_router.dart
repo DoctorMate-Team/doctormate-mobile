@@ -6,7 +6,7 @@ import 'package:doctor_mate/features/auth/ui/screens/complete_profile_screen.dar
 import 'package:doctor_mate/features/auth/ui/screens/forgot_password_screen.dart';
 import 'package:doctor_mate/features/auth/ui/screens/otp_screen.dart';
 import 'package:doctor_mate/features/auth/ui/screens/reset_password_screen.dart';
-import 'package:doctor_mate/features/home/ui/home_screen.dart';
+import 'package:doctor_mate/features/main_navigation/ui/main_navigation_screen.dart';
 import 'package:doctor_mate/features/onBoarding/ui/onBoarding_screen.dart';
 import 'package:doctor_mate/features/splash/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +91,7 @@ class AppRouter {
         GoRoute(
           path: Routes.home,
           name: Routes.home,
-          builder: (context, state) => HomeScreen(),
+          builder: (context, state) => const MainNavigationScreen(),
         ),
       ],
       errorBuilder:
