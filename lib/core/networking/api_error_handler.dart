@@ -42,16 +42,22 @@ class ResponseCode {
 }
 
 class ResponseMessage {
+  // ignore: constant_identifier_names
   static const String NO_CONTENT =
       ApiErrors.noContent; // success with no data (no content)
+  // ignore: constant_identifier_names
   static const String BAD_REQUEST =
       ApiErrors.badRequestError; // failure, API rejected request
+  // ignore: constant_identifier_names
   static const String UNAUTORISED =
       ApiErrors.unauthorizedError; // failure, user is not authorised
+  // ignore: constant_identifier_names
   static const String FORBIDDEN =
       ApiErrors.forbiddenError; //  failure, API rejected request
+  // ignore: constant_identifier_names
   static const String INTERNAL_SERVER_ERROR =
       ApiErrors.internalServerError; // failure, crash in server side
+  // ignore: constant_identifier_names
   static const String NOT_FOUND =
       ApiErrors.notFoundError; // failure, crash in server side
 

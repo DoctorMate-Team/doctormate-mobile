@@ -10,7 +10,7 @@ part of 'auth_api_services.dart';
 
 class _AuthApiServices implements AuthApiServices {
   _AuthApiServices(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://doctormeta.runasp.net/api/';
+    baseUrl ??= 'https://doctormate.runasp.net/api/';
   }
 
   final Dio _dio;

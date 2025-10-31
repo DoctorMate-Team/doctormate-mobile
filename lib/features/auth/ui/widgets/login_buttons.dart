@@ -28,7 +28,7 @@ class LoginButtons extends StatelessWidget {
             Expanded(child: Divider(color: Colors.grey.shade300)),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Text("Or", style: TextStyles.font18BlackBold),
+              child: Text("Or", style: TextStyles.font18DarkGreenBold),
             ),
             Expanded(child: Divider(color: Colors.grey.shade300)),
           ],
