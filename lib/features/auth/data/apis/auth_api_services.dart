@@ -47,4 +47,10 @@ abstract class AuthApiServices {
   Future<DoctorMateResponse<void>> verifyOtp(
     @Body() VerifyOtpRequestBody verifyOtpRequestBody,
   );
+
+  @POST(ApiConstants.uploadProfileImage)
+  Future<DoctorMateResponse<void>> uploadProfileImage(
+    @Body() FormData formData,
+    @Header("Authorization") String token,
+  );
 }

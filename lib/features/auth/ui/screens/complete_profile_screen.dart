@@ -5,6 +5,7 @@ import 'package:doctor_mate/core/widgets/custom_material_button.dart';
 import 'package:doctor_mate/core/widgets/custom_text_form_field.dart';
 import 'package:doctor_mate/core/widgets/date_picker_form_field.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
+import 'package:doctor_mate/features/auth/logic/cubit/auth_state.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/complete_profile_bloc_listener.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/custom_profile_screen_image.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/terms_and_conditions_text.dart';
@@ -132,13 +133,18 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen>
                               style: TextStyles.font14GrayRegular,
                             ),
                             verticalSpacing(32),
-                            Center(
-                              child: CustomProfileScreenImage(
-                                onTap: () {
-                                  // Handle image selection
-                                },
-                                isEdit: true,
-                              ),
+                            BlocBuilder<AuthCubit, AuthState>(
+                              builder: (context, state) {
+                                return Center(
+                                  child: CustomProfileScreenImage(
+                                    onTap: () {
+                                      authCubit.pickProfileImage();
+                                    },
+                                    isEdit: true,
+                                    imageFile: authCubit.profileImage,
+                                  ),
+                                );
+                              },
                             ),
                             verticalSpacing(32),
                             CustomTextFormField(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/features/auth/ui/widgets/profile_network_image.dart';
 import 'package:flutter/material.dart';
@@ -10,16 +12,19 @@ class CustomProfileScreenImage extends StatelessWidget {
     required this.onTap,
     this.isEdit = false,
     this.imageUrl,
+    this.imageFile,
   });
   final Function() onTap;
   final bool isEdit;
   final String? imageUrl;
+  final File? imageFile;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        ProfileNetworkImage(imageUrl: imageUrl),
+        ProfileNetworkImage(imageUrl: imageUrl, imageFile: imageFile),
         if (isEdit)
           Positioned(
             bottom: 4,
