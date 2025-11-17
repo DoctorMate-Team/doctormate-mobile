@@ -45,4 +45,12 @@ class AuthState with _$AuthState {
   const factory AuthState.verifyOtpSuccess() = VerifyOtpSuccess;
   const factory AuthState.verifyOtpError({required String message}) =
       VerifyOtpError;
+
+  //Upload Profile Image
+  const factory AuthState.uploadProfileImageLoading() =
+      UploadProfileImageLoading;
+  const factory AuthState.uploadProfileImageSuccess() =
+      UploadProfileImageSuccess;
+  const factory AuthState.uploadProfileImageError({required String message}) =
+      UploadProfileImageError;
 }

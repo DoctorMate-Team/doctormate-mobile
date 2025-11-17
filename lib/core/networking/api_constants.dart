@@ -7,6 +7,7 @@ class ApiConstants {
   static const sendOtp = "Otp/send";
   static const resetPassword = "PasswordReset/reset-password";
   static const verifyOtp = "Otp/verify";
+  static const uploadProfileImage = "Profile_Management/image";
 }
 
 class ApiErrors {

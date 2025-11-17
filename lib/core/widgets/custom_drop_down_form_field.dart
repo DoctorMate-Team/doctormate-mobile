@@ -41,7 +41,7 @@ class _CustomDropDownFormFieldState extends State<CustomDropDownFormField> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      value: _selectedValue,
+      initialValue: _selectedValue,
       icon: const Icon(FontAwesomeIcons.angleDown, size: 16),
       decoration: _buildInputDecoration(),
       isExpanded: true,

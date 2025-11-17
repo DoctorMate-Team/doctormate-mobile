@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:doctor_mate/core/helper/constants.dart';
 import 'package:doctor_mate/core/models/doctor_mate_response.dart';
 import 'package:doctor_mate/core/networking/api_error_handler.dart';
@@ -82,6 +83,22 @@ class AuthRepos {
   }) async {
     try {
       final response = await _authApiServices.verifyOtp(verifyOtpRequestBody);
+      return ApiResult.success(response);
+    } catch (e) {
+      return ApiResult.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  Future<ApiResult<DoctorMateResponse<void>>> uploadProfileImage({
+    required MultipartFile image,
+  }) async {
+    try {
+      final formData = FormData.fromMap({'image': image});
+
+      final response = await _authApiServices.uploadProfileImage(
+        formData,
+        'Bearer ${AppConstants.userTokenProvider}',
+      );
       return ApiResult.success(response);
     } catch (e) {
       return ApiResult.failure(ErrorHandler.handle(e));

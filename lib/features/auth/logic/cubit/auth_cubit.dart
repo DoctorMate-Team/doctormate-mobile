@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:doctor_mate/core/functions/custom_image_picker_and_compress.dart';
 import 'package:doctor_mate/core/helper/constants.dart';
 import 'package:doctor_mate/features/auth/data/models/complete_profile_request_body.dart';
 import 'package:doctor_mate/features/auth/data/models/send_otp_request_body.dart';
@@ -26,6 +30,8 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController otpController = TextEditingController();
   TextEditingController bloodTypeController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+
+  File? profileImage;
 
   void login() async {
     emit(AuthState.loginLoading());
@@ -69,6 +75,44 @@ class AuthCubit extends Cubit<AuthState> {
 
   void completeProfile() async {
     emit(AuthState.completeProfileLoading());
+
+    // First, upload profile image if selected
+    if (profileImage != null) {
+      try {
+        final multipartFile = await MultipartFile.fromFile(
+          profileImage!.path,
+          filename: profileImage!.path.split('/').last,
+        );
+
+        final uploadResult = await _authRepos.uploadProfileImage(
+          image: multipartFile,
+        );
+
+        // Check if upload failed
+        final uploadSuccess = await uploadResult.when(
+          success: (_) => true,
+          failure: (_) => false,
+        );
+
+        if (!uploadSuccess) {
+          emit(
+            const AuthState.completeProfileError(
+              message: 'Failed to upload profile image',
+            ),
+          );
+          return;
+        }
+      } catch (e) {
+        emit(
+          AuthState.completeProfileError(
+            message: 'Error uploading image: ${e.toString()}',
+          ),
+        );
+        return;
+      }
+    }
+
+    // Then complete the profile with form data
     final result = await _authRepos.completeProfile(
       completeProfileRequestBody: CompleteProfileRequestBody(
         birthDate: _formatDateForApi(dateOfBirthController.text),
@@ -164,5 +208,65 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       return dateString;
     }
+  }
+
+  void pickProfileImage() async {
+    try {
+      final pickedImage = await pickImageAndCompress();
+      if (pickedImage != null) {
+        profileImage = pickedImage;
+        // Emit a state to trigger UI update
+        emit(AuthState.initial());
+      }
+    } catch (e) {
+      debugPrint('Error picking profile image: $e');
+    }
+  }
+
+  void uploadProfileImage() async {
+    if (profileImage == null) {
+      emit(
+        const AuthState.uploadProfileImageError(
+          message: 'Please select an image first',
+        ),
+      );
+      return;
+    }
+
+    emit(AuthState.uploadProfileImageLoading());
+
+    try {
+      // Create MultipartFile from the image
+      final multipartFile = await MultipartFile.fromFile(
+        profileImage!.path,
+        filename: profileImage!.path.split('/').last,
+      );
+
+      final result = await _authRepos.uploadProfileImage(image: multipartFile);
+
+      result.when(
+        success: (response) {
+          emit(AuthState.uploadProfileImageSuccess());
+        },
+        failure: (error) {
+          emit(
+            AuthState.uploadProfileImageError(
+              message: error.apiErrorModel.message ?? 'Failed to upload image',
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      emit(
+        AuthState.uploadProfileImageError(
+          message: 'Error uploading image: ${e.toString()}',
+        ),
+      );
+    }
+  }
+
+  void clearProfileImage() {
+    profileImage = null;
+    emit(AuthState.initial());
   }
 }

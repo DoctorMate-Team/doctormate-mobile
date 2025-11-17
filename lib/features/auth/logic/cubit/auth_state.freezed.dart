@@ -39,6 +39,9 @@ mixin _$AuthState {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
@@ -61,6 +64,9 @@ mixin _$AuthState {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
@@ -83,6 +89,9 @@ mixin _$AuthState {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -108,6 +117,12 @@ mixin _$AuthState {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
@@ -130,6 +145,11 @@ mixin _$AuthState {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
@@ -152,6 +172,11 @@ mixin _$AuthState {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -239,6 +264,9 @@ class _$InitialImpl implements _Initial {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return initial();
   }
@@ -265,6 +293,9 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return initial?.call();
   }
@@ -291,6 +322,9 @@ class _$InitialImpl implements _Initial {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -323,6 +357,12 @@ class _$InitialImpl implements _Initial {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return initial(this);
   }
@@ -349,6 +389,11 @@ class _$InitialImpl implements _Initial {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return initial?.call(this);
   }
@@ -375,6 +420,11 @@ class _$InitialImpl implements _Initial {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -451,6 +501,9 @@ class _$LoginLoadingImpl implements LoginLoading {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return loginLoading();
   }
@@ -477,6 +530,9 @@ class _$LoginLoadingImpl implements LoginLoading {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return loginLoading?.call();
   }
@@ -503,6 +559,9 @@ class _$LoginLoadingImpl implements LoginLoading {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (loginLoading != null) {
@@ -535,6 +594,12 @@ class _$LoginLoadingImpl implements LoginLoading {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return loginLoading(this);
   }
@@ -561,6 +626,11 @@ class _$LoginLoadingImpl implements LoginLoading {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return loginLoading?.call(this);
   }
@@ -587,6 +657,11 @@ class _$LoginLoadingImpl implements LoginLoading {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (loginLoading != null) {
@@ -691,6 +766,9 @@ class _$LoginSuccessImpl implements LoginSuccess {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return loginSuccess(loginResponse);
   }
@@ -717,6 +795,9 @@ class _$LoginSuccessImpl implements LoginSuccess {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return loginSuccess?.call(loginResponse);
   }
@@ -743,6 +824,9 @@ class _$LoginSuccessImpl implements LoginSuccess {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (loginSuccess != null) {
@@ -775,6 +859,12 @@ class _$LoginSuccessImpl implements LoginSuccess {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return loginSuccess(this);
   }
@@ -801,6 +891,11 @@ class _$LoginSuccessImpl implements LoginSuccess {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return loginSuccess?.call(this);
   }
@@ -827,6 +922,11 @@ class _$LoginSuccessImpl implements LoginSuccess {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (loginSuccess != null) {
@@ -940,6 +1040,9 @@ class _$LoginErrorImpl implements LoginError {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return loginError(message);
   }
@@ -966,6 +1069,9 @@ class _$LoginErrorImpl implements LoginError {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return loginError?.call(message);
   }
@@ -992,6 +1098,9 @@ class _$LoginErrorImpl implements LoginError {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (loginError != null) {
@@ -1024,6 +1133,12 @@ class _$LoginErrorImpl implements LoginError {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return loginError(this);
   }
@@ -1050,6 +1165,11 @@ class _$LoginErrorImpl implements LoginError {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return loginError?.call(this);
   }
@@ -1076,6 +1196,11 @@ class _$LoginErrorImpl implements LoginError {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (loginError != null) {
@@ -1160,6 +1285,9 @@ class _$RegisterLoadingImpl implements RegisterLoading {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return registerLoading();
   }
@@ -1186,6 +1314,9 @@ class _$RegisterLoadingImpl implements RegisterLoading {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return registerLoading?.call();
   }
@@ -1212,6 +1343,9 @@ class _$RegisterLoadingImpl implements RegisterLoading {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (registerLoading != null) {
@@ -1244,6 +1378,12 @@ class _$RegisterLoadingImpl implements RegisterLoading {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return registerLoading(this);
   }
@@ -1270,6 +1410,11 @@ class _$RegisterLoadingImpl implements RegisterLoading {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return registerLoading?.call(this);
   }
@@ -1296,6 +1441,11 @@ class _$RegisterLoadingImpl implements RegisterLoading {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (registerLoading != null) {
@@ -1403,6 +1553,9 @@ class _$RegisterSuccessImpl implements RegisterSuccess {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return registerSuccess(registerResponse);
   }
@@ -1429,6 +1582,9 @@ class _$RegisterSuccessImpl implements RegisterSuccess {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return registerSuccess?.call(registerResponse);
   }
@@ -1455,6 +1611,9 @@ class _$RegisterSuccessImpl implements RegisterSuccess {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (registerSuccess != null) {
@@ -1487,6 +1646,12 @@ class _$RegisterSuccessImpl implements RegisterSuccess {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return registerSuccess(this);
   }
@@ -1513,6 +1678,11 @@ class _$RegisterSuccessImpl implements RegisterSuccess {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return registerSuccess?.call(this);
   }
@@ -1539,6 +1709,11 @@ class _$RegisterSuccessImpl implements RegisterSuccess {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (registerSuccess != null) {
@@ -1652,6 +1827,9 @@ class _$RegisterErrorImpl implements RegisterError {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return registerError(message);
   }
@@ -1678,6 +1856,9 @@ class _$RegisterErrorImpl implements RegisterError {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return registerError?.call(message);
   }
@@ -1704,6 +1885,9 @@ class _$RegisterErrorImpl implements RegisterError {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (registerError != null) {
@@ -1736,6 +1920,12 @@ class _$RegisterErrorImpl implements RegisterError {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return registerError(this);
   }
@@ -1762,6 +1952,11 @@ class _$RegisterErrorImpl implements RegisterError {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return registerError?.call(this);
   }
@@ -1788,6 +1983,11 @@ class _$RegisterErrorImpl implements RegisterError {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (registerError != null) {
@@ -1874,6 +2074,9 @@ class _$CompleteProfileLoadingImpl implements CompleteProfileLoading {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return completeProfileLoading();
   }
@@ -1900,6 +2103,9 @@ class _$CompleteProfileLoadingImpl implements CompleteProfileLoading {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return completeProfileLoading?.call();
   }
@@ -1926,6 +2132,9 @@ class _$CompleteProfileLoadingImpl implements CompleteProfileLoading {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (completeProfileLoading != null) {
@@ -1958,6 +2167,12 @@ class _$CompleteProfileLoadingImpl implements CompleteProfileLoading {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return completeProfileLoading(this);
   }
@@ -1984,6 +2199,11 @@ class _$CompleteProfileLoadingImpl implements CompleteProfileLoading {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return completeProfileLoading?.call(this);
   }
@@ -2010,6 +2230,11 @@ class _$CompleteProfileLoadingImpl implements CompleteProfileLoading {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (completeProfileLoading != null) {
@@ -2087,6 +2312,9 @@ class _$CompleteProfileSuccessImpl implements CompleteProfileSuccess {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return completeProfileSuccess();
   }
@@ -2113,6 +2341,9 @@ class _$CompleteProfileSuccessImpl implements CompleteProfileSuccess {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return completeProfileSuccess?.call();
   }
@@ -2139,6 +2370,9 @@ class _$CompleteProfileSuccessImpl implements CompleteProfileSuccess {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (completeProfileSuccess != null) {
@@ -2171,6 +2405,12 @@ class _$CompleteProfileSuccessImpl implements CompleteProfileSuccess {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return completeProfileSuccess(this);
   }
@@ -2197,6 +2437,11 @@ class _$CompleteProfileSuccessImpl implements CompleteProfileSuccess {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return completeProfileSuccess?.call(this);
   }
@@ -2223,6 +2468,11 @@ class _$CompleteProfileSuccessImpl implements CompleteProfileSuccess {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (completeProfileSuccess != null) {
@@ -2331,6 +2581,9 @@ class _$CompleteProfileErrorImpl implements CompleteProfileError {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return completeProfileError(message);
   }
@@ -2357,6 +2610,9 @@ class _$CompleteProfileErrorImpl implements CompleteProfileError {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return completeProfileError?.call(message);
   }
@@ -2383,6 +2639,9 @@ class _$CompleteProfileErrorImpl implements CompleteProfileError {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (completeProfileError != null) {
@@ -2415,6 +2674,12 @@ class _$CompleteProfileErrorImpl implements CompleteProfileError {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return completeProfileError(this);
   }
@@ -2441,6 +2706,11 @@ class _$CompleteProfileErrorImpl implements CompleteProfileError {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return completeProfileError?.call(this);
   }
@@ -2467,6 +2737,11 @@ class _$CompleteProfileErrorImpl implements CompleteProfileError {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (completeProfileError != null) {
@@ -2552,6 +2827,9 @@ class _$SendOtpLoadingImpl implements SendOtpLoading {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return sendOtpLoading();
   }
@@ -2578,6 +2856,9 @@ class _$SendOtpLoadingImpl implements SendOtpLoading {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return sendOtpLoading?.call();
   }
@@ -2604,6 +2885,9 @@ class _$SendOtpLoadingImpl implements SendOtpLoading {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (sendOtpLoading != null) {
@@ -2636,6 +2920,12 @@ class _$SendOtpLoadingImpl implements SendOtpLoading {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return sendOtpLoading(this);
   }
@@ -2662,6 +2952,11 @@ class _$SendOtpLoadingImpl implements SendOtpLoading {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return sendOtpLoading?.call(this);
   }
@@ -2688,6 +2983,11 @@ class _$SendOtpLoadingImpl implements SendOtpLoading {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (sendOtpLoading != null) {
@@ -2764,6 +3064,9 @@ class _$SendOtpSuccessImpl implements SendOtpSuccess {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return sendOtpSuccess();
   }
@@ -2790,6 +3093,9 @@ class _$SendOtpSuccessImpl implements SendOtpSuccess {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return sendOtpSuccess?.call();
   }
@@ -2816,6 +3122,9 @@ class _$SendOtpSuccessImpl implements SendOtpSuccess {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (sendOtpSuccess != null) {
@@ -2848,6 +3157,12 @@ class _$SendOtpSuccessImpl implements SendOtpSuccess {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return sendOtpSuccess(this);
   }
@@ -2874,6 +3189,11 @@ class _$SendOtpSuccessImpl implements SendOtpSuccess {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return sendOtpSuccess?.call(this);
   }
@@ -2900,6 +3220,11 @@ class _$SendOtpSuccessImpl implements SendOtpSuccess {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (sendOtpSuccess != null) {
@@ -3004,6 +3329,9 @@ class _$SendOtpErrorImpl implements SendOtpError {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return sendOtpError(message);
   }
@@ -3030,6 +3358,9 @@ class _$SendOtpErrorImpl implements SendOtpError {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return sendOtpError?.call(message);
   }
@@ -3056,6 +3387,9 @@ class _$SendOtpErrorImpl implements SendOtpError {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (sendOtpError != null) {
@@ -3088,6 +3422,12 @@ class _$SendOtpErrorImpl implements SendOtpError {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return sendOtpError(this);
   }
@@ -3114,6 +3454,11 @@ class _$SendOtpErrorImpl implements SendOtpError {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return sendOtpError?.call(this);
   }
@@ -3140,6 +3485,11 @@ class _$SendOtpErrorImpl implements SendOtpError {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (sendOtpError != null) {
@@ -3226,6 +3576,9 @@ class _$ResetPasswordLoadingImpl implements ResetPasswordLoading {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return resetPasswordLoading();
   }
@@ -3252,6 +3605,9 @@ class _$ResetPasswordLoadingImpl implements ResetPasswordLoading {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return resetPasswordLoading?.call();
   }
@@ -3278,6 +3634,9 @@ class _$ResetPasswordLoadingImpl implements ResetPasswordLoading {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (resetPasswordLoading != null) {
@@ -3310,6 +3669,12 @@ class _$ResetPasswordLoadingImpl implements ResetPasswordLoading {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return resetPasswordLoading(this);
   }
@@ -3336,6 +3701,11 @@ class _$ResetPasswordLoadingImpl implements ResetPasswordLoading {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return resetPasswordLoading?.call(this);
   }
@@ -3362,6 +3732,11 @@ class _$ResetPasswordLoadingImpl implements ResetPasswordLoading {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (resetPasswordLoading != null) {
@@ -3439,6 +3814,9 @@ class _$ResetPasswordSuccessImpl implements ResetPasswordSuccess {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return resetPasswordSuccess();
   }
@@ -3465,6 +3843,9 @@ class _$ResetPasswordSuccessImpl implements ResetPasswordSuccess {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return resetPasswordSuccess?.call();
   }
@@ -3491,6 +3872,9 @@ class _$ResetPasswordSuccessImpl implements ResetPasswordSuccess {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (resetPasswordSuccess != null) {
@@ -3523,6 +3907,12 @@ class _$ResetPasswordSuccessImpl implements ResetPasswordSuccess {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return resetPasswordSuccess(this);
   }
@@ -3549,6 +3939,11 @@ class _$ResetPasswordSuccessImpl implements ResetPasswordSuccess {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return resetPasswordSuccess?.call(this);
   }
@@ -3575,6 +3970,11 @@ class _$ResetPasswordSuccessImpl implements ResetPasswordSuccess {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (resetPasswordSuccess != null) {
@@ -3682,6 +4082,9 @@ class _$ResetPasswordErrorImpl implements ResetPasswordError {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return resetPasswordError(message);
   }
@@ -3708,6 +4111,9 @@ class _$ResetPasswordErrorImpl implements ResetPasswordError {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return resetPasswordError?.call(message);
   }
@@ -3734,6 +4140,9 @@ class _$ResetPasswordErrorImpl implements ResetPasswordError {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (resetPasswordError != null) {
@@ -3766,6 +4175,12 @@ class _$ResetPasswordErrorImpl implements ResetPasswordError {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return resetPasswordError(this);
   }
@@ -3792,6 +4207,11 @@ class _$ResetPasswordErrorImpl implements ResetPasswordError {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return resetPasswordError?.call(this);
   }
@@ -3818,6 +4238,11 @@ class _$ResetPasswordErrorImpl implements ResetPasswordError {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (resetPasswordError != null) {
@@ -3903,6 +4328,9 @@ class _$VerifyOtpLoadingImpl implements VerifyOtpLoading {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return verifyOtpLoading();
   }
@@ -3929,6 +4357,9 @@ class _$VerifyOtpLoadingImpl implements VerifyOtpLoading {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return verifyOtpLoading?.call();
   }
@@ -3955,6 +4386,9 @@ class _$VerifyOtpLoadingImpl implements VerifyOtpLoading {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (verifyOtpLoading != null) {
@@ -3987,6 +4421,12 @@ class _$VerifyOtpLoadingImpl implements VerifyOtpLoading {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return verifyOtpLoading(this);
   }
@@ -4013,6 +4453,11 @@ class _$VerifyOtpLoadingImpl implements VerifyOtpLoading {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return verifyOtpLoading?.call(this);
   }
@@ -4039,6 +4484,11 @@ class _$VerifyOtpLoadingImpl implements VerifyOtpLoading {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (verifyOtpLoading != null) {
@@ -4115,6 +4565,9 @@ class _$VerifyOtpSuccessImpl implements VerifyOtpSuccess {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return verifyOtpSuccess();
   }
@@ -4141,6 +4594,9 @@ class _$VerifyOtpSuccessImpl implements VerifyOtpSuccess {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return verifyOtpSuccess?.call();
   }
@@ -4167,6 +4623,9 @@ class _$VerifyOtpSuccessImpl implements VerifyOtpSuccess {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (verifyOtpSuccess != null) {
@@ -4199,6 +4658,12 @@ class _$VerifyOtpSuccessImpl implements VerifyOtpSuccess {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return verifyOtpSuccess(this);
   }
@@ -4225,6 +4690,11 @@ class _$VerifyOtpSuccessImpl implements VerifyOtpSuccess {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return verifyOtpSuccess?.call(this);
   }
@@ -4251,6 +4721,11 @@ class _$VerifyOtpSuccessImpl implements VerifyOtpSuccess {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (verifyOtpSuccess != null) {
@@ -4358,6 +4833,9 @@ class _$VerifyOtpErrorImpl implements VerifyOtpError {
     required TResult Function() verifyOtpLoading,
     required TResult Function() verifyOtpSuccess,
     required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
   }) {
     return verifyOtpError(message);
   }
@@ -4384,6 +4862,9 @@ class _$VerifyOtpErrorImpl implements VerifyOtpError {
     TResult? Function()? verifyOtpLoading,
     TResult? Function()? verifyOtpSuccess,
     TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
   }) {
     return verifyOtpError?.call(message);
   }
@@ -4410,6 +4891,9 @@ class _$VerifyOtpErrorImpl implements VerifyOtpError {
     TResult Function()? verifyOtpLoading,
     TResult Function()? verifyOtpSuccess,
     TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (verifyOtpError != null) {
@@ -4442,6 +4926,12 @@ class _$VerifyOtpErrorImpl implements VerifyOtpError {
     required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
     required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
     required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
   }) {
     return verifyOtpError(this);
   }
@@ -4468,6 +4958,11 @@ class _$VerifyOtpErrorImpl implements VerifyOtpError {
     TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
   }) {
     return verifyOtpError?.call(this);
   }
@@ -4494,6 +4989,11 @@ class _$VerifyOtpErrorImpl implements VerifyOtpError {
     TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
     TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
     TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
     required TResult orElse(),
   }) {
     if (verifyOtpError != null) {
@@ -4514,4 +5014,756 @@ abstract class VerifyOtpError implements AuthState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$VerifyOtpErrorImplCopyWith<_$VerifyOtpErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UploadProfileImageLoadingImplCopyWith<$Res> {
+  factory _$$UploadProfileImageLoadingImplCopyWith(
+    _$UploadProfileImageLoadingImpl value,
+    $Res Function(_$UploadProfileImageLoadingImpl) then,
+  ) = __$$UploadProfileImageLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UploadProfileImageLoadingImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$UploadProfileImageLoadingImpl>
+    implements _$$UploadProfileImageLoadingImplCopyWith<$Res> {
+  __$$UploadProfileImageLoadingImplCopyWithImpl(
+    _$UploadProfileImageLoadingImpl _value,
+    $Res Function(_$UploadProfileImageLoadingImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$UploadProfileImageLoadingImpl implements UploadProfileImageLoading {
+  const _$UploadProfileImageLoadingImpl();
+
+  @override
+  String toString() {
+    return 'AuthState.uploadProfileImageLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UploadProfileImageLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loginLoading,
+    required TResult Function(LoginResponseModel loginResponse) loginSuccess,
+    required TResult Function(String message) loginError,
+    required TResult Function() registerLoading,
+    required TResult Function(RegisterResponseModel registerResponse)
+    registerSuccess,
+    required TResult Function(String message) registerError,
+    required TResult Function() completeProfileLoading,
+    required TResult Function() completeProfileSuccess,
+    required TResult Function(String message) completeProfileError,
+    required TResult Function() sendOtpLoading,
+    required TResult Function() sendOtpSuccess,
+    required TResult Function(String message) sendOtpError,
+    required TResult Function() resetPasswordLoading,
+    required TResult Function() resetPasswordSuccess,
+    required TResult Function(String message) resetPasswordError,
+    required TResult Function() verifyOtpLoading,
+    required TResult Function() verifyOtpSuccess,
+    required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
+  }) {
+    return uploadProfileImageLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loginLoading,
+    TResult? Function(LoginResponseModel loginResponse)? loginSuccess,
+    TResult? Function(String message)? loginError,
+    TResult? Function()? registerLoading,
+    TResult? Function(RegisterResponseModel registerResponse)? registerSuccess,
+    TResult? Function(String message)? registerError,
+    TResult? Function()? completeProfileLoading,
+    TResult? Function()? completeProfileSuccess,
+    TResult? Function(String message)? completeProfileError,
+    TResult? Function()? sendOtpLoading,
+    TResult? Function()? sendOtpSuccess,
+    TResult? Function(String message)? sendOtpError,
+    TResult? Function()? resetPasswordLoading,
+    TResult? Function()? resetPasswordSuccess,
+    TResult? Function(String message)? resetPasswordError,
+    TResult? Function()? verifyOtpLoading,
+    TResult? Function()? verifyOtpSuccess,
+    TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
+  }) {
+    return uploadProfileImageLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loginLoading,
+    TResult Function(LoginResponseModel loginResponse)? loginSuccess,
+    TResult Function(String message)? loginError,
+    TResult Function()? registerLoading,
+    TResult Function(RegisterResponseModel registerResponse)? registerSuccess,
+    TResult Function(String message)? registerError,
+    TResult Function()? completeProfileLoading,
+    TResult Function()? completeProfileSuccess,
+    TResult Function(String message)? completeProfileError,
+    TResult Function()? sendOtpLoading,
+    TResult Function()? sendOtpSuccess,
+    TResult Function(String message)? sendOtpError,
+    TResult Function()? resetPasswordLoading,
+    TResult Function()? resetPasswordSuccess,
+    TResult Function(String message)? resetPasswordError,
+    TResult Function()? verifyOtpLoading,
+    TResult Function()? verifyOtpSuccess,
+    TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
+    required TResult orElse(),
+  }) {
+    if (uploadProfileImageLoading != null) {
+      return uploadProfileImageLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(LoginLoading value) loginLoading,
+    required TResult Function(LoginSuccess value) loginSuccess,
+    required TResult Function(LoginError value) loginError,
+    required TResult Function(RegisterLoading value) registerLoading,
+    required TResult Function(RegisterSuccess value) registerSuccess,
+    required TResult Function(RegisterError value) registerError,
+    required TResult Function(CompleteProfileLoading value)
+    completeProfileLoading,
+    required TResult Function(CompleteProfileSuccess value)
+    completeProfileSuccess,
+    required TResult Function(CompleteProfileError value) completeProfileError,
+    required TResult Function(SendOtpLoading value) sendOtpLoading,
+    required TResult Function(SendOtpSuccess value) sendOtpSuccess,
+    required TResult Function(SendOtpError value) sendOtpError,
+    required TResult Function(ResetPasswordLoading value) resetPasswordLoading,
+    required TResult Function(ResetPasswordSuccess value) resetPasswordSuccess,
+    required TResult Function(ResetPasswordError value) resetPasswordError,
+    required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
+    required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
+    required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
+  }) {
+    return uploadProfileImageLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(LoginLoading value)? loginLoading,
+    TResult? Function(LoginSuccess value)? loginSuccess,
+    TResult? Function(LoginError value)? loginError,
+    TResult? Function(RegisterLoading value)? registerLoading,
+    TResult? Function(RegisterSuccess value)? registerSuccess,
+    TResult? Function(RegisterError value)? registerError,
+    TResult? Function(CompleteProfileLoading value)? completeProfileLoading,
+    TResult? Function(CompleteProfileSuccess value)? completeProfileSuccess,
+    TResult? Function(CompleteProfileError value)? completeProfileError,
+    TResult? Function(SendOtpLoading value)? sendOtpLoading,
+    TResult? Function(SendOtpSuccess value)? sendOtpSuccess,
+    TResult? Function(SendOtpError value)? sendOtpError,
+    TResult? Function(ResetPasswordLoading value)? resetPasswordLoading,
+    TResult? Function(ResetPasswordSuccess value)? resetPasswordSuccess,
+    TResult? Function(ResetPasswordError value)? resetPasswordError,
+    TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
+    TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
+    TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
+  }) {
+    return uploadProfileImageLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(LoginLoading value)? loginLoading,
+    TResult Function(LoginSuccess value)? loginSuccess,
+    TResult Function(LoginError value)? loginError,
+    TResult Function(RegisterLoading value)? registerLoading,
+    TResult Function(RegisterSuccess value)? registerSuccess,
+    TResult Function(RegisterError value)? registerError,
+    TResult Function(CompleteProfileLoading value)? completeProfileLoading,
+    TResult Function(CompleteProfileSuccess value)? completeProfileSuccess,
+    TResult Function(CompleteProfileError value)? completeProfileError,
+    TResult Function(SendOtpLoading value)? sendOtpLoading,
+    TResult Function(SendOtpSuccess value)? sendOtpSuccess,
+    TResult Function(SendOtpError value)? sendOtpError,
+    TResult Function(ResetPasswordLoading value)? resetPasswordLoading,
+    TResult Function(ResetPasswordSuccess value)? resetPasswordSuccess,
+    TResult Function(ResetPasswordError value)? resetPasswordError,
+    TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
+    TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
+    TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
+    required TResult orElse(),
+  }) {
+    if (uploadProfileImageLoading != null) {
+      return uploadProfileImageLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UploadProfileImageLoading implements AuthState {
+  const factory UploadProfileImageLoading() = _$UploadProfileImageLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$UploadProfileImageSuccessImplCopyWith<$Res> {
+  factory _$$UploadProfileImageSuccessImplCopyWith(
+    _$UploadProfileImageSuccessImpl value,
+    $Res Function(_$UploadProfileImageSuccessImpl) then,
+  ) = __$$UploadProfileImageSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UploadProfileImageSuccessImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$UploadProfileImageSuccessImpl>
+    implements _$$UploadProfileImageSuccessImplCopyWith<$Res> {
+  __$$UploadProfileImageSuccessImplCopyWithImpl(
+    _$UploadProfileImageSuccessImpl _value,
+    $Res Function(_$UploadProfileImageSuccessImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$UploadProfileImageSuccessImpl implements UploadProfileImageSuccess {
+  const _$UploadProfileImageSuccessImpl();
+
+  @override
+  String toString() {
+    return 'AuthState.uploadProfileImageSuccess()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UploadProfileImageSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loginLoading,
+    required TResult Function(LoginResponseModel loginResponse) loginSuccess,
+    required TResult Function(String message) loginError,
+    required TResult Function() registerLoading,
+    required TResult Function(RegisterResponseModel registerResponse)
+    registerSuccess,
+    required TResult Function(String message) registerError,
+    required TResult Function() completeProfileLoading,
+    required TResult Function() completeProfileSuccess,
+    required TResult Function(String message) completeProfileError,
+    required TResult Function() sendOtpLoading,
+    required TResult Function() sendOtpSuccess,
+    required TResult Function(String message) sendOtpError,
+    required TResult Function() resetPasswordLoading,
+    required TResult Function() resetPasswordSuccess,
+    required TResult Function(String message) resetPasswordError,
+    required TResult Function() verifyOtpLoading,
+    required TResult Function() verifyOtpSuccess,
+    required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
+  }) {
+    return uploadProfileImageSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loginLoading,
+    TResult? Function(LoginResponseModel loginResponse)? loginSuccess,
+    TResult? Function(String message)? loginError,
+    TResult? Function()? registerLoading,
+    TResult? Function(RegisterResponseModel registerResponse)? registerSuccess,
+    TResult? Function(String message)? registerError,
+    TResult? Function()? completeProfileLoading,
+    TResult? Function()? completeProfileSuccess,
+    TResult? Function(String message)? completeProfileError,
+    TResult? Function()? sendOtpLoading,
+    TResult? Function()? sendOtpSuccess,
+    TResult? Function(String message)? sendOtpError,
+    TResult? Function()? resetPasswordLoading,
+    TResult? Function()? resetPasswordSuccess,
+    TResult? Function(String message)? resetPasswordError,
+    TResult? Function()? verifyOtpLoading,
+    TResult? Function()? verifyOtpSuccess,
+    TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
+  }) {
+    return uploadProfileImageSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loginLoading,
+    TResult Function(LoginResponseModel loginResponse)? loginSuccess,
+    TResult Function(String message)? loginError,
+    TResult Function()? registerLoading,
+    TResult Function(RegisterResponseModel registerResponse)? registerSuccess,
+    TResult Function(String message)? registerError,
+    TResult Function()? completeProfileLoading,
+    TResult Function()? completeProfileSuccess,
+    TResult Function(String message)? completeProfileError,
+    TResult Function()? sendOtpLoading,
+    TResult Function()? sendOtpSuccess,
+    TResult Function(String message)? sendOtpError,
+    TResult Function()? resetPasswordLoading,
+    TResult Function()? resetPasswordSuccess,
+    TResult Function(String message)? resetPasswordError,
+    TResult Function()? verifyOtpLoading,
+    TResult Function()? verifyOtpSuccess,
+    TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
+    required TResult orElse(),
+  }) {
+    if (uploadProfileImageSuccess != null) {
+      return uploadProfileImageSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(LoginLoading value) loginLoading,
+    required TResult Function(LoginSuccess value) loginSuccess,
+    required TResult Function(LoginError value) loginError,
+    required TResult Function(RegisterLoading value) registerLoading,
+    required TResult Function(RegisterSuccess value) registerSuccess,
+    required TResult Function(RegisterError value) registerError,
+    required TResult Function(CompleteProfileLoading value)
+    completeProfileLoading,
+    required TResult Function(CompleteProfileSuccess value)
+    completeProfileSuccess,
+    required TResult Function(CompleteProfileError value) completeProfileError,
+    required TResult Function(SendOtpLoading value) sendOtpLoading,
+    required TResult Function(SendOtpSuccess value) sendOtpSuccess,
+    required TResult Function(SendOtpError value) sendOtpError,
+    required TResult Function(ResetPasswordLoading value) resetPasswordLoading,
+    required TResult Function(ResetPasswordSuccess value) resetPasswordSuccess,
+    required TResult Function(ResetPasswordError value) resetPasswordError,
+    required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
+    required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
+    required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
+  }) {
+    return uploadProfileImageSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(LoginLoading value)? loginLoading,
+    TResult? Function(LoginSuccess value)? loginSuccess,
+    TResult? Function(LoginError value)? loginError,
+    TResult? Function(RegisterLoading value)? registerLoading,
+    TResult? Function(RegisterSuccess value)? registerSuccess,
+    TResult? Function(RegisterError value)? registerError,
+    TResult? Function(CompleteProfileLoading value)? completeProfileLoading,
+    TResult? Function(CompleteProfileSuccess value)? completeProfileSuccess,
+    TResult? Function(CompleteProfileError value)? completeProfileError,
+    TResult? Function(SendOtpLoading value)? sendOtpLoading,
+    TResult? Function(SendOtpSuccess value)? sendOtpSuccess,
+    TResult? Function(SendOtpError value)? sendOtpError,
+    TResult? Function(ResetPasswordLoading value)? resetPasswordLoading,
+    TResult? Function(ResetPasswordSuccess value)? resetPasswordSuccess,
+    TResult? Function(ResetPasswordError value)? resetPasswordError,
+    TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
+    TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
+    TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
+  }) {
+    return uploadProfileImageSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(LoginLoading value)? loginLoading,
+    TResult Function(LoginSuccess value)? loginSuccess,
+    TResult Function(LoginError value)? loginError,
+    TResult Function(RegisterLoading value)? registerLoading,
+    TResult Function(RegisterSuccess value)? registerSuccess,
+    TResult Function(RegisterError value)? registerError,
+    TResult Function(CompleteProfileLoading value)? completeProfileLoading,
+    TResult Function(CompleteProfileSuccess value)? completeProfileSuccess,
+    TResult Function(CompleteProfileError value)? completeProfileError,
+    TResult Function(SendOtpLoading value)? sendOtpLoading,
+    TResult Function(SendOtpSuccess value)? sendOtpSuccess,
+    TResult Function(SendOtpError value)? sendOtpError,
+    TResult Function(ResetPasswordLoading value)? resetPasswordLoading,
+    TResult Function(ResetPasswordSuccess value)? resetPasswordSuccess,
+    TResult Function(ResetPasswordError value)? resetPasswordError,
+    TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
+    TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
+    TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
+    required TResult orElse(),
+  }) {
+    if (uploadProfileImageSuccess != null) {
+      return uploadProfileImageSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UploadProfileImageSuccess implements AuthState {
+  const factory UploadProfileImageSuccess() = _$UploadProfileImageSuccessImpl;
+}
+
+/// @nodoc
+abstract class _$$UploadProfileImageErrorImplCopyWith<$Res> {
+  factory _$$UploadProfileImageErrorImplCopyWith(
+    _$UploadProfileImageErrorImpl value,
+    $Res Function(_$UploadProfileImageErrorImpl) then,
+  ) = __$$UploadProfileImageErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$UploadProfileImageErrorImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$UploadProfileImageErrorImpl>
+    implements _$$UploadProfileImageErrorImplCopyWith<$Res> {
+  __$$UploadProfileImageErrorImplCopyWithImpl(
+    _$UploadProfileImageErrorImpl _value,
+    $Res Function(_$UploadProfileImageErrorImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? message = null}) {
+    return _then(
+      _$UploadProfileImageErrorImpl(
+        message:
+            null == message
+                ? _value.message
+                : message // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$UploadProfileImageErrorImpl implements UploadProfileImageError {
+  const _$UploadProfileImageErrorImpl({required this.message});
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'AuthState.uploadProfileImageError(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UploadProfileImageErrorImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UploadProfileImageErrorImplCopyWith<_$UploadProfileImageErrorImpl>
+  get copyWith => __$$UploadProfileImageErrorImplCopyWithImpl<
+    _$UploadProfileImageErrorImpl
+  >(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loginLoading,
+    required TResult Function(LoginResponseModel loginResponse) loginSuccess,
+    required TResult Function(String message) loginError,
+    required TResult Function() registerLoading,
+    required TResult Function(RegisterResponseModel registerResponse)
+    registerSuccess,
+    required TResult Function(String message) registerError,
+    required TResult Function() completeProfileLoading,
+    required TResult Function() completeProfileSuccess,
+    required TResult Function(String message) completeProfileError,
+    required TResult Function() sendOtpLoading,
+    required TResult Function() sendOtpSuccess,
+    required TResult Function(String message) sendOtpError,
+    required TResult Function() resetPasswordLoading,
+    required TResult Function() resetPasswordSuccess,
+    required TResult Function(String message) resetPasswordError,
+    required TResult Function() verifyOtpLoading,
+    required TResult Function() verifyOtpSuccess,
+    required TResult Function(String message) verifyOtpError,
+    required TResult Function() uploadProfileImageLoading,
+    required TResult Function() uploadProfileImageSuccess,
+    required TResult Function(String message) uploadProfileImageError,
+  }) {
+    return uploadProfileImageError(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loginLoading,
+    TResult? Function(LoginResponseModel loginResponse)? loginSuccess,
+    TResult? Function(String message)? loginError,
+    TResult? Function()? registerLoading,
+    TResult? Function(RegisterResponseModel registerResponse)? registerSuccess,
+    TResult? Function(String message)? registerError,
+    TResult? Function()? completeProfileLoading,
+    TResult? Function()? completeProfileSuccess,
+    TResult? Function(String message)? completeProfileError,
+    TResult? Function()? sendOtpLoading,
+    TResult? Function()? sendOtpSuccess,
+    TResult? Function(String message)? sendOtpError,
+    TResult? Function()? resetPasswordLoading,
+    TResult? Function()? resetPasswordSuccess,
+    TResult? Function(String message)? resetPasswordError,
+    TResult? Function()? verifyOtpLoading,
+    TResult? Function()? verifyOtpSuccess,
+    TResult? Function(String message)? verifyOtpError,
+    TResult? Function()? uploadProfileImageLoading,
+    TResult? Function()? uploadProfileImageSuccess,
+    TResult? Function(String message)? uploadProfileImageError,
+  }) {
+    return uploadProfileImageError?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loginLoading,
+    TResult Function(LoginResponseModel loginResponse)? loginSuccess,
+    TResult Function(String message)? loginError,
+    TResult Function()? registerLoading,
+    TResult Function(RegisterResponseModel registerResponse)? registerSuccess,
+    TResult Function(String message)? registerError,
+    TResult Function()? completeProfileLoading,
+    TResult Function()? completeProfileSuccess,
+    TResult Function(String message)? completeProfileError,
+    TResult Function()? sendOtpLoading,
+    TResult Function()? sendOtpSuccess,
+    TResult Function(String message)? sendOtpError,
+    TResult Function()? resetPasswordLoading,
+    TResult Function()? resetPasswordSuccess,
+    TResult Function(String message)? resetPasswordError,
+    TResult Function()? verifyOtpLoading,
+    TResult Function()? verifyOtpSuccess,
+    TResult Function(String message)? verifyOtpError,
+    TResult Function()? uploadProfileImageLoading,
+    TResult Function()? uploadProfileImageSuccess,
+    TResult Function(String message)? uploadProfileImageError,
+    required TResult orElse(),
+  }) {
+    if (uploadProfileImageError != null) {
+      return uploadProfileImageError(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(LoginLoading value) loginLoading,
+    required TResult Function(LoginSuccess value) loginSuccess,
+    required TResult Function(LoginError value) loginError,
+    required TResult Function(RegisterLoading value) registerLoading,
+    required TResult Function(RegisterSuccess value) registerSuccess,
+    required TResult Function(RegisterError value) registerError,
+    required TResult Function(CompleteProfileLoading value)
+    completeProfileLoading,
+    required TResult Function(CompleteProfileSuccess value)
+    completeProfileSuccess,
+    required TResult Function(CompleteProfileError value) completeProfileError,
+    required TResult Function(SendOtpLoading value) sendOtpLoading,
+    required TResult Function(SendOtpSuccess value) sendOtpSuccess,
+    required TResult Function(SendOtpError value) sendOtpError,
+    required TResult Function(ResetPasswordLoading value) resetPasswordLoading,
+    required TResult Function(ResetPasswordSuccess value) resetPasswordSuccess,
+    required TResult Function(ResetPasswordError value) resetPasswordError,
+    required TResult Function(VerifyOtpLoading value) verifyOtpLoading,
+    required TResult Function(VerifyOtpSuccess value) verifyOtpSuccess,
+    required TResult Function(VerifyOtpError value) verifyOtpError,
+    required TResult Function(UploadProfileImageLoading value)
+    uploadProfileImageLoading,
+    required TResult Function(UploadProfileImageSuccess value)
+    uploadProfileImageSuccess,
+    required TResult Function(UploadProfileImageError value)
+    uploadProfileImageError,
+  }) {
+    return uploadProfileImageError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(LoginLoading value)? loginLoading,
+    TResult? Function(LoginSuccess value)? loginSuccess,
+    TResult? Function(LoginError value)? loginError,
+    TResult? Function(RegisterLoading value)? registerLoading,
+    TResult? Function(RegisterSuccess value)? registerSuccess,
+    TResult? Function(RegisterError value)? registerError,
+    TResult? Function(CompleteProfileLoading value)? completeProfileLoading,
+    TResult? Function(CompleteProfileSuccess value)? completeProfileSuccess,
+    TResult? Function(CompleteProfileError value)? completeProfileError,
+    TResult? Function(SendOtpLoading value)? sendOtpLoading,
+    TResult? Function(SendOtpSuccess value)? sendOtpSuccess,
+    TResult? Function(SendOtpError value)? sendOtpError,
+    TResult? Function(ResetPasswordLoading value)? resetPasswordLoading,
+    TResult? Function(ResetPasswordSuccess value)? resetPasswordSuccess,
+    TResult? Function(ResetPasswordError value)? resetPasswordError,
+    TResult? Function(VerifyOtpLoading value)? verifyOtpLoading,
+    TResult? Function(VerifyOtpSuccess value)? verifyOtpSuccess,
+    TResult? Function(VerifyOtpError value)? verifyOtpError,
+    TResult? Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult? Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult? Function(UploadProfileImageError value)? uploadProfileImageError,
+  }) {
+    return uploadProfileImageError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(LoginLoading value)? loginLoading,
+    TResult Function(LoginSuccess value)? loginSuccess,
+    TResult Function(LoginError value)? loginError,
+    TResult Function(RegisterLoading value)? registerLoading,
+    TResult Function(RegisterSuccess value)? registerSuccess,
+    TResult Function(RegisterError value)? registerError,
+    TResult Function(CompleteProfileLoading value)? completeProfileLoading,
+    TResult Function(CompleteProfileSuccess value)? completeProfileSuccess,
+    TResult Function(CompleteProfileError value)? completeProfileError,
+    TResult Function(SendOtpLoading value)? sendOtpLoading,
+    TResult Function(SendOtpSuccess value)? sendOtpSuccess,
+    TResult Function(SendOtpError value)? sendOtpError,
+    TResult Function(ResetPasswordLoading value)? resetPasswordLoading,
+    TResult Function(ResetPasswordSuccess value)? resetPasswordSuccess,
+    TResult Function(ResetPasswordError value)? resetPasswordError,
+    TResult Function(VerifyOtpLoading value)? verifyOtpLoading,
+    TResult Function(VerifyOtpSuccess value)? verifyOtpSuccess,
+    TResult Function(VerifyOtpError value)? verifyOtpError,
+    TResult Function(UploadProfileImageLoading value)?
+    uploadProfileImageLoading,
+    TResult Function(UploadProfileImageSuccess value)?
+    uploadProfileImageSuccess,
+    TResult Function(UploadProfileImageError value)? uploadProfileImageError,
+    required TResult orElse(),
+  }) {
+    if (uploadProfileImageError != null) {
+      return uploadProfileImageError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UploadProfileImageError implements AuthState {
+  const factory UploadProfileImageError({required final String message}) =
+      _$UploadProfileImageErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UploadProfileImageErrorImplCopyWith<_$UploadProfileImageErrorImpl>
+  get copyWith => throw _privateConstructorUsedError;
 }
