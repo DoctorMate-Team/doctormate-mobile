@@ -58,10 +58,10 @@ class LoginBlocListener extends StatelessWidget {
                     if (result.user.isCompletedProfile &&
                         result.user.isVerified) {
                       await CacheHelper.setSecuredValue(
-                        AppConstants.userToken,
+                        AppConstants.tokenKey,
                         result.token,
                       );
-                      context.goNamed(Routes.home);
+                      context.goNamed(Routes.mainLayout);
                     } else if (!result.user.isCompletedProfile &&
                         result.user.isVerified) {
                       context.goNamed(Routes.completeProfile);

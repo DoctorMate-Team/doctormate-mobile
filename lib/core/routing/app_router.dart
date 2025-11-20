@@ -1,11 +1,14 @@
 import 'package:doctor_mate/core/di/dependency_injection.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
+import 'package:doctor_mate/features/details/logic/cubit/details_cubit.dart';
 import 'package:doctor_mate/features/auth/ui/screens/auth_screen.dart';
 import 'package:doctor_mate/features/auth/ui/screens/complete_profile_screen.dart';
 import 'package:doctor_mate/features/auth/ui/screens/forgot_password_screen.dart';
 import 'package:doctor_mate/features/auth/ui/screens/otp_screen.dart';
 import 'package:doctor_mate/features/auth/ui/screens/reset_password_screen.dart';
+import 'package:doctor_mate/features/details/ui/details_screen.dart';
+import 'package:doctor_mate/features/main_navigation/logic/cubit/main_cubit.dart';
 import 'package:doctor_mate/features/main_navigation/ui/main_navigation_screen.dart';
 import 'package:doctor_mate/features/onBoarding/ui/onBoarding_screen.dart';
 import 'package:doctor_mate/features/splash/ui/splash_screen.dart';
@@ -89,9 +92,27 @@ class AppRouter {
               ),
         ),
         GoRoute(
-          path: Routes.home,
-          name: Routes.home,
-          builder: (context, state) => const MainNavigationScreen(),
+          path: Routes.mainLayout,
+          name: Routes.mainLayout,
+          builder:
+              (context, state) => BlocProvider(
+                create: (context) => getIt<MainCubit>(),
+                child: const MainNavigationScreen(),
+              ),
+        ),
+        GoRoute(
+          path: Routes.detailsScreen,
+          name: Routes.detailsScreen,
+          builder: (context, state) {
+            final doctorId = state.extra as String?;
+            return BlocProvider(
+              create:
+                  (context) =>
+                      getIt<DetailsCubit>()
+                        ..getDoctorDetails(doctorId: doctorId ?? ''),
+              child: const DetailsScreen(),
+            );
+          },
         ),
       ],
       errorBuilder:
