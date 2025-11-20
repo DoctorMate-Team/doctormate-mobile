@@ -8,6 +8,9 @@ class ApiConstants {
   static const resetPassword = "PasswordReset/reset-password";
   static const verifyOtp = "Otp/verify";
   static const uploadProfileImage = "Profile_Management/image";
+  static const specialties = "Specialties";
+  static const doctorsBySpecialty = "Specialties/{specialtyId}/doctors";
+  static const doctorDetails = "Specialties/doctors/{doctorId}";
 }
 
 class ApiErrors {

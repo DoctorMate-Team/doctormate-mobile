@@ -56,11 +56,11 @@ class CompleteProfileBlocListener extends StatelessWidget {
                   textButton: "Continue",
                   onPressed: () async {
                     await CacheHelper.setSecuredValue(
-                      AppConstants.userToken,
+                      AppConstants.tokenKey,
                       AppConstants.userTokenProvider,
                     );
                     context.goNamed(
-                      Routes.home,
+                      Routes.mainLayout,
                     ); // Navigate to main app or dashboard
                   },
                 ),

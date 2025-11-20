@@ -86,11 +86,11 @@ class _SplashScreenState extends State<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 1500));
     if (mounted) {
       if (await CacheHelper.getSecuredValue(
-            AppConstants.userToken,
+            AppConstants.tokenKey,
             type: String,
           ) !=
           null) {
-        context.goNamed(Routes.home);
+        context.goNamed(Routes.mainLayout);
       } else {
         context.goNamed(Routes.onBoarding);
       }

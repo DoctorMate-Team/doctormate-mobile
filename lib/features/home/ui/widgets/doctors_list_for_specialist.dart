@@ -1,129 +1,23 @@
-import 'package:doctor_mate/core/helper/app_images.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_mate/core/helper/spacing.dart';
+import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/theme/font_weight_helper.dart';
+import 'package:doctor_mate/core/widgets/custom_material_button.dart';
+import 'package:doctor_mate/features/home/data/models/doctor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class DoctorsListForSpecialist extends StatelessWidget {
-  final String specialist;
+  final List<DoctorModel> doctors;
 
-  const DoctorsListForSpecialist({super.key, required this.specialist});
-
-  List<Map<String, dynamic>> _getDoctorsForSpecialist(String specialist) {
-    // Sample data - replace with actual data source
-    final Map<String, List<Map<String, dynamic>>> doctorsBySpecialty = {
-      'Cardiology': [
-        {
-          'name': 'Dr. Sarah Johnson',
-          'rating': 4.9,
-          'experience': '15 years',
-          'hospital': 'Heart Care Center',
-          'price': '150',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Today',
-        },
-        {
-          'name': 'Dr. Michael Chen',
-          'rating': 4.8,
-          'experience': '12 years',
-          'hospital': 'Cardiac Institute',
-          'price': '120',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Tomorrow',
-        },
-      ],
-      'Neurology': [
-        {
-          'name': 'Dr. Emily Rodriguez',
-          'rating': 4.9,
-          'experience': '18 years',
-          'hospital': 'Neuro Specialist Center',
-          'price': '200',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Today',
-        },
-        {
-          'name': 'Dr. James Wilson',
-          'rating': 4.7,
-          'experience': '10 years',
-          'hospital': 'Brain Health Clinic',
-          'price': '180',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Friday',
-        },
-      ],
-      'Orthopedic': [
-        {
-          'name': 'Dr. Amanda Taylor',
-          'rating': 4.8,
-          'experience': '14 years',
-          'hospital': 'Bone & Joint Center',
-          'price': '130',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Today',
-        },
-        {
-          'name': 'Dr. Robert Davis',
-          'rating': 4.6,
-          'experience': '16 years',
-          'hospital': 'Orthopedic Institute',
-          'price': '140',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Monday',
-        },
-      ],
-      'Pediatrics': [
-        {
-          'name': 'Dr. Lisa Anderson',
-          'rating': 4.9,
-          'experience': '12 years',
-          'hospital': 'Children\'s Medical Center',
-          'price': '100',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Today',
-        },
-        {
-          'name': 'Dr. Kevin Martinez',
-          'rating': 4.8,
-          'experience': '9 years',
-          'hospital': 'Kids Health Clinic',
-          'price': '90',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Tomorrow',
-        },
-      ],
-      'Dermatology': [
-        {
-          'name': 'Dr. Jennifer Lee',
-          'rating': 4.7,
-          'experience': '11 years',
-          'hospital': 'Skin Care Institute',
-          'price': '110',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Today',
-        },
-        {
-          'name': 'Dr. David Brown',
-          'rating': 4.6,
-          'experience': '13 years',
-          'hospital': 'Dermatology Center',
-          'price': '125',
-          'image': AppImages.homeDoctorBanner,
-          'availability': 'Available Thursday',
-        },
-      ],
-    };
-
-    return doctorsBySpecialty[specialist] ?? [];
-  }
+  const DoctorsListForSpecialist({super.key, required this.doctors});
 
   @override
   Widget build(BuildContext context) {
-    final doctors = _getDoctorsForSpecialist(specialist);
-
     if (doctors.isEmpty) {
       return Container(
         padding: EdgeInsets.all(32.w),
@@ -132,7 +26,7 @@ class DoctorsListForSpecialist extends StatelessWidget {
             Icon(Iconsax.user_minus, size: 48.sp, color: Colors.grey.shade400),
             verticalSpacing(16),
             Text(
-              'No doctors available for $specialist',
+              'No doctors available for this specialty',
               style: TextStyles.font18DarkGreenBold.copyWith(
                 fontSize: 16.sp,
                 color: Colors.grey.shade600,
@@ -150,7 +44,13 @@ class DoctorsListForSpecialist extends StatelessWidget {
               .map(
                 (doctor) => Padding(
                   padding: EdgeInsets.only(bottom: 16.h),
-                  child: DoctorCard(doctor: doctor),
+                  child: GestureDetector(
+                    onTap: () {
+                      // Navigate to details screen with doctor ID
+                      context.pushNamed(Routes.detailsScreen, extra: doctor.id);
+                    },
+                    child: DoctorCard(doctor: doctor),
+                  ),
                 ),
               )
               .toList(),
@@ -160,7 +60,7 @@ class DoctorsListForSpecialist extends StatelessWidget {
 
 // Individual Doctor Card
 class DoctorCard extends StatelessWidget {
-  final Map<String, dynamic> doctor;
+  final DoctorModel doctor;
 
   const DoctorCard({super.key, required this.doctor});
 
@@ -190,9 +90,19 @@ class DoctorCard extends StatelessWidget {
                 height: 70.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.r),
-                  image: DecorationImage(
-                    image: AssetImage(doctor['image']),
+                  color: Colors.grey.shade200,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.r),
+                  child: CachedNetworkImage(
+                    imageUrl: doctor.imageUrl,
                     fit: BoxFit.cover,
+                    placeholder:
+                        (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                    errorWidget:
+                        (context, url, error) =>
+                            Icon(Icons.person, size: 40.sp, color: Colors.grey),
                   ),
                 ),
               ),
@@ -203,27 +113,31 @@ class DoctorCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(doctor['name'], style: TextStyles.font16DarkGreenBold),
+                    Text(
+                      doctor.fullName,
+                      style: TextStyles.font16DarkGreenBold,
+                    ),
                     verticalSpacing(4),
                     Text(
-                      doctor['hospital'],
+                      doctor.address,
                       style: TextStyles.font14GrayRegular,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     verticalSpacing(8),
                     Row(
                       children: [
-                        Icon(Icons.star, size: 16.sp, color: Colors.amber),
+                        Icon(Icons.verified, size: 16.sp, color: Colors.blue),
                         horizantialSpacing(4),
-                        Text(
-                          '${doctor['rating']}',
-                          style: TextStyles.font14DarkGreenMedium.copyWith(
-                            fontWeight: FontWeightHelper.semiBold,
+                        Expanded(
+                          child: Text(
+                            doctor.qualifications,
+                            style: TextStyles.font14DarkGreenMedium.copyWith(
+                              fontWeight: FontWeightHelper.semiBold,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        horizantialSpacing(8),
-                        Text(
-                          '• ${doctor['experience']}',
-                          style: TextStyles.font14GrayRegular,
                         ),
                       ],
                     ),
@@ -235,7 +149,7 @@ class DoctorCard extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    '\$${doctor['price']}',
+                    'EGP ${doctor.consultationFee.toStringAsFixed(0)}',
                     style: TextStyles.font16DarkGreenBold,
                   ),
                   Text('per visit', style: TextStyles.font12GrayRegular),
@@ -250,6 +164,7 @@ class DoctorCard extends StatelessWidget {
           Row(
             children: [
               Container(
+                height: 36.h,
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                 decoration: BoxDecoration(
                   color: Colors.green.shade50,
@@ -258,11 +173,13 @@ class DoctorCard extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.circle, size: 8.sp, color: Colors.green),
+                    Icon(Icons.access_time, size: 14.sp, color: Colors.green),
                     horizantialSpacing(6),
                     Text(
-                      doctor['availability'],
+                      doctor.workingTime,
                       style: TextStyles.font12DarkGreenSemiBold,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -271,38 +188,21 @@ class DoctorCard extends StatelessWidget {
               const Spacer(),
 
               // Book Button
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(12.r),
-                  onTap: () {
-                    // Handle booking action
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Booking appointment with ${doctor['name']}',
-                        ),
-                        backgroundColor: ColorsManager.primaryColor,
+              CustomMaterialButton(
+                minWidth: 100.w,
+                height: 36.h,
+                textButton: 'Book Now',
+                onPressed: () {
+                  // Handle booking action
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Booking appointment with ${doctor.fullName}',
                       ),
-                    );
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24.w,
-                      vertical: 8.h,
+                      backgroundColor: ColorsManager.primaryColor,
                     ),
-                    decoration: BoxDecoration(
-                      color: ColorsManager.primaryColor,
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Text(
-                      'Book Now',
-                      style: TextStyles.font14WhiteRegular.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),

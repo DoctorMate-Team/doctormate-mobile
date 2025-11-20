@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:doctor_mate/core/functions/custom_image_picker_and_compress.dart';
+import 'package:doctor_mate/core/helper/cache_helper.dart';
 import 'package:doctor_mate/core/helper/constants.dart';
 import 'package:doctor_mate/features/auth/data/models/complete_profile_request_body.dart';
 import 'package:doctor_mate/features/auth/data/models/send_otp_request_body.dart';
@@ -42,7 +43,13 @@ class AuthCubit extends Cubit<AuthState> {
       ),
     );
     result.when(
-      success: (auth) {
+      success: (auth) async {
+        if (auth.data.user.isCompletedProfile && auth.data.user.isVerified) {
+          await CacheHelper.setSecuredValue(
+            AppConstants.tokenKey,
+            auth.data.token,
+          );
+        }
         AppConstants.userTokenProvider = auth.data.token;
         emit(AuthState.loginSuccess(auth.data));
       },
@@ -122,7 +129,11 @@ class AuthCubit extends Cubit<AuthState> {
       ),
     );
     result.when(
-      success: (auth) {
+      success: (auth) async {
+        await CacheHelper.setSecuredValue(
+          AppConstants.tokenKey,
+          AppConstants.userTokenProvider,
+        );
         emit(AuthState.completeProfileSuccess());
       },
       failure: (error) {
