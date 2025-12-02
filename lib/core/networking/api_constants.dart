@@ -4,13 +4,16 @@ class ApiConstants {
   static const login = "Login";
   static const register = "Register";
   static const completeProfile = "CompleteProfile/complete";
-  static const sendOtp = "Otp/send";
+  static const otp = "Otp";
+  static const sendOtp = "$otp/send";
+  static const verifyOtp = "$otp/verify";
   static const resetPassword = "PasswordReset/reset-password";
-  static const verifyOtp = "Otp/verify";
-  static const uploadProfileImage = "Profile_Management/image";
   static const specialties = "Specialties";
-  static const doctorsBySpecialty = "Specialties/{specialtyId}/doctors";
-  static const doctorDetails = "Specialties/doctors/{doctorId}";
+  static const doctorsBySpecialty = "$specialties/{specialtyId}/doctors";
+  static const doctorDetails = "$specialties/doctors/{doctorId}";
+  static const profileManagement = "Profile_Management";
+  static const uploadProfileImage = "$profileManagement/image";
+  static const updateProfileDetails = "$profileManagement/update";
 }
 
 class ApiErrors {

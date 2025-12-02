@@ -96,7 +96,7 @@ class AuthCubit extends Cubit<AuthState> {
         );
 
         // Check if upload failed
-        final uploadSuccess = await uploadResult.when(
+        final uploadSuccess = uploadResult.when(
           success: (_) => true,
           failure: (_) => false,
         );

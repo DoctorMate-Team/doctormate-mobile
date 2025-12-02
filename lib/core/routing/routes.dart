@@ -11,4 +11,5 @@ class Routes {
   static const String mainLayout = '/mainLayout';
   static const String home = '/home';
   static const String detailsScreen = '/detailsScreen';
+  static const String profileScreen = '/profileScreen';
 }

@@ -2,6 +2,8 @@ import 'package:doctor_mate/core/di/dependency_injection.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/features/home/logic/cubit/home_cubit.dart';
 import 'package:doctor_mate/features/home/ui/home_screen.dart';
+import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
+import 'package:doctor_mate/features/profile/ui/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +18,10 @@ class NavigationScreens {
     const AppointmentsScreen(),
     const ExploreScreen(),
     const MessagesScreen(),
-    const ProfileScreen(),
+    BlocProvider(
+      create: (context) => getIt<ProfileCubit>()..getProfile(),
+      child: const ProfileScreen(),
+    ),
   ];
 }
 
@@ -114,43 +119,6 @@ class MessagesScreen extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'محادثاتك مع الأطباء والدعم الفني',
-              style: TextStyles.font14GrayRegular,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade50,
-      appBar: AppBar(
-        title: Text('الملف الشخصي', style: TextStyles.font18DarkGreenBold),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Iconsax.profile_circle,
-              size: 80.sp,
-              color: const Color(0xFF9C27B0),
-            ),
-            SizedBox(height: 16.h),
-            Text('الملف الشخصي', style: TextStyles.font18DarkGreenBold),
-            SizedBox(height: 8.h),
-            Text(
-              'إدارة حسابك ومعلوماتك الشخصية',
               style: TextStyles.font14GrayRegular,
               textAlign: TextAlign.center,
             ),
