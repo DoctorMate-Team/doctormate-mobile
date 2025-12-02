@@ -1,5 +1,7 @@
 import 'package:doctor_mate/core/di/dependency_injection.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
+import 'package:doctor_mate/features/appointment/ui/appointment_screen.dart';
+import 'package:doctor_mate/features/appointment/ui/widgets/appointment_success_screen.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:doctor_mate/features/details/logic/cubit/details_cubit.dart';
 import 'package:doctor_mate/features/auth/ui/screens/auth_screen.dart';
@@ -119,6 +121,16 @@ class AppRouter {
               child: const DetailsScreen(),
             );
           },
+        ),
+        GoRoute(
+          path: Routes.appointmentScreen,
+          name: Routes.appointmentScreen,
+          builder: (context, state) => const AppointmentScreen(),
+        ),
+        GoRoute(
+          path: Routes.bookingConfirmation,
+          name: Routes.bookingConfirmation,
+          builder: (context, state) => const AppointmentSuccessScreen(),
         ),
       ],
       errorBuilder:

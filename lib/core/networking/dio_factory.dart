@@ -9,7 +9,7 @@ class DioFactory {
 
   static Dio? dio;
 
-  static Dio getDio() {
+  static Future<Dio> getDio() async {
     Duration timeOut = const Duration(seconds: 30);
 
     if (dio == null) {
@@ -17,25 +17,29 @@ class DioFactory {
       dio!
         ..options.connectTimeout = timeOut
         ..options.receiveTimeout = timeOut;
-      addDioHeaders();
+      await addDioHeaders();
       addDioInterceptor();
       return dio!;
     } else {
+      // Update headers each time to ensure fresh token
+      await addDioHeaders();
       return dio!;
     }
   }
 
-  static void addDioHeaders() async {
+  static Future<void> addDioHeaders() async {
+    final token = await CacheHelper.getSecuredValue(
+      AppConstants.tokenKey,
+      type: String,
+    );
     dio?.options.headers = {
       "Accept": 'application/json',
-      "Authorization": 'Bearer ${await CacheHelper.getSecuredValue(AppConstants.tokenKey, type: String)}',
+      "Authorization": 'Bearer ${token ?? ''}',
     };
   }
 
   static void setTokenIntoHeaderAfterLogin(String token) {
-    dio?.options.headers = {
-      'Authorization': 'Bearer $token',
-    };
+    dio?.options.headers = {'Authorization': 'Bearer $token'};
   }
 
   static void addDioInterceptor() {

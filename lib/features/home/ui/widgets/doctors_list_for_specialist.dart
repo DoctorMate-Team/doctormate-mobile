@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
-import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/theme/font_weight_helper.dart';
 import 'package:doctor_mate/core/widgets/custom_material_button.dart';
@@ -193,15 +192,7 @@ class DoctorCard extends StatelessWidget {
                 height: 36.h,
                 textButton: 'Book Now',
                 onPressed: () {
-                  // Handle booking action
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Booking appointment with ${doctor.fullName}',
-                      ),
-                      backgroundColor: ColorsManager.primaryColor,
-                    ),
-                  );
+                  context.pushNamed(Routes.appointmentScreen);
                 },
               ),
             ],

@@ -24,7 +24,7 @@ void main() async {
   ]);
 
   // Setup dependency injection
-  setupGetIt();
+  await setupGetIt();
 
   runApp(
     EasyLocalization(

@@ -17,9 +17,9 @@ import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
 
-void setupGetIt() {
+Future<void> setupGetIt() async {
   // Dio & ApiService
-  Dio dio = DioFactory.getDio();
+  Dio dio = await DioFactory.getDio();
 
   // Auth
   getIt.registerLazySingleton<AuthApiServices>(() => AuthApiServices(dio));
@@ -42,7 +42,9 @@ void setupGetIt() {
   getIt.registerFactory<DetailsCubit>(() => DetailsCubit(getIt()));
 
   // Profile
-  getIt.registerLazySingleton<ProfileApiServices>(() => ProfileApiServices(dio));
+  getIt.registerLazySingleton<ProfileApiServices>(
+    () => ProfileApiServices(dio),
+  );
   getIt.registerLazySingleton<ProfileRepos>(() => ProfileRepos(getIt()));
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
 }

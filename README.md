@@ -25,8 +25,10 @@ lib/
 │   ├── auth/               # Authentication feature
 │   ├── home/               # Home screen with doctors listing
 │   ├── details/            # Doctor details screen
+│   ├── appointment/        # Appointment booking feature
 │   ├── onBoarding/         # Onboarding screens
-│   └── splash/             # Splash screen
+│   ├── splash/             # Splash screen
+│   └── profile/            # Profile screen
 └── main.dart
 ```
 
@@ -113,6 +115,52 @@ lib/
   - Smooth transitions between states
   - Error handling with retry functionality
 
+### 📅 Appointment Booking Feature
+- **Multi-Step Booking Flow** (4 Steps):
+  1. **Date & Time Selection**:
+     - Interactive calendar with 30-day range
+     - Month navigation (previous/next)
+     - Time slots organized by period (Morning, Afternoon, Evening)
+     - Visual indicators for past times
+     - Appointment type selection (Video Call, Voice Call, In-Person)
+  
+  2. **Reason for Consultation**:
+     - 5 predefined consultation reasons with custom icons
+     - Regular Checkup, Follow-up Visit, New Symptoms, Medical Reports
+     - "Other" option with multi-line text field
+     - Animated card selection with color-coded categories
+  
+  3. **Payment Method**:
+     - Cash Payment, Credit Card, Digital Wallet options
+     - Professional card design with gradient backgrounds
+     - Animated selection with checkmarks
+  
+  4. **Booking Summary**:
+     - Complete booking information review
+     - Doctor information card with image
+     - Payment details with consultation fee
+     - Professional card layouts with gradient accents
+
+- **Success Screen**:
+  - Animated success icon with elastic animation
+  - Booking confirmation with appointment details
+  - Quick actions (Back to Home, View Appointment)
+  - Professional fade and scale animations
+
+- **UI/UX Excellence**:
+  - Custom step indicator with gradient progress
+  - Smooth page transitions with AnimatedSwitcher
+  - Professional app bar with centered title
+  - Responsive grid layouts for time slots (3 columns, aspect ratio 2.2)
+  - Consistent color theming across all steps
+  - Back/Continue navigation with proper validation
+  - Card-based design with shadows and borders
+
+- **Navigation Integration**:
+  - Accessible from Doctor Details and Home screens
+  - GoRouter integration with named routes
+  - Success screen redirects to home or appointment view
+
 ### 🎨 UI/UX Features
 - **Responsive Design**: Using flutter_screenutil for all dimensions
 - **Modern Animations**: Fade, slide, and scale transitions
@@ -191,21 +239,50 @@ auth/
 │   ├── models/          # User models
 │   └── repos/           # Auth repository
 ├── logic/
-│   └── cubit/           # AuthCubit & states
+#### Profile Feature
+```
+profile/
+├── data/
+│   ├── apis/             # ProfileApiServices with Retrofit
+│   ├── models/           # ProfileResponseModel
+│   └── repos/            # ProfileRepos
+├── logic/
+│   └── cubit/            # ProfileCubit & states
 └── ui/
-    ├── screens/         # Login, SignUp, CompleteProfile
-    └── widgets/         # Reusable auth widgets
+    ├── screens/          # ProfileScreen
+    └── widgets/
+        ├── custom_action_profile_button.dart
+        └── profile_shimmer_loading.dart
 ```
 
-#### Home Feature
+#### Appointment Feature
 ```
-home/
-├── data/
-│   ├── models/          # DoctorModel, SpecialtyModel
-│   └── repos/           # HomeRepos
-├── logic/
-│   └── cubit/           # HomeCubit with caching
-└── ui/
+appointment/
+├── ui/
+│   ├── appointment_screen.dart              # Main booking flow screen
+│   └── widgets/
+│       ├── app_bar_appointment_screen.dart  # Professional app bar
+│       ├── custom_step_indicator.dart       # Progress stepper
+│       ├── appointment_success_screen.dart  # Success confirmation
+│       ├── date_and_time/                   # Step 1 widgets
+│       │   ├── date_and_time_content.dart
+│       │   ├── date_picker_list_view.dart
+│       │   ├── date_picker_appointment_screen.dart
+│       │   ├── time_picker_grid_view.dart
+│       │   ├── time_appointment_screen.dart
+│       │   └── appointment_type_list.dart
+│       ├── reason/                          # Step 2 widgets
+│       │   └── reason_consultation_content.dart
+│       ├── payment/                         # Step 3 widgets
+│       │   └── payment_appointment_content.dart
+│       └── summary_booking/                 # Step 4 widgets
+│           ├── summary_appointment_content.dart
+│           ├── booking_information_appointment_summary.dart
+│           ├── date_and_time_summary.dart
+│           ├── appointment_type_summary.dart
+│           ├── payment_information_summary.dart
+│           └── payment_type_summary.dart
+``` ui/
     ├── screens/         # HomeScreen
     └── widgets/
         ├── modern_specialists_list.dart
@@ -311,29 +388,43 @@ flutter pub get
 3. **Generate code** (for Freezed, Injectable, etc.)
 ```bash
 flutter pub run build_runner build --delete-conflicting-outputs
-```
+### Current Screens
+1. **Splash Screen** - App initialization
+2. **Onboarding** - First-time user experience
+3. **Login** - User authentication
+4. **Sign Up** - New user registration
+5. **Home** - Specialties and doctors listing
+6. **Doctor Details** - Comprehensive doctor information
+7. **Appointment Booking** - Multi-step booking flow
+8. **Appointment Success** - Booking confirmation
+9. **Main Navigation** - Bottom navigation wrapper
+10. **Profile** - User profile with settings and support
 
-4. **Run the app**
-```bash
-flutter run
-```
+### Recent Updates
+- ✅ Home screen API integration complete
+- ✅ Doctor caching system implemented
+- ✅ Details screen redesign finished
+- ✅ Shimmer loading for all screens
+- ✅ Auto-selection of first specialty
+- ✅ Complete profile image picker
+- ✅ Profile screen with API integration
+- ✅ **Appointment booking feature complete**
+- ✅ **4-step booking flow with professional UI**
+- ✅ **Date picker with month navigation**
+- ✅ **Time slots with Morning/Afternoon/Evening sections**
+- ✅ **Consultation reason selection step**
+- ✅ **Payment method selection**
+- ✅ **Booking summary and success screens**
 
-## 🔧 Development Commands
-
-### Code Generation
-```bash
-# Generate once
-flutter pub run build_runner build --delete-conflicting-outputs
-
-# Watch mode (auto-generate on file changes)
-flutter pub run build_runner watch --delete-conflicting-outputs
-```
-
-### Clean Build
-```bash
-flutter clean
-flutter pub get
-flutter pub run build_runner build --delete-conflicting-outputs
+### Next Steps
+1. API integration for appointment booking
+2. Edit profile functionality
+3. Real-time chat feature
+4. Payment gateway integration
+5. Push notifications
+6. Advanced search and filters
+7. Favorites management
+8. Appointment history and managementrunner build --delete-conflicting-outputs
 ```
 
 ## 📝 Coding Standards
@@ -367,38 +458,35 @@ flutter pub run build_runner build --delete-conflicting-outputs
 
 ### Colors
 - Primary: `ColorsManager.primaryColor`
-- Background: White, Light Gray shades
-- Text: Dark Green, Gray variations
-- Accent: Green, Blue, Purple
+## 🔄 Current Development Branch: `features/appointment-ui`
 
-### Typography
-- `TextStyles.font18DarkGreenBold`
-- `TextStyles.font16DarkGreenBold`
-5. **Home** - Specialties and doctors listing
-6. **Doctor Details** - Comprehensive doctor information
-7. **Main Navigation** - Bottom navigation wrapper
-8. **Profile** - User profile with settings and support
+### Recent Milestone: Appointment Booking Feature ✨
+Complete redesign and implementation of the appointment booking system with professional UI/UX:
 
-### Spacing
-- Consistent use of `verticalSpacing()` and `horizantialSpacing()`
-- Standard padding: 16.w, 20.w
-- Standard margins: 12.h, 16.h
+**Completed Components**:
+- ✅ 4-step booking wizard with progress indicator
+- ✅ Interactive calendar date picker with month navigation
+- ✅ Time slot selection with Morning/Afternoon/Evening sections
+- ✅ Appointment type selection (Video/Voice/In-Person)
+- ✅ Consultation reason step with 5 predefined options
+- ✅ Payment method selection (Cash/Card/Wallet)
+- ✅ Booking summary with all details
+- ✅ Success screen with animations
+- ✅ Navigation integration from Home and Details screens
 
-## 📱 Screens Overview
+**Technical Highlights**:
+- Responsive GridView with optimized childAspectRatio (2.2)
+- AnimatedContainer and AnimatedScale for smooth transitions
+- Professional card-based design throughout
+- Custom step indicator with gradient progress
+- Proper text overflow handling in time slots
 
-### Current Screens
-1. **Splash Screen** - App initialization
-2. **Onboarding** - First-time user experience
-3. **Login** - User authentication
-4. **Sign Up** - New user registration
-### Recent Updates
-- ✅ Home screen API integration complete
-- ✅ Doctor caching system implemented
-- ✅ Details screen redesign finished
-- ✅ Shimmer loading for all screens
-- ✅ Auto-selection of first specialty
-- ✅ Complete profile image picker
-- ✅ Profile screen with API integration
+### Next Priority
+1. **API Integration** for appointment booking (POST request)
+2. Edit profile functionality
+3. Real-time appointment tracking
+4. Payment gateway integration
+
 ### Next Steps
 1. Edit profile functionality
 2. Profile image upload from profile screen
@@ -410,7 +498,7 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - Search and filters
 - Favorites management
 
-## 🔄 Current Development Branch: `features/home-logic`
+## 🔄 Current Development Branch: `features/appointment-ui`
 
 ### Recent Updates
 - ✅ Home screen API integration complete
@@ -447,9 +535,4 @@ This project is proprietary software owned by DoctorMate Team.
 
 **Version**: 1.0.0+1  
 **Last Updated**: December 2, 2025  
-**Current Branch**: features/profile-screen
----
-
-**Version**: 1.0.0+1  
-**Last Updated**: November 20, 2025  
-**Current Branch**: features/home-logic
+**Current Branch**: features/appointment-ui
