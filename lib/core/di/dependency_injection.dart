@@ -10,6 +10,9 @@ import 'package:doctor_mate/features/home/data/apis/home_apis_services.dart';
 import 'package:doctor_mate/features/home/data/repos/home_repos.dart';
 import 'package:doctor_mate/features/home/logic/cubit/home_cubit.dart';
 import 'package:doctor_mate/features/main_navigation/logic/cubit/main_cubit.dart';
+import 'package:doctor_mate/features/profile/data/apis/profile_api_services.dart';
+import 'package:doctor_mate/features/profile/data/repos/profile_repos.dart';
+import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -37,4 +40,9 @@ void setupGetIt() {
   );
   getIt.registerLazySingleton<DetailsRepos>(() => DetailsRepos(getIt()));
   getIt.registerFactory<DetailsCubit>(() => DetailsCubit(getIt()));
+
+  // Profile
+  getIt.registerLazySingleton<ProfileApiServices>(() => ProfileApiServices(dio));
+  getIt.registerLazySingleton<ProfileRepos>(() => ProfileRepos(getIt()));
+  getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
 }

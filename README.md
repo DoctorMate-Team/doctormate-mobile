@@ -90,6 +90,29 @@ lib/
   - Custom shimmer loading matching screen layout
   - Smooth transitions between states
 
+### 👤 Profile Screen
+- **User Profile Display**:
+  - Real-time profile data from API
+  - Profile image with edit functionality
+  - User info (name, email, phone, role, address, blood type)
+  
+- **Account Settings**:
+  - Edit Profile option
+  - Security settings
+  - Payment methods management
+  - Notifications preferences
+  
+- **Help & Support**:
+  - Help Center
+  - Contact Us
+  - Terms & Conditions
+  - Privacy Policy
+  
+- **Professional Loading**:
+  - Custom shimmer loading matching screen layout
+  - Smooth transitions between states
+  - Error handling with retry functionality
+
 ### 🎨 UI/UX Features
 - **Responsive Design**: Using flutter_screenutil for all dimensions
 - **Modern Animations**: Fade, slide, and scale transitions
@@ -105,15 +128,17 @@ lib/
   - `HomeCubit`: Specialties, doctors with caching
   - `DetailsCubit`: Doctor details fetching
   - `MainCubit`: Bottom navigation management
+  - `ProfileCubit`: User profile data and updates
 
 ### 🌐 API Integration
 - **Retrofit** with Dio for network calls
 - **Generic Response Handler**: Unified API response handling
-- **Error Models**: Structured error handling
 - **Endpoints**:
   - Authentication (login, signup, complete profile)
   - Specialties listing
   - Doctors by specialty
+  - Doctor details
+  - Profile management (get profile, upload image, update details)cialty
   - Doctor details
 
 ### 🧭 Navigation
@@ -212,7 +237,23 @@ details/
             ├── reviews_tab_bar_view_body.dart
             └── tab_bar_details_screen.dart
 ```
+#### Profile Feature
+```
+profile/
+├── data/
+│   ├── apis/             # ProfileApiServices with Retrofit
+│   ├── models/           # ProfileResponseModel
+│   └── repos/            # ProfileRepos
+├── logic/
+│   └── cubit/            # ProfileCubit & states
+└── ui/
+    ├── screens/          # ProfileScreen
+    └── widgets/
+        ├── custom_action_profile_button.dart
+        └── profile_shimmer_loading.dart
+```
 
+## 🎯 Key Implementation Details
 ## 🎯 Key Implementation Details
 
 ### Caching Strategy
@@ -333,9 +374,10 @@ flutter pub run build_runner build --delete-conflicting-outputs
 ### Typography
 - `TextStyles.font18DarkGreenBold`
 - `TextStyles.font16DarkGreenBold`
-- `TextStyles.font14GrayRegular`
-- `TextStyles.font12DarkGreenSemiBold`
-- Custom font weights via `FontWeightHelper`
+5. **Home** - Specialties and doctors listing
+6. **Doctor Details** - Comprehensive doctor information
+7. **Main Navigation** - Bottom navigation wrapper
+8. **Profile** - User profile with settings and support
 
 ### Spacing
 - Consistent use of `verticalSpacing()` and `horizantialSpacing()`
@@ -349,18 +391,22 @@ flutter pub run build_runner build --delete-conflicting-outputs
 2. **Onboarding** - First-time user experience
 3. **Login** - User authentication
 4. **Sign Up** - New user registration
-5. **Complete Profile** - Profile setup with image
-6. **Home** - Specialties and doctors listing
-7. **Doctor Details** - Comprehensive doctor information
-8. **Main Navigation** - Bottom navigation wrapper
-
-### Upcoming Features
-- Appointment booking flow
-- Payment integration
-- Chat with doctors
-- Medical records
-- Notifications
-- User profile management
+### Recent Updates
+- ✅ Home screen API integration complete
+- ✅ Doctor caching system implemented
+- ✅ Details screen redesign finished
+- ✅ Shimmer loading for all screens
+- ✅ Auto-selection of first specialty
+- ✅ Complete profile image picker
+- ✅ Profile screen with API integration
+### Next Steps
+1. Edit profile functionality
+2. Profile image upload from profile screen
+3. Appointment booking functionality
+4. Real-time chat feature
+5. Payment gateway integration
+6. Push notifications
+7. Advanced search and filters
 - Search and filters
 - Favorites management
 
@@ -397,11 +443,11 @@ This project is proprietary software owned by DoctorMate Team.
 
 - **Development Team**: DoctorMate-Team
 - **Repository**: [doctormate-mobile](https://github.com/DoctorMate-Team/doctormate-mobile)
+---
 
-## 📞 Support
-
-For any questions or issues, please contact the development team.
-
+**Version**: 1.0.0+1  
+**Last Updated**: December 2, 2025  
+**Current Branch**: features/home-logic
 ---
 
 **Version**: 1.0.0+1  
