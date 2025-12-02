@@ -1,4 +1,5 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
+import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/widgets/custom_material_button.dart';
@@ -14,6 +15,7 @@ import 'package:doctor_mate/features/details/ui/widgets/tab_bar_widgets/reviews_
 import 'package:doctor_mate/features/details/ui/widgets/tab_bar_widgets/tab_bar_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -265,7 +267,9 @@ class _DetailsScreenState extends State<DetailsScreen>
               Expanded(
                 child: CustomMaterialButton(
                   textButton: 'Book Appointment',
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pushNamed(Routes.appointmentScreen);
+                  },
                 ),
               ),
             ],
