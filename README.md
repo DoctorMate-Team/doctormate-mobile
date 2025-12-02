@@ -447,7 +447,7 @@ This project is proprietary software owned by DoctorMate Team.
 
 **Version**: 1.0.0+1  
 **Last Updated**: December 2, 2025  
-**Current Branch**: features/home-logic
+**Current Branch**: features/profile-screen
 ---
 
 **Version**: 1.0.0+1  
