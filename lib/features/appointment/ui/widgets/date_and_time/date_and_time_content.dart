@@ -5,7 +5,26 @@ import 'package:doctor_mate/features/appointment/ui/widgets/date_and_time/time_p
 import 'package:flutter/material.dart';
 
 class DateAndTimeContent extends StatelessWidget {
-  const DateAndTimeContent({super.key});
+  final Function(String)? onDateSelected;
+  final Function(String)? onTimeSelected;
+  final Function(int)? onTypeSelected;
+  final List<String> workingDays;
+  final List<DateTime> availableSlots;
+  final String? initialDate;
+  final String? initialTime;
+  final int? initialType;
+
+  const DateAndTimeContent({
+    super.key,
+    this.onDateSelected,
+    this.onTimeSelected,
+    this.onTypeSelected,
+    this.workingDays = const [],
+    this.availableSlots = const [],
+    this.initialDate,
+    this.initialTime,
+    this.initialType,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +32,22 @@ class DateAndTimeContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const DatePickerListView(),
+          DatePickerListView(
+            onDateSelected: onDateSelected,
+            workingDays: workingDays,
+            initialDate: initialDate,
+          ),
           verticalSpacing(32),
-          const TimePickerGridView(),
+          TimePickerGridView(
+            onTimeSelected: onTimeSelected,
+            availableSlots: availableSlots,
+            initialTime: initialTime,
+          ),
           verticalSpacing(32),
-          const AppointmentTypeList(),
+          AppointmentTypeList(
+            onTypeSelected: onTypeSelected,
+            initialType: initialType,
+          ),
         ],
       ),
     );

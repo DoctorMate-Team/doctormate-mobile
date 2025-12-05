@@ -7,14 +7,42 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class AppointmentTypeList extends StatefulWidget {
-  const AppointmentTypeList({super.key});
+  final Function(int)? onTypeSelected;
+  final int? initialType;
+
+  const AppointmentTypeList({super.key, this.onTypeSelected, this.initialType});
 
   @override
   State<AppointmentTypeList> createState() => _AppointmentTypeListState();
 }
 
 class _AppointmentTypeListState extends State<AppointmentTypeList> {
-  int selectedType = 0;
+  late int selectedType;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedType = widget.initialType ?? 0;
+    // Notify parent of initial/default selection
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onTypeSelected?.call(selectedType);
+    });
+  }
+
+  @override
+  void didUpdateWidget(AppointmentTypeList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialType != widget.initialType &&
+        widget.initialType != null) {
+      // Schedule update after current build completes
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          selectedType = widget.initialType!;
+        });
+        widget.onTypeSelected?.call(selectedType);
+      });
+    }
+  }
 
   final List<Map<String, dynamic>> appointmentTypes = [
     {
@@ -66,6 +94,7 @@ class _AppointmentTypeListState extends State<AppointmentTypeList> {
                 setState(() {
                   selectedType = index;
                 });
+                widget.onTypeSelected?.call(index);
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),

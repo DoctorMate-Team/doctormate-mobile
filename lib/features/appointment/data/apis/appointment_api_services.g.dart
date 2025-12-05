@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_apis_services.dart';
+part of 'appointment_api_services.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'home_apis_services.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
-class _HomeApisServices implements HomeApisServices {
-  _HomeApisServices(this._dio, {this.baseUrl, this.errorLogger}) {
+class _AppointmentApiServices implements AppointmentApiServices {
+  _AppointmentApiServices(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://doctormate.runasp.net/api/';
   }
 
@@ -20,34 +20,30 @@ class _HomeApisServices implements HomeApisServices {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<DoctorMateResponse<List<SpecialtyModel>>> getSpecialties() async {
+  Future<DoctorMateResponse<AvailableSlotsResponse>> getAvailableSlots(
+    String doctorId,
+    String date,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'date': date};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<DoctorMateResponse<List<SpecialtyModel>>>(
+    final _options = _setStreamType<DoctorMateResponse<AvailableSlotsResponse>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'Specialties',
+            'doctors/${doctorId}/available-slots',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late DoctorMateResponse<List<SpecialtyModel>> _value;
+    late DoctorMateResponse<AvailableSlotsResponse> _value;
     try {
-      _value = DoctorMateResponse<List<SpecialtyModel>>.fromJson(
+      _value = DoctorMateResponse<AvailableSlotsResponse>.fromJson(
         _result.data!,
-        (json) =>
-            json is List<dynamic>
-                ? json
-                    .map<SpecialtyModel>(
-                      (i) => SpecialtyModel.fromJson(i as Map<String, dynamic>),
-                    )
-                    .toList()
-                : List.empty(),
+        (json) => AvailableSlotsResponse.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -57,21 +53,20 @@ class _HomeApisServices implements HomeApisServices {
   }
 
   @override
-  Future<DoctorMateResponse<DoctorSpecialtyResponse>> getDoctorsBySpecialty(
-    String specialtyId,
-    int page,
-    int limit,
+  Future<DoctorMateResponse<AppointmentResponseBody>> bookAppointment(
+    AppointmentRequestBody appointmentData,
   ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'page': page, r'limit': limit};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(appointmentData.toJson());
     final _options =
-        _setStreamType<DoctorMateResponse<DoctorSpecialtyResponse>>(
-          Options(method: 'GET', headers: _headers, extra: _extra)
+        _setStreamType<DoctorMateResponse<AppointmentResponseBody>>(
+          Options(method: 'POST', headers: _headers, extra: _extra)
               .compose(
                 _dio.options,
-                'Specialties/${specialtyId}/doctors',
+                'appointments',
                 queryParameters: queryParameters,
                 data: _data,
               )
@@ -80,12 +75,12 @@ class _HomeApisServices implements HomeApisServices {
               ),
         );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late DoctorMateResponse<DoctorSpecialtyResponse> _value;
+    late DoctorMateResponse<AppointmentResponseBody> _value;
     try {
-      _value = DoctorMateResponse<DoctorSpecialtyResponse>.fromJson(
+      _value = DoctorMateResponse<AppointmentResponseBody>.fromJson(
         _result.data!,
         (json) =>
-            DoctorSpecialtyResponse.fromJson(json as Map<String, dynamic>),
+            AppointmentResponseBody.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

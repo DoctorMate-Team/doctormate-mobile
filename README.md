@@ -92,6 +92,114 @@ lib/
   - Custom shimmer loading matching screen layout
   - Smooth transitions between states
 
+### 📅 Appointment Booking System
+- **Complete Booking Flow**:
+  - 4-step wizard: Date/Time → Reason → Payment → Summary
+  - Step validation preventing incomplete submissions
+  - State persistence when navigating between steps
+  - GoRouter integration with doctor details passed via extra parameter
+  
+- **Smart Date & Time Selection**:
+  - **Intelligent Date Picker**: 
+    - Automatically filtered by doctor's working days (Monday-Sunday)
+    - Auto-selection of first available working day on screen load
+    - Calendar-style display with 30-day range
+    - Month navigation (previous/next)
+  - **API-Driven Time Slots**:
+    - Real-time availability fetched from server
+    - Slots categorized by Morning (6am-12pm), Afternoon (12pm-5pm), Evening (5pm-10pm)
+    - Automatic slot fetching on date change
+    - Empty state when no slots available
+    - Time format HH:mm with proper display
+  
+- **Appointment Type**:
+  - Video Call, Voice Call, In-Person options
+  - Visual selection with icons and descriptions
+  - Default selection (Video Call) with automatic parent notification
+  - Gradient backgrounds for selected state
+  
+- **Consultation Reason**:
+  - 5 predefined reasons: Regular Checkup, Follow-up Visit, New Symptoms, Medical Reports, Prescription Refill
+  - "Other" option with multi-line custom text input
+  - State restoration on navigation (both predefined and custom)
+  - Color-coded icons for each category
+  
+- **Payment Method**:
+  - 3 options: Cash Payment, Credit Card, Digital Wallet
+  - Visual selection with gradient highlights
+  - Default selection (Cash Payment) with automatic notification
+  - Consultation fee display from doctor details
+  - Animated selection indicators
+  
+- **Summary & Confirmation**:
+  - Complete booking overview with all selections
+  - Doctor information card:
+    - Profile image with NetworkImage support
+    - Doctor name and specialty from passed data
+    - Fallback placeholders for null values
+  - Booking details card:
+    - Selected date (YYYY-MM-DD format)
+    - Selected time (HH:mm format)
+    - Appointment type (Video/Voice/In-Person)
+    - Consultation reason (full text)
+  - Payment information card:
+    - Selected payment method
+    - Consultation fee in EGP
+    - Professional gradient container design
+  
+- **Success Screen**:
+  - Animated success icon with elastic bounce
+  - Booking reference number (first 8 chars of appointment ID, uppercase)
+  - Real appointment data from API response:
+    - Actual appointment date formatted from DateTime
+    - Appointment time from response
+    - Appointment type with proper mapping
+    - Doctor information (name, specialty, image from booking response)
+  - Quick actions: Back to Home, View Appointment
+  - Professional fade and scale animations
+
+- **API Integration**:
+  - **GET** `/doctors/{doctorId}/available-slots?date={date}`:
+    - Fetch available time slots for specific date
+    - Response: AvailableSlotsResponse with slots[], isWorkingDay, slotDuration
+  - **POST** `/appointments`:
+    - Request: AppointmentRequestBody (doctorId, appointmentDate, appointmentTime, reason, appointmentType)
+    - Response: AppointmentResponseBody with complete appointment details
+    - Includes patient and doctor full information
+  - **State Management**:
+    - AppointmentCubit with availableSlots and bookAppointment methods
+    - BlocListener for loading/success/error states
+    - Loading dialog during API calls
+    - Error snackbar with user-friendly messages
+
+- **Data Flow & State Management**:
+  - Doctor details (DoctorDetailsModel) passed from Details screen via GoRouter extra
+  - Working days used to filter date picker
+  - Consultation fee passed to summary and payment display
+  - All step selections maintained with initial value parameters:
+    - `initialDate`, `initialTime`, `initialType`
+    - `initialReason`, `initialPayment`
+  - State restoration when navigating back between steps
+  - WidgetsBinding.addPostFrameCallback for safe default notifications
+  - Step validation preventing progression with incomplete data
+
+- **Technical Implementation**:
+  - **Models**:
+    - AppointmentRequestBody: Full booking request structure
+    - AppointmentResponseBody: Complete response with nested models
+    - AvailableSlotsResponse: Slots with metadata
+    - DoctorDetailsModel: Enhanced with workingDays, qualifications, phoneNumber
+  - **Bug Fixes**:
+    - setState during build error resolved with addPostFrameCallback
+    - Default selection notification to parent components
+    - Working days parsing and date filtering
+    - Time slot categorization and display
+  - **Improvements**:
+    - Pagination support for doctors list (page, limit parameters)
+    - DoctorSpecialtyResponse wrapper with pagination metadata
+    - Enhanced About tab with working days as chips
+    - Gradient working time card with availability badge
+
 ### 👤 Profile Screen
 - **User Profile Display**:
   - Real-time profile data from API
@@ -173,21 +281,38 @@ lib/
 - **BLoC Pattern** with Freezed for immutable states
 - **Cubits**:
   - `AuthCubit`: Login, signup, profile completion
-  - `HomeCubit`: Specialties, doctors with caching
+  - `HomeCubit`: Specialties, doctors with caching system
   - `DetailsCubit`: Doctor details fetching
+  - `AppointmentCubit`: Available slots fetching, appointment booking
   - `MainCubit`: Bottom navigation management
   - `ProfileCubit`: User profile data and updates
+
+- **State Management Patterns**:
+  - BlocListener for side effects (navigation, dialogs, snackbars)
+  - BlocBuilder for UI updates
+  - buildWhen optimization for performance
+  - Proper loading, success, error state handling
 
 ### 🌐 API Integration
 - **Retrofit** with Dio for network calls
 - **Generic Response Handler**: Unified API response handling
 - **Endpoints**:
-  - Authentication (login, signup, complete profile)
-  - Specialties listing
-  - Doctors by specialty
-  - Doctor details
-  - Profile management (get profile, upload image, update details)cialty
-  - Doctor details
+  - **Authentication**: 
+    - POST `/auth/login` - User login
+    - POST `/auth/register` - User registration
+    - POST `/auth/complete-profile` - Profile completion with image upload
+  - **Specialties**: 
+    - GET `/specialties` - List all medical specialties
+  - **Doctors**: 
+    - GET `/specialties/{specialtyId}/doctors?page={page}&limit={limit}` - Doctors by specialty with pagination
+    - GET `/doctors/{doctorId}` - Detailed doctor information
+  - **Appointments**:
+    - GET `/doctors/{doctorId}/available-slots?date={date}` - Available time slots
+    - POST `/appointments` - Book appointment
+  - **Profile**: 
+    - GET `/profile` - Get user profile
+    - POST `/profile/upload-image` - Upload profile image
+    - PUT `/profile` - Update profile details
 
 ### 🧭 Navigation
 - **GoRouter** for declarative routing
@@ -258,40 +383,38 @@ profile/
 #### Appointment Feature
 ```
 appointment/
-├── ui/
-│   ├── appointment_screen.dart              # Main booking flow screen
-│   └── widgets/
-│       ├── app_bar_appointment_screen.dart  # Professional app bar
-│       ├── custom_step_indicator.dart       # Progress stepper
-│       ├── appointment_success_screen.dart  # Success confirmation
-│       ├── date_and_time/                   # Step 1 widgets
-│       │   ├── date_and_time_content.dart
-│       │   ├── date_picker_list_view.dart
-│       │   ├── date_picker_appointment_screen.dart
-│       │   ├── time_picker_grid_view.dart
-│       │   ├── time_appointment_screen.dart
-│       │   └── appointment_type_list.dart
-│       ├── reason/                          # Step 2 widgets
-│       │   └── reason_consultation_content.dart
-│       ├── payment/                         # Step 3 widgets
-│       │   └── payment_appointment_content.dart
-│       └── summary_booking/                 # Step 4 widgets
-│           ├── summary_appointment_content.dart
-│           ├── booking_information_appointment_summary.dart
-│           ├── date_and_time_summary.dart
-│           ├── appointment_type_summary.dart
-│           ├── payment_information_summary.dart
-│           └── payment_type_summary.dart
-``` ui/
-    ├── screens/         # HomeScreen
+├── data/
+│   ├── apis/                                # AppointmentApiServices
+│   ├── models/                              # Request/Response models
+│   │   ├── appointment_request_body.dart    # Booking request
+│   │   ├── appointment_response_body.dart   # Booking response
+│   │   └── available_slots_response.dart    # Time slots response
+│   └── repos/                               # AppointmentRepos
+├── logic/
+│   └── cubit/                               # AppointmentCubit & states
+└── ui/
+    ├── appointment_screen.dart              # Main booking flow screen
     └── widgets/
-        ├── modern_specialists_list.dart
-        ├── doctors_list_for_specialist.dart
-        ├── specialists_bloc_builder.dart
-        ├── doctors_bloc_builder.dart
-        ├── specialists_shimmer_loading.dart
-        ├── doctors_shimmer_loading.dart
-        └── section_header.dart
+        ├── app_bar_appointment_screen.dart  # Professional app bar
+        ├── custom_step_indicator.dart       # Progress stepper
+        ├── appointment_success_screen.dart  # Success confirmation
+        ├── date_and_time/                   # Step 1 widgets
+        │   ├── date_and_time_content.dart
+        │   ├── date_picker_list_view.dart   # Working days filtered
+        │   ├── date_picker_appointment_screen.dart
+        │   ├── time_picker_grid_view.dart   # API-driven slots
+        │   ├── time_appointment_screen.dart
+        │   └── appointment_type_list.dart   # Video/Voice/In-Person
+        ├── reason/                          # Step 2 widgets
+        │   └── reason_consultation_content.dart
+        ├── payment/                         # Step 3 widgets
+        │   └── payment_appointment_content.dart
+        └── summary_booking/                 # Step 4 widgets
+            ├── summary_appointment_content.dart
+            ├── date_and_time_summary.dart
+            ├── appointment_type_summary.dart
+            ├── payment_information_summary.dart
+            └── payment_type_summary.dart
 ```
 
 #### Details Feature
@@ -401,31 +524,33 @@ flutter pub run build_runner build --delete-conflicting-outputs
 10. **Profile** - User profile with settings and support
 
 ### Recent Updates
-- ✅ Home screen API integration complete
+- ✅ Home screen API integration complete with pagination
 - ✅ Doctor caching system implemented
 - ✅ Details screen redesign finished
 - ✅ Shimmer loading for all screens
 - ✅ Auto-selection of first specialty
 - ✅ Complete profile image picker
 - ✅ Profile screen with API integration
-- ✅ **Appointment booking feature complete**
+- ✅ **Appointment booking feature COMPLETE with full API integration**
 - ✅ **4-step booking flow with professional UI**
-- ✅ **Date picker with month navigation**
-- ✅ **Time slots with Morning/Afternoon/Evening sections**
-- ✅ **Consultation reason selection step**
-- ✅ **Payment method selection**
-- ✅ **Booking summary and success screens**
+- ✅ **Smart date picker filtered by doctor's working days**
+- ✅ **API-driven time slots with real-time availability**
+- ✅ **State persistence across navigation**
+- ✅ **Consultation reason with predefined + custom options**
+- ✅ **Payment method selection with auto-notification**
+- ✅ **Complete booking summary with doctor details**
+- ✅ **Success screen with actual API response data**
+- ✅ **Booking reference number generation and display**
 
 ### Next Steps
-1. API integration for appointment booking
+1. ~~API integration for appointment booking~~ ✅ DONE
 2. Edit profile functionality
-3. Real-time chat feature
-4. Payment gateway integration
-5. Push notifications
-6. Advanced search and filters
-7. Favorites management
-8. Appointment history and managementrunner build --delete-conflicting-outputs
-```
+3. Appointment history and management
+4. Real-time chat feature
+5. Payment gateway integration
+6. Push notifications
+7. Advanced search and filters
+8. Favorites management
 
 ## 📝 Coding Standards
 
@@ -458,62 +583,50 @@ flutter pub run build_runner build --delete-conflicting-outputs
 
 ### Colors
 - Primary: `ColorsManager.primaryColor`
-## 🔄 Current Development Branch: `features/appointment-ui`
+## 🔄 Current Development Branch: `features/appointment-logic`
 
-### Recent Milestone: Appointment Booking Feature ✨
-Complete redesign and implementation of the appointment booking system with professional UI/UX:
+### Latest Milestone: Complete Appointment Booking System with API Integration ✨
 
-**Completed Components**:
-- ✅ 4-step booking wizard with progress indicator
-- ✅ Interactive calendar date picker with month navigation
-- ✅ Time slot selection with Morning/Afternoon/Evening sections
-- ✅ Appointment type selection (Video/Voice/In-Person)
-- ✅ Consultation reason step with 5 predefined options
-- ✅ Payment method selection (Cash/Card/Wallet)
-- ✅ Booking summary with all details
-- ✅ Success screen with animations
-- ✅ Navigation integration from Home and Details screens
+**Full Implementation Completed**:
+- ✅ **4-step booking wizard** with gradient progress indicator
+- ✅ **Smart date picker** filtered by doctor's working days from API
+- ✅ **Real-time time slots** fetched from server based on selected date
+- ✅ **Appointment type selection** (Video/Voice/In-Person) with auto-notification
+- ✅ **Consultation reason** with 5 predefined + custom text option
+- ✅ **Payment method selection** with 3 options and auto-notification
+- ✅ **Complete booking summary** displaying all selections + doctor details
+- ✅ **API booking integration** with POST /appointments endpoint
+- ✅ **Success screen** with actual booking response data
+- ✅ **Booking reference number** displayed (8-char uppercase ID)
+- ✅ **State persistence** when navigating back between steps
+- ✅ **Step validation** preventing incomplete submissions
+- ✅ **Error handling** with user-friendly messages
+- ✅ **Loading states** with dialogs during API calls
 
-**Technical Highlights**:
-- Responsive GridView with optimized childAspectRatio (2.2)
-- AnimatedContainer and AnimatedScale for smooth transitions
-- Professional card-based design throughout
-- Custom step indicator with gradient progress
-- Proper text overflow handling in time slots
+**API Endpoints Integrated**:
+- GET `/doctors/{doctorId}/available-slots?date={date}` - Fetch time slots
+- POST `/appointments` - Book appointment with full details
+
+**Data Models**:
+- AppointmentRequestBody (doctorId, date, time, reason, type)
+- AppointmentResponseBody (complete appointment with patient/doctor data)
+- AvailableSlotsResponse (slots[], isWorkingDay, metadata)
+- Enhanced DoctorDetailsModel (workingDays, qualifications, phoneNumber)
+
+**Technical Achievements**:
+- Proper state management with AppointmentCubit
+- BlocListener for API response handling
+- Widget state persistence using initial value parameters
+- WidgetsBinding.addPostFrameCallback for safe notifications
+- GoRouter extra parameters for data passing
+- Date/time formatting with intl package
+- Network image loading with fallbacks
 
 ### Next Priority
-1. **API Integration** for appointment booking (POST request)
-2. Edit profile functionality
-3. Real-time appointment tracking
-4. Payment gateway integration
-
-### Next Steps
-1. Edit profile functionality
-2. Profile image upload from profile screen
-3. Appointment booking functionality
-4. Real-time chat feature
-5. Payment gateway integration
-6. Push notifications
-7. Advanced search and filters
-- Search and filters
-- Favorites management
-
-## 🔄 Current Development Branch: `features/appointment-ui`
-
-### Recent Updates
-- ✅ Home screen API integration complete
-- ✅ Doctor caching system implemented
-- ✅ Details screen redesign finished
-- ✅ Shimmer loading for all screens
-- ✅ Auto-selection of first specialty
-- ✅ Complete profile image picker
-
-### Next Steps
-1. Appointment booking functionality
-2. Real-time chat feature
-3. Payment gateway integration
-4. Push notifications
-5. Advanced search and filters
+1. Edit profile functionality with image update
+2. Appointment history and management screen
+3. Real-time appointment status tracking
+4. Payment gateway integration for online payments
 
 ## 🤝 Contributing
 
@@ -534,5 +647,6 @@ This project is proprietary software owned by DoctorMate Team.
 ---
 
 **Version**: 1.0.0+1  
-**Last Updated**: December 2, 2025  
-**Current Branch**: features/appointment-ui
+**Last Updated**: December 5, 2025  
+**Current Branch**: features/appointment-logic  
+**Major Feature**: Complete Appointment Booking System with API Integration ✨

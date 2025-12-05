@@ -8,21 +8,27 @@ class PaymentInformationSummary extends StatelessWidget {
   const PaymentInformationSummary({
     super.key,
     required this.appointmentPrice,
+    this.paymentMethod = 'Not selected',
   });
   final String appointmentPrice;
+  final String paymentMethod;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Payment Information',
-            style: TextStyles.font15DarkGreenMedium
-                .copyWith(fontWeight: FontWeightHelper.semiBold)),
+        Text(
+          'Payment Information',
+          style: TextStyles.font15DarkGreenMedium.copyWith(
+            fontWeight: FontWeightHelper.semiBold,
+          ),
+        ),
         verticalSpacing(24),
-       PaymentTypeSummary(
-                paymentType: 0,
-                appointmentPrice: appointmentPrice,
-              ),
+        PaymentTypeSummary(
+          paymentType: 0,
+          appointmentPrice: appointmentPrice,
+          paymentMethod: paymentMethod,
+        ),
       ],
     );
   }

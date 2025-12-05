@@ -7,47 +7,133 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TimePickerGridView extends StatefulWidget {
-  const TimePickerGridView({super.key});
+  final Function(String)? onTimeSelected;
+  final List<DateTime> availableSlots;
+  final String? initialTime;
+
+  const TimePickerGridView({
+    super.key,
+    this.onTimeSelected,
+    this.availableSlots = const [],
+    this.initialTime,
+  });
+
   @override
   State<TimePickerGridView> createState() => _TimePickerGridViewState();
 }
 
 class _TimePickerGridViewState extends State<TimePickerGridView> {
   int? selectedTimeIndex;
-  late List<TimeOfDay> morningTimes;
-  late List<TimeOfDay> afternoonTimes;
-  late List<TimeOfDay> eveningTimes;
+  late List<DateTime> morningSlots;
+  late List<DateTime> afternoonSlots;
+  late List<DateTime> eveningSlots;
 
   @override
   void initState() {
     super.initState();
-    _generateTimeSlots();
+    _categorizeSlots();
+    _initializeSelection();
   }
 
-  void _generateTimeSlots() {
-    morningTimes = _generateTimeRange(8, 12); // 8 AM - 11:30 AM
-    afternoonTimes = _generateTimeRange(12, 17); // 12 PM - 4:30 PM
-    eveningTimes = _generateTimeRange(17, 21); // 5 PM - 8:30 PM
-  }
+  void _initializeSelection() {
+    if (widget.initialTime != null && widget.availableSlots.isNotEmpty) {
+      // Parse initial time (HH:mm:ss format)
+      try {
+        final parts = widget.initialTime!.split(':');
+        if (parts.length >= 2) {
+          final hour = int.parse(parts[0]);
+          final minute = int.parse(parts[1]);
 
-  List<TimeOfDay> _generateTimeRange(int startHour, int endHour) {
-    List<TimeOfDay> times = [];
-    for (int hour = startHour; hour < endHour; hour++) {
-      times.add(TimeOfDay(hour: hour, minute: 0));
-      times.add(TimeOfDay(hour: hour, minute: 30));
+          // Find matching slot and set index
+          for (int i = 0; i < widget.availableSlots.length; i++) {
+            final slot = widget.availableSlots[i];
+            if (slot.hour == hour && slot.minute == minute) {
+              setState(() {
+                selectedTimeIndex = i;
+              });
+              break;
+            }
+          }
+        }
+      } catch (e) {
+        // Invalid time format, ignore
+      }
     }
-    return times;
   }
 
-  bool _isPastTime(TimeOfDay time) {
-    final now = TimeOfDay.now();
-    final timeInMinutes = time.hour * 60 + time.minute;
-    final nowInMinutes = now.hour * 60 + now.minute;
-    return timeInMinutes < nowInMinutes;
+  @override
+  void didUpdateWidget(TimePickerGridView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.availableSlots != widget.availableSlots) {
+      _categorizeSlots();
+      // Don't reset selection, try to restore it
+      _initializeSelection();
+    }
+    // Update selection if initial time changed
+    if (oldWidget.initialTime != widget.initialTime &&
+        widget.initialTime != null) {
+      _initializeSelection();
+    }
+  }
+
+  void _categorizeSlots() {
+    morningSlots = [];
+    afternoonSlots = [];
+    eveningSlots = [];
+
+    for (final slot in widget.availableSlots) {
+      final hour = slot.hour;
+
+      if (hour >= 6 && hour < 12) {
+        morningSlots.add(slot);
+      } else if (hour >= 12 && hour < 17) {
+        afternoonSlots.add(slot);
+      } else if (hour >= 17 && hour < 22) {
+        eveningSlots.add(slot);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Show message if no slots available
+    if (widget.availableSlots.isEmpty) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Available Time',
+            style: TextStyles.font15DarkGreenMedium.copyWith(
+              fontWeight: FontWeightHelper.semiBold,
+            ),
+          ),
+          verticalSpacing(16),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 32.h),
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.schedule_outlined,
+                    size: 48.sp,
+                    color: Colors.grey,
+                  ),
+                  verticalSpacing(12),
+                  Text(
+                    'Please select a date to see available time slots',
+                    style: TextStyles.font14GreenSemiBold.copyWith(
+                      color: Colors.grey,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -58,20 +144,42 @@ class _TimePickerGridViewState extends State<TimePickerGridView> {
           ),
         ),
         verticalSpacing(16),
-        _buildTimeSection('Morning', morningTimes, Icons.wb_sunny_outlined),
-        verticalSpacing(20),
-        _buildTimeSection(
-          'Afternoon',
-          afternoonTimes,
-          Icons.wb_twilight_outlined,
-        ),
-        verticalSpacing(20),
-        _buildTimeSection('Evening', eveningTimes, Icons.nightlight_outlined),
+        if (morningSlots.isNotEmpty) ...[
+          _buildTimeSection(
+            'Morning',
+            morningSlots,
+            Icons.wb_sunny_outlined,
+            0,
+          ),
+          verticalSpacing(20),
+        ],
+        if (afternoonSlots.isNotEmpty) ...[
+          _buildTimeSection(
+            'Afternoon',
+            afternoonSlots,
+            Icons.wb_twilight_outlined,
+            morningSlots.length,
+          ),
+          verticalSpacing(20),
+        ],
+        if (eveningSlots.isNotEmpty) ...[
+          _buildTimeSection(
+            'Evening',
+            eveningSlots,
+            Icons.nightlight_outlined,
+            morningSlots.length + afternoonSlots.length,
+          ),
+        ],
       ],
     );
   }
 
-  Widget _buildTimeSection(String title, List<TimeOfDay> times, IconData icon) {
+  Widget _buildTimeSection(
+    String title,
+    List<DateTime> slots,
+    IconData icon,
+    int baseIndex,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -97,28 +205,25 @@ class _TimePickerGridViewState extends State<TimePickerGridView> {
             mainAxisSpacing: 12.h,
             childAspectRatio: 2.2,
           ),
-          itemCount: times.length,
+          itemCount: slots.length,
           itemBuilder: (context, index) {
-            final globalIndex =
-                morningTimes.length *
-                    (title == 'Morning'
-                        ? 0
-                        : title == 'Afternoon'
-                        ? 1
-                        : 2) +
-                index;
-            final time = times[index];
-            final timeString = time.format(context);
-            final isPast = _isPastTime(time);
+            final globalIndex = baseIndex + index;
+            final slot = slots[index];
+            final timeString =
+                '${slot.hour.toString().padLeft(2, '0')}:${slot.minute.toString().padLeft(2, '0')}';
 
             return TimeAppointmentScreen(
               time: timeString,
               isSelected: selectedTimeIndex == globalIndex,
-              isPastTime: isPast,
+              isPastTime: false, // All API slots are valid
               onTap: () {
                 setState(() {
                   selectedTimeIndex = globalIndex;
                 });
+                // Send formatted time (HH:mm:ss)
+                widget.onTimeSelected?.call(
+                  '${slot.hour.toString().padLeft(2, '0')}:${slot.minute.toString().padLeft(2, '0')}:00',
+                );
               },
             );
           },

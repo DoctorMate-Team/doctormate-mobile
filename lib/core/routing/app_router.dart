@@ -1,8 +1,11 @@
 import 'package:doctor_mate/core/di/dependency_injection.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
+import 'package:doctor_mate/features/appointment/data/models/appointment_response_body.dart';
+import 'package:doctor_mate/features/appointment/logic/cubit/appointment_cubit.dart';
 import 'package:doctor_mate/features/appointment/ui/appointment_screen.dart';
 import 'package:doctor_mate/features/appointment/ui/widgets/appointment_success_screen.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
+import 'package:doctor_mate/features/details/data/models/doctor_details_model.dart';
 import 'package:doctor_mate/features/details/logic/cubit/details_cubit.dart';
 import 'package:doctor_mate/features/auth/ui/screens/auth_screen.dart';
 import 'package:doctor_mate/features/auth/ui/screens/complete_profile_screen.dart';
@@ -125,12 +128,21 @@ class AppRouter {
         GoRoute(
           path: Routes.appointmentScreen,
           name: Routes.appointmentScreen,
-          builder: (context, state) => const AppointmentScreen(),
+          builder: (context, state) {
+            final doctorDetails = state.extra as DoctorDetailsModel?;
+            return BlocProvider(
+              create: (context) => getIt<AppointmentCubit>(),
+              child: AppointmentScreen(doctorDetails: doctorDetails),
+            );
+          },
         ),
         GoRoute(
           path: Routes.bookingConfirmation,
           name: Routes.bookingConfirmation,
-          builder: (context, state) => const AppointmentSuccessScreen(),
+          builder: (context, state) {
+            final appointmentData = state.extra as AppointmentModel?;
+            return AppointmentSuccessScreen(appointmentData: appointmentData);
+          },
         ),
       ],
       errorBuilder:

@@ -10,7 +10,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SummaryAppointmentContent extends StatelessWidget {
-  const SummaryAppointmentContent({super.key});
+  final String? selectedDate;
+  final String? selectedTime;
+  final String? selectedReason;
+  final int? appointmentType;
+  final String? selectedPaymentMethod;
+  final String? doctorName;
+  final String? doctorSpecialty;
+  final String? doctorImage;
+  final double? consultationFee;
+
+  const SummaryAppointmentContent({
+    super.key,
+    this.selectedDate,
+    this.selectedTime,
+    this.selectedReason,
+    this.appointmentType,
+    this.selectedPaymentMethod,
+    this.doctorName,
+    this.doctorSpecialty,
+    this.doctorImage,
+    this.consultationFee,
+  });
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -62,11 +83,56 @@ class SummaryAppointmentContent extends StatelessWidget {
                   ],
                 ),
                 verticalSpacing(20),
-                const DateAndTimeSummary(),
+                DateAndTimeSummary(
+                  selectedDate: selectedDate,
+                  selectedTime: selectedTime,
+                ),
                 verticalSpacing(16),
                 const HorizantalLineSpace(),
                 verticalSpacing(16),
-                const AppointmentTypeSummary(appointmentType: 0),
+                AppointmentTypeSummary(appointmentType: appointmentType ?? 0),
+                verticalSpacing(16),
+                const HorizantalLineSpace(),
+                verticalSpacing(16),
+                // Reason for consultation
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8.r),
+                      decoration: BoxDecoration(
+                        color: ColorsManager.lighterMainBlue,
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                      child: Icon(
+                        Icons.description_outlined,
+                        color: ColorsManager.primaryColor,
+                        size: 18.sp,
+                      ),
+                    ),
+                    horizantialSpacing(12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Reason for Consultation',
+                            style: TextStyles.font14GreenSemiBold.copyWith(
+                              color: ColorsManager.darkBlue,
+                            ),
+                          ),
+                          verticalSpacing(4),
+                          Text(
+                            selectedReason ?? 'No reason provided',
+                            style: TextStyles.font11GrayRegular,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -124,12 +190,27 @@ class SummaryAppointmentContent extends StatelessWidget {
                       child: Container(
                         width: 60.w,
                         height: 60.h,
-                        color: ColorsManager.moreLighterGray,
-                        child: Icon(
-                          Icons.person,
-                          size: 30.sp,
-                          color: ColorsManager.lightGray,
+                        decoration: BoxDecoration(
+                          image:
+                              doctorImage != null
+                                  ? DecorationImage(
+                                    image: NetworkImage(doctorImage!),
+                                    fit: BoxFit.cover,
+                                  )
+                                  : null,
+                          color:
+                              doctorImage == null
+                                  ? ColorsManager.moreLighterGray
+                                  : null,
                         ),
+                        child:
+                            doctorImage == null
+                                ? Icon(
+                                  Icons.person,
+                                  size: 30.sp,
+                                  color: ColorsManager.lightGray,
+                                )
+                                : null,
                       ),
                     ),
                     horizantialSpacing(12),
@@ -138,14 +219,14 @@ class SummaryAppointmentContent extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Dr. John Doe',
+                            doctorName ?? 'Doctor Name',
                             style: TextStyles.font14GreenSemiBold.copyWith(
                               color: ColorsManager.darkBlue,
                             ),
                           ),
                           verticalSpacing(4),
                           Text(
-                            'Cardiologist',
+                            doctorSpecialty ?? 'Specialty',
                             style: TextStyles.font12GrayRegular,
                           ),
                         ],
@@ -203,9 +284,10 @@ class SummaryAppointmentContent extends StatelessWidget {
                   ],
                 ),
                 verticalSpacing(16),
-                const PaymentTypeSummary(
+                PaymentTypeSummary(
                   paymentType: 0,
-                  appointmentPrice: '500',
+                  appointmentPrice: consultationFee?.toStringAsFixed(0) ?? '0',
+                  paymentMethod: selectedPaymentMethod ?? 'Not selected',
                 ),
               ],
             ),

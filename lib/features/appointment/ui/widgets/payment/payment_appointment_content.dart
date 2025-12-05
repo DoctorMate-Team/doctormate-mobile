@@ -7,7 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class PaymentAppointmentContent extends StatefulWidget {
-  const PaymentAppointmentContent({super.key});
+  final Function(String)? onPaymentSelected;
+  final String? initialPayment;
+
+  const PaymentAppointmentContent({
+    super.key,
+    this.onPaymentSelected,
+    this.initialPayment,
+  });
 
   @override
   State<PaymentAppointmentContent> createState() =>
@@ -15,7 +22,55 @@ class PaymentAppointmentContent extends StatefulWidget {
 }
 
 class _PaymentAppointmentContentState extends State<PaymentAppointmentContent> {
-  int selectedPayment = 0;
+  late int selectedPayment;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeSelection();
+  }
+
+  void _initializeSelection() {
+    // Find the matching payment method by title
+    if (widget.initialPayment != null) {
+      for (int i = 0; i < paymentMethods.length; i++) {
+        if (paymentMethods[i]['title'] == widget.initialPayment) {
+          selectedPayment = i;
+          // Notify parent after frame is built
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            widget.onPaymentSelected?.call(paymentMethods[i]['title']);
+          });
+          return;
+        }
+      }
+    }
+    // Default to first option if not found
+    selectedPayment = 0;
+    // Notify parent of default selection
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.onPaymentSelected?.call(paymentMethods[0]['title']);
+    });
+  }
+
+  @override
+  void didUpdateWidget(PaymentAppointmentContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialPayment != widget.initialPayment &&
+        widget.initialPayment != null) {
+      // Schedule update after current build completes
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        for (int i = 0; i < paymentMethods.length; i++) {
+          if (paymentMethods[i]['title'] == widget.initialPayment) {
+            setState(() {
+              selectedPayment = i;
+            });
+            widget.onPaymentSelected?.call(paymentMethods[i]['title']);
+            return;
+          }
+        }
+      });
+    }
+  }
 
   final List<Map<String, dynamic>> paymentMethods = [
     {
@@ -68,6 +123,7 @@ class _PaymentAppointmentContentState extends State<PaymentAppointmentContent> {
                   setState(() {
                     selectedPayment = index;
                   });
+                  widget.onPaymentSelected?.call(method['title']);
                 },
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
