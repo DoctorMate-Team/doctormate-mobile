@@ -33,7 +33,11 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  void getDoctorsBySpecialty({required String specialtyId}) async {
+  void getDoctorsBySpecialty({
+    required String specialtyId,
+    int page = 1,
+    int limit = 10,
+  }) async {
     // Check if doctors for this specialty are already cached
     if (_doctorsCache.containsKey(specialtyId)) {
       emit(
@@ -47,12 +51,18 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeState.getDoctorsBySpecialtyLoading());
     final result = await _homeRepos.getDoctorsBySpecialty(
       specialtyId: specialtyId,
+      page: page,
+      limit: limit,
     );
     result.when(
       success: (response) {
         // Cache the doctors for this specialty
-        _doctorsCache[specialtyId] = response.data;
-        emit(HomeState.getDoctorsBySpecialtySuccess(doctors: response.data));
+        _doctorsCache[specialtyId] = response.data.doctors;
+        emit(
+          HomeState.getDoctorsBySpecialtySuccess(
+            doctors: response.data.doctors,
+          ),
+        );
       },
       failure: (error) {
         emit(

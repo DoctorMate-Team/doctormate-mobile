@@ -17,7 +17,9 @@ abstract class HomeApisServices {
   Future<DoctorMateResponse<List<SpecialtyModel>>> getSpecialties();
 
   @GET(ApiConstants.doctorsBySpecialty)
-  Future<DoctorMateResponse<List<DoctorModel>>> getDoctorsBySpecialty(
+  Future<DoctorMateResponse<DoctorSpecialtyResponse>> getDoctorsBySpecialty(
     @Path("specialtyId") String specialtyId,
+    @Query("page") int page,
+    @Query("limit") int limit,
   );
 }

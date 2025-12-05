@@ -10,6 +10,9 @@ class DoctorDetailsModel {
   final double consultationFee;
   final String address;
   final String workingTime;
+  final List<String> workingDays;
+  final String qualifications;
+  final String phoneNumber;
 
   DoctorDetailsModel({
     required this.id,
@@ -19,6 +22,9 @@ class DoctorDetailsModel {
     required this.consultationFee,
     required this.address,
     required this.workingTime,
+    required this.workingDays,
+    required this.qualifications,
+    required this.phoneNumber,
   });
 
   factory DoctorDetailsModel.fromJson(Map<String, dynamic> json) =>
@@ -29,16 +35,19 @@ class DoctorDetailsModel {
 
 /*
 {
-    "code": 0,
-    "message": "string",
+    "code": 200,
+    "message": "Doctor retrieved successfully",
     "data": {
-        "id": "string",
-        "fullName": "string",
-        "specialty": "string",
-        "imageUrl": "string",
-        "consultationFee": 0,
-        "address": "string",
-        "workingTime": "string"
+        "id": "279f2676-0a36-45f1-5174-08de172a97ef",
+        "fullName": "Mohamed Ali",
+        "specialty": "Cardiology",
+        "imageUrl": "https://res.cloudinary.com/dukkhnflu/image/upload/v1761876798/doctormate/users/lwphifll71jzpgmt8mjs.jpg",
+        "consultationFee": 850.00,
+        "address": "Cairo",
+        "workingTime": "02:13 - 20:34",
+        "workingDays": [],
+        "qualifications": "MD, Ph.D. in Cardiac Electrophysiology, Cairo University",
+        "phoneNumber": "0111934898"
     }
 }
 */

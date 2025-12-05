@@ -265,10 +265,21 @@ class _DetailsScreenState extends State<DetailsScreen>
 
               // Book Appointment Button
               Expanded(
-                child: CustomMaterialButton(
-                  textButton: 'Book Appointment',
-                  onPressed: () {
-                    context.pushNamed(Routes.appointmentScreen);
+                child: BlocBuilder<DetailsCubit, DetailsState>(
+                  builder: (context, state) {
+                    return CustomMaterialButton(
+                      textButton: 'Book Appointment',
+                      onPressed: () {
+                        state.whenOrNull(
+                          getDoctorDetailsSuccess: (doctorDetails) {
+                            context.pushNamed(
+                              Routes.appointmentScreen,
+                              extra: doctorDetails,
+                            );
+                          },
+                        );
+                      },
+                    );
                   },
                 ),
               ),

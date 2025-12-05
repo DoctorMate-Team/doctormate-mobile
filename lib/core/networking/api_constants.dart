@@ -14,6 +14,8 @@ class ApiConstants {
   static const profileManagement = "Profile_Management";
   static const uploadProfileImage = "$profileManagement/image";
   static const updateProfileDetails = "$profileManagement/update";
+  static const availableSlots = "doctors/{doctorId}/available-slots";
+  static const appointments = "appointments";
 }
 
 class ApiErrors {

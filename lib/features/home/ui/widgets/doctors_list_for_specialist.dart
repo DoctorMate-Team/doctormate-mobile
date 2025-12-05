@@ -192,7 +192,7 @@ class DoctorCard extends StatelessWidget {
                 height: 36.h,
                 textButton: 'Book Now',
                 onPressed: () {
-                  context.pushNamed(Routes.appointmentScreen);
+                  context.pushNamed(Routes.detailsScreen, extra: doctor.id);
                 },
               ),
             ],

@@ -8,7 +8,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class DatePickerListView extends StatefulWidget {
-  const DatePickerListView({super.key});
+  final Function(String)? onDateSelected;
+  final List<String> workingDays;
+  final String? initialDate;
+
+  const DatePickerListView({
+    super.key,
+    this.onDateSelected,
+    this.workingDays = const [],
+    this.initialDate,
+  });
 
   @override
   State<DatePickerListView> createState() => _DatePickerListViewState();
@@ -23,11 +32,83 @@ class _DatePickerListViewState extends State<DatePickerListView> {
   void initState() {
     super.initState();
     _generateDates();
+    _initializeSelection();
+  }
+
+  void _initializeSelection() {
+    // Set initial date if provided
+    if (widget.initialDate != null) {
+      try {
+        final parts = widget.initialDate!.split('-');
+        if (parts.length == 3) {
+          selectedDate = DateTime(
+            int.parse(parts[0]),
+            int.parse(parts[1]),
+            int.parse(parts[2]),
+          );
+        }
+      } catch (e) {
+        // Invalid date format, ignore
+      }
+    }
+  }
+
+  @override
+  void didUpdateWidget(DatePickerListView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.workingDays != widget.workingDays) {
+      _generateDates();
+    }
+    // Update selection if initial date changed
+    if (oldWidget.initialDate != widget.initialDate &&
+        widget.initialDate != null) {
+      _initializeSelection();
+    }
   }
 
   void _generateDates() {
     final now = DateTime.now();
-    dates = List.generate(30, (index) => now.add(Duration(days: index)));
+    dates = [];
+
+    // If no working days specified, show all dates
+    if (widget.workingDays.isEmpty) {
+      dates = List.generate(30, (index) => now.add(Duration(days: index)));
+      return;
+    }
+
+    // Filter dates to only show working days
+    for (int i = 0; i < 60; i++) {
+      final date = now.add(Duration(days: i));
+      final dayName = _getDayName(date.weekday);
+
+      if (widget.workingDays.contains(dayName)) {
+        dates.add(date);
+      }
+
+      // Stop when we have enough working days
+      if (dates.length >= 30) break;
+    }
+  }
+
+  String _getDayName(int weekday) {
+    switch (weekday) {
+      case DateTime.monday:
+        return 'Monday';
+      case DateTime.tuesday:
+        return 'Tuesday';
+      case DateTime.wednesday:
+        return 'Wednesday';
+      case DateTime.thursday:
+        return 'Thursday';
+      case DateTime.friday:
+        return 'Friday';
+      case DateTime.saturday:
+        return 'Saturday';
+      case DateTime.sunday:
+        return 'Sunday';
+      default:
+        return '';
+    }
   }
 
   void _previousMonth() {
@@ -110,6 +191,10 @@ class _DatePickerListViewState extends State<DatePickerListView> {
                   setState(() {
                     selectedDate = date;
                   });
+                  // Send formatted date (YYYY-MM-DD)
+                  widget.onDateSelected?.call(
+                    '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}',
+                  );
                 },
               );
             },

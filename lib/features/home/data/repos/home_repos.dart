@@ -20,11 +20,13 @@ class HomeRepos {
     }
   }
 
-  Future<ApiResult<DoctorMateResponse<List<DoctorModel>>>>
-  getDoctorsBySpecialty({required String specialtyId}) async {
+  Future<ApiResult<DoctorMateResponse<DoctorSpecialtyResponse>>>
+  getDoctorsBySpecialty({required String specialtyId, required int page, required int limit}) async {
     try {
       final response = await _homeApiServices.getDoctorsBySpecialty(
         specialtyId,
+        page,
+        limit,
       );
       return ApiResult.success(response);
     } catch (e) {

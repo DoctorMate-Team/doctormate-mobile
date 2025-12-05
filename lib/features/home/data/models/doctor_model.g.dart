@@ -6,6 +6,23 @@ part of 'doctor_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+DoctorSpecialtyResponse _$DoctorSpecialtyResponseFromJson(
+  Map<String, dynamic> json,
+) => DoctorSpecialtyResponse(
+  pagination: Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
+  doctors:
+      (json['doctors'] as List<dynamic>)
+          .map((e) => DoctorModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+);
+
+Map<String, dynamic> _$DoctorSpecialtyResponseToJson(
+  DoctorSpecialtyResponse instance,
+) => <String, dynamic>{
+  'pagination': instance.pagination,
+  'doctors': instance.doctors,
+};
+
 DoctorModel _$DoctorModelFromJson(Map<String, dynamic> json) => DoctorModel(
   id: json['id'] as String,
   fullName: json['fullName'] as String,

@@ -5,14 +5,18 @@ import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/theme/font_weight_helper.dart';
 import 'package:doctor_mate/core/widgets/custom_material_button.dart';
 import 'package:doctor_mate/core/widgets/horizantal_line_space.dart';
+import 'package:doctor_mate/features/appointment/data/models/appointment_response_body.dart';
 import 'package:doctor_mate/features/appointment/ui/widgets/summary_booking/appointment_type_summary.dart';
 import 'package:doctor_mate/features/appointment/ui/widgets/summary_booking/date_and_time_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 class AppointmentSuccessScreen extends StatefulWidget {
-  const AppointmentSuccessScreen({super.key});
+  final AppointmentModel? appointmentData;
+
+  const AppointmentSuccessScreen({super.key, this.appointmentData});
 
   @override
   State<AppointmentSuccessScreen> createState() =>
@@ -167,11 +171,67 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
                                 ],
                               ),
                               verticalSpacing(20),
-                              const DateAndTimeSummary(),
+                              // Booking Reference
+                              if (widget.appointmentData?.id != null) ...[
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 12.w,
+                                    vertical: 8.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: ColorsManager.lighterMainBlue,
+                                    borderRadius: BorderRadius.circular(8.r),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.bookmark_rounded,
+                                        size: 16.sp,
+                                        color: ColorsManager.primaryColor,
+                                      ),
+                                      horizantialSpacing(6),
+                                      Text(
+                                        'Ref: ${widget.appointmentData!.id.substring(0, 8).toUpperCase()}',
+                                        style: TextStyles.font12GrayRegular
+                                            .copyWith(
+                                              color: ColorsManager.primaryColor,
+                                              fontWeight:
+                                                  FontWeightHelper.medium,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                verticalSpacing(16),
+                              ],
+                              DateAndTimeSummary(
+                                selectedDate:
+                                    widget.appointmentData != null
+                                        ? DateFormat('yyyy-MM-dd').format(
+                                          widget
+                                              .appointmentData!
+                                              .appointmentDate,
+                                        )
+                                        : null,
+                                selectedTime:
+                                    widget.appointmentData?.appointmentTime,
+                              ),
                               verticalSpacing(16),
                               const HorizantalLineSpace(),
                               verticalSpacing(16),
-                              const AppointmentTypeSummary(appointmentType: 0),
+                              AppointmentTypeSummary(
+                                appointmentType:
+                                    widget.appointmentData?.appointmentType ==
+                                            'video'
+                                        ? 0
+                                        : widget
+                                                .appointmentData
+                                                ?.appointmentType ==
+                                            'voice'
+                                        ? 1
+                                        : 2,
+                              ),
                             ],
                           ),
                         ),
@@ -232,12 +292,44 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
                                     child: Container(
                                       width: 60.w,
                                       height: 60.h,
-                                      color: ColorsManager.moreLighterGray,
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 30.sp,
-                                        color: ColorsManager.lightGray,
+                                      decoration: BoxDecoration(
+                                        image:
+                                            widget
+                                                        .appointmentData
+                                                        ?.doctor
+                                                        .image !=
+                                                    null
+                                                ? DecorationImage(
+                                                  image: NetworkImage(
+                                                    widget
+                                                        .appointmentData!
+                                                        .doctor
+                                                        .image,
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                )
+                                                : null,
+                                        color:
+                                            widget
+                                                        .appointmentData
+                                                        ?.doctor
+                                                        .image ==
+                                                    null
+                                                ? ColorsManager.moreLighterGray
+                                                : null,
                                       ),
+                                      child:
+                                          widget
+                                                      .appointmentData
+                                                      ?.doctor
+                                                      .image ==
+                                                  null
+                                              ? Icon(
+                                                Icons.person,
+                                                size: 30.sp,
+                                                color: ColorsManager.lightGray,
+                                              )
+                                              : null,
                                     ),
                                   ),
                                   horizantialSpacing(12),
@@ -247,7 +339,11 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Dr. John Doe',
+                                          widget
+                                                  .appointmentData
+                                                  ?.doctor
+                                                  .doctorName ??
+                                              'Doctor Name',
                                           style: TextStyles.font14GreenSemiBold
                                               .copyWith(
                                                 color: ColorsManager.darkBlue,
@@ -255,7 +351,11 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
                                         ),
                                         verticalSpacing(4),
                                         Text(
-                                          'Cardiologist',
+                                          widget
+                                                  .appointmentData
+                                                  ?.doctor
+                                                  .specialtyName ??
+                                              'Specialty',
                                           style: TextStyles.font12GrayRegular,
                                         ),
                                       ],

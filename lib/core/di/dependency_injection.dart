@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:doctor_mate/core/networking/dio_factory.dart';
+import 'package:doctor_mate/features/appointment/data/apis/appointment_api_services.dart';
+import 'package:doctor_mate/features/appointment/data/repos/appointment_repos.dart';
+import 'package:doctor_mate/features/appointment/logic/cubit/appointment_cubit.dart';
 import 'package:doctor_mate/features/auth/data/apis/auth_api_services.dart';
 import 'package:doctor_mate/features/auth/data/repos/auth_repos.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
@@ -47,4 +50,11 @@ Future<void> setupGetIt() async {
   );
   getIt.registerLazySingleton<ProfileRepos>(() => ProfileRepos(getIt()));
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
+
+  // Appointment
+  getIt.registerLazySingleton<AppointmentApiServices>(
+    () => AppointmentApiServices(dio),
+  );
+  getIt.registerLazySingleton<AppointmentRepos>(() => AppointmentRepos(getIt()));
+  getIt.registerFactory<AppointmentCubit>(() => AppointmentCubit(getIt()));
 }

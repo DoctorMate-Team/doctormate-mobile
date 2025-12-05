@@ -7,7 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class ReasonConsultationContent extends StatefulWidget {
-  const ReasonConsultationContent({super.key});
+  final Function(String)? onReasonSelected;
+  final String? initialReason;
+
+  const ReasonConsultationContent({
+    super.key,
+    this.onReasonSelected,
+    this.initialReason,
+  });
 
   @override
   State<ReasonConsultationContent> createState() =>
@@ -18,6 +25,45 @@ class _ReasonConsultationContentState extends State<ReasonConsultationContent> {
   int? selectedReasonIndex;
   final TextEditingController _otherReasonController = TextEditingController();
   bool showOtherTextField = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeSelection();
+  }
+
+  void _initializeSelection() {
+    if (widget.initialReason != null && widget.initialReason!.isNotEmpty) {
+      // Check if it matches a predefined reason
+      bool found = false;
+      for (int i = 0; i < consultationReasons.length; i++) {
+        if (consultationReasons[i]['title'] == widget.initialReason) {
+          setState(() {
+            selectedReasonIndex = i;
+          });
+          found = true;
+          break;
+        }
+      }
+      // If not found in predefined reasons, it's a custom reason
+      if (!found) {
+        setState(() {
+          selectedReasonIndex = consultationReasons.length; // "Other" option
+          showOtherTextField = true;
+          _otherReasonController.text = widget.initialReason!;
+        });
+      }
+    }
+  }
+
+  @override
+  void didUpdateWidget(ReasonConsultationContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialReason != widget.initialReason &&
+        widget.initialReason != null) {
+      _initializeSelection();
+    }
+  }
 
   final List<Map<String, dynamic>> consultationReasons = [
     {
@@ -98,6 +144,7 @@ class _ReasonConsultationContentState extends State<ReasonConsultationContent> {
                     showOtherTextField = isOther;
                     if (!isOther) {
                       _otherReasonController.clear();
+                      widget.onReasonSelected?.call(reason['title']);
                     }
                   });
                 },
@@ -214,6 +261,9 @@ class _ReasonConsultationContentState extends State<ReasonConsultationContent> {
                   TextField(
                     controller: _otherReasonController,
                     maxLines: 4,
+                    onChanged: (value) {
+                      widget.onReasonSelected?.call(value);
+                    },
                     decoration: InputDecoration(
                       hintText:
                           'Please describe your reason for consultation...',
