@@ -16,6 +16,8 @@ class ApiConstants {
   static const updateProfileDetails = "$profileManagement/update";
   static const availableSlots = "doctors/{doctorId}/available-slots";
   static const appointments = "appointments";
+  static const patientAppointments = "$appointments/patient";
+  static const updateAppointmentStatus = "$appointments/{appointmentId}/status";
 }
 
 class ApiErrors {

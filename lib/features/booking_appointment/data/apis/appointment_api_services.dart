@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:doctor_mate/core/models/doctor_mate_response.dart';
 import 'package:doctor_mate/core/networking/api_constants.dart';
-import 'package:doctor_mate/features/appointment/data/models/appointment_request_body.dart';
-import 'package:doctor_mate/features/appointment/data/models/appointment_response_body.dart';
-import 'package:doctor_mate/features/appointment/data/models/available_slots_response.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/appointment_request_body.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/available_slots_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 

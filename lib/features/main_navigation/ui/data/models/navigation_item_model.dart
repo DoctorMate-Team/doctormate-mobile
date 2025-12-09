@@ -33,9 +33,9 @@ class NavigationItemModel {
       badgeCount: 2, // Example: 2 upcoming appointments
     ),
     NavigationItemModel(
-      icon: Iconsax.search_normal,
-      activeIcon: Iconsax.search_normal_1,
-      label: 'Explore',
+      icon: Iconsax.health,
+      activeIcon: Iconsax.clipboard_text,
+      label: 'Record',
       color: ColorsManager.primaryColor,
       badgeCount: 0,
     ),

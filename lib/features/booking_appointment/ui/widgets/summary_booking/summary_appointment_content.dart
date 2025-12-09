@@ -3,9 +3,9 @@ import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/theme/font_weight_helper.dart';
 import 'package:doctor_mate/core/widgets/horizantal_line_space.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/summary_booking/appointment_type_summary.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/summary_booking/date_and_time_summary.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/summary_booking/payment_type_summary.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/widgets/summary_booking/appointment_type_summary.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/widgets/summary_booking/date_and_time_summary.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/widgets/summary_booking/payment_type_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

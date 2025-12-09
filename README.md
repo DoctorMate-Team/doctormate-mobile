@@ -223,7 +223,63 @@ lib/
   - Smooth transitions between states
   - Error handling with retry functionality
 
-### 📅 Appointment Booking Feature
+### 📅 Appointment Management System
+
+#### 🗓️ Appointment Management Screen (Bottom Navigation)
+- **3-Tab Interface** with professional Material Design:
+  - **Upcoming Tab**: Active scheduled appointments
+  - **Completed Tab**: Past appointments history
+  - **Cancelled Tab**: Cancelled appointments record
+  
+- **Smart Filtering System**:
+  - Quick filter chips: All, Today, This Week, This Month
+  - Filter bottom sheet with sort options:
+    - Date (Newest First / Oldest First)
+    - Doctor Name (A-Z)
+    - Specialty
+  - Search functionality in AppBar (prepared)
+  
+- **Professional Appointment Cards**:
+  - **Status-based gradient headers**:
+    - Blue gradient for Upcoming (clock icon)
+    - Green gradient for Completed (checkmark icon)
+    - Red gradient for Cancelled (close icon)
+  - **Doctor Information Display**:
+    - Profile image with CachedNetworkImage
+    - Doctor name and specialty
+    - Clinic address with location pin
+  - **Appointment Details**:
+    - Date with calendar icon (MMM dd, yyyy format)
+    - Time with clock icon (hh:mm a format)
+    - Consultation reason
+    - Booking reference ID (8-char uppercase)
+  - **Status-Based Action Buttons**:
+    - **Upcoming**: Cancel (red outline) + Reschedule (green filled)
+    - **Completed**: View Details + Book Again
+    - **Cancelled**: Book New Appointment (single action)
+  
+- **Interactive Features**:
+  - Pull-to-refresh for manual data updates
+  - Cancel appointment with confirmation dialog
+  - Reschedule appointment (prepared for implementation)
+  - View appointment details
+  - Book again functionality (prepared)
+  
+- **Professional UI States**:
+  - **Loading State**: Shimmer loading matching card design (5 cards)
+  - **Empty States**: Custom messages and icons per tab:
+    - Upcoming: "No upcoming appointments" with calendar icon
+    - Completed: "No completed appointments yet" with checkmark
+    - Cancelled: "No cancelled appointments" with close icon
+  - **Error State**: Retry button with error message
+  - **Success Feedback**: SnackBar for actions (green/red)
+  
+- **Pagination & Performance**:
+  - API pagination support (page, limit parameters)
+  - Client-side filtering by status (upcoming/completed/cancelled)
+  - Automatic refresh after status updates
+  
+#### 📝 Appointment Booking Feature
 - **Multi-Step Booking Flow** (4 Steps):
   1. **Date & Time Selection**:
      - Interactive calendar with 30-day range
@@ -284,6 +340,7 @@ lib/
   - `HomeCubit`: Specialties, doctors with caching system
   - `DetailsCubit`: Doctor details fetching
   - `AppointmentCubit`: Available slots fetching, appointment booking
+  - `AppointmentManageCubit`: Appointments list, status updates (cancel)
   - `MainCubit`: Bottom navigation management
   - `ProfileCubit`: User profile data and updates
 
@@ -309,6 +366,8 @@ lib/
   - **Appointments**:
     - GET `/doctors/{doctorId}/available-slots?date={date}` - Available time slots
     - POST `/appointments` - Book appointment
+    - GET `/appointments?page={page}&limit={limit}` - Get patient appointments with pagination
+    - PUT `/appointments/{appointmentId}` - Update appointment status (cancel)
   - **Profile**: 
     - GET `/profile` - Get user profile
     - POST `/profile/upload-image` - Upload profile image
@@ -382,7 +441,7 @@ profile/
 
 #### Appointment Feature
 ```
-appointment/
+booking-appointment/
 ├── data/
 │   ├── apis/                                # AppointmentApiServices
 │   ├── models/                              # Request/Response models
@@ -520,8 +579,9 @@ flutter pub run build_runner build --delete-conflicting-outputs
 6. **Doctor Details** - Comprehensive doctor information
 7. **Appointment Booking** - Multi-step booking flow
 8. **Appointment Success** - Booking confirmation
-9. **Main Navigation** - Bottom navigation wrapper
-10. **Profile** - User profile with settings and support
+9. **Appointment Management** - View/manage appointments with tabs
+10. **Main Navigation** - Bottom navigation wrapper
+11. **Profile** - User profile with settings and support
 
 ### Recent Updates
 - ✅ Home screen API integration complete with pagination
@@ -541,16 +601,28 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - ✅ **Complete booking summary with doctor details**
 - ✅ **Success screen with actual API response data**
 - ✅ **Booking reference number generation and display**
+- ✅ **Appointment Management Screen with 3-tab interface**
+- ✅ **Professional appointment cards with status-based gradients**
+- ✅ **Filter system with date chips and sort modal**
+- ✅ **Cancel appointment with confirmation dialog**
+- ✅ **Shimmer loading, empty states, error states for management**
+- ✅ **11 extracted reusable widgets for clean architecture**
+- ✅ **Pull-to-refresh and pagination support**
+- ✅ **Status-based action buttons (Cancel/Reschedule/View/Book Again)**
 
 ### Next Steps
 1. ~~API integration for appointment booking~~ ✅ DONE
-2. Edit profile functionality
-3. Appointment history and management
-4. Real-time chat feature
-5. Payment gateway integration
-6. Push notifications
-7. Advanced search and filters
-8. Favorites management
+2. ~~Appointment history and management~~ ✅ DONE
+3. Implement appointment reschedule functionality
+4. Implement appointment details view screen
+5. Implement search functionality in appointments
+6. Add "Book Again" feature
+7. Edit profile functionality
+8. Real-time chat feature
+9. Payment gateway integration
+10. Push notifications
+11. Advanced search and filters
+12. Favorites management
 
 ## 📝 Coding Standards
 
@@ -583,50 +655,84 @@ flutter pub run build_runner build --delete-conflicting-outputs
 
 ### Colors
 - Primary: `ColorsManager.primaryColor`
-## 🔄 Current Development Branch: `features/appointment-logic`
+## 🔄 Current Development Branch: `features/appointment-mangement`
 
-### Latest Milestone: Complete Appointment Booking System with API Integration ✨
+### Latest Milestone: Complete Appointment Management System ✨
 
-**Full Implementation Completed**:
-- ✅ **4-step booking wizard** with gradient progress indicator
-- ✅ **Smart date picker** filtered by doctor's working days from API
-- ✅ **Real-time time slots** fetched from server based on selected date
-- ✅ **Appointment type selection** (Video/Voice/In-Person) with auto-notification
-- ✅ **Consultation reason** with 5 predefined + custom text option
-- ✅ **Payment method selection** with 3 options and auto-notification
-- ✅ **Complete booking summary** displaying all selections + doctor details
-- ✅ **API booking integration** with POST /appointments endpoint
-- ✅ **Success screen** with actual booking response data
-- ✅ **Booking reference number** displayed (8-char uppercase ID)
-- ✅ **State persistence** when navigating back between steps
-- ✅ **Step validation** preventing incomplete submissions
-- ✅ **Error handling** with user-friendly messages
-- ✅ **Loading states** with dialogs during API calls
+**Appointment Management Screen - Full Implementation**:
+- ✅ **3-tab interface** (Upcoming, Completed, Cancelled) with Material TabBar
+- ✅ **Professional appointment cards** with status-based gradient headers
+- ✅ **Filter system** with quick date chips (All, Today, This Week, This Month)
+- ✅ **Sort modal** with options (Date, Doctor Name, Specialty)
+- ✅ **Cancel appointment** with confirmation dialog and API integration
+- ✅ **Pull-to-refresh** for manual data updates
+- ✅ **Shimmer loading** matching card design (5 cards)
+- ✅ **Empty states** with custom messages per tab
+- ✅ **Error states** with retry functionality
+- ✅ **Status-based action buttons** (Cancel/Reschedule/View/Book Again)
+- ✅ **Pagination support** (page, limit parameters)
+- ✅ **Client-side filtering** by appointment status
+- ✅ **Real appointment data** from API with proper formatting
+- ✅ **Booking reference display** (8-char uppercase)
+- ✅ **Success/error feedback** with SnackBars
+
+**Clean Architecture & Widget Extraction**:
+- ✅ **11 reusable StatelessWidgets** extracted:
+  * AppointmentAppBar - Custom app bar with search & filter
+  * AppointmentTabBar - Tab navigation component
+  * FilterChipsBar - Date filter chips
+  * AppointmentListView - Complete list with BLoC integration
+  * AppointmentCard - Individual appointment card
+  * AppointmentInfoItem - Date/time info display
+  * AppointmentActionButtons - Status-based actions
+  * AppointmentEmptyState - Empty state per tab
+  * AppointmentErrorState - Error with retry
+  * AppointmentShimmerLoading - Loading skeleton
+  * FilterBottomSheet - Sort/filter modal
+- ✅ **Main screen reduced** from 900+ to 138 lines
+- ✅ **Consistent custom widgets** (CustomMaterialButton, showCustomDialog)
+- ✅ **GoRouter navigation** (context.pop() everywhere)
+- ✅ **Proper BLoC pattern** (BlocListener + BlocBuilder)
 
 **API Endpoints Integrated**:
-- GET `/doctors/{doctorId}/available-slots?date={date}` - Fetch time slots
-- POST `/appointments` - Book appointment with full details
+- GET `/appointments?page={page}&limit={limit}` - Fetch patient appointments
+- PUT `/appointments/{appointmentId}` - Update appointment status (cancel)
+- GET `/doctors/{doctorId}/available-slots?date={date}` - Time slots
+- POST `/appointments` - Book appointment
 
 **Data Models**:
-- AppointmentRequestBody (doctorId, date, time, reason, type)
-- AppointmentResponseBody (complete appointment with patient/doctor data)
-- AvailableSlotsResponse (slots[], isWorkingDay, metadata)
-- Enhanced DoctorDetailsModel (workingDays, qualifications, phoneNumber)
+- AppointmentListResponse (pagination + appointments[])
+- PatientAppointmentModel (full appointment with nested doctor)
+- AppointmentDoctorModel (doctor info in list response)
+- AppointmentRequestBody (booking request)
+- AppointmentResponseBody (booking response)
+- AvailableSlotsResponse (time slots)
 
 **Technical Achievements**:
-- Proper state management with AppointmentCubit
-- BlocListener for API response handling
-- Widget state persistence using initial value parameters
-- WidgetsBinding.addPostFrameCallback for safe notifications
-- GoRouter extra parameters for data passing
-- Date/time formatting with intl package
-- Network image loading with fallbacks
+- AppointmentManageCubit for appointments management
+- BlocListener for state changes and user feedback
+- BlocBuilder with buildWhen optimization
+- State management with setState for local state
+- TabController with SingleTickerProviderStateMixin
+- Client-side status filtering (upcoming/completed/cancelled)
+- Proper error handling with retry functionality
+- Professional UI/UX with Material Design 3
+- Responsive design with flutter_screenutil
+- Image caching with CachedNetworkImage
+
+**Bug Fixes**:
+- ✅ Fixed ProviderNotFoundException in cancel dialog
+- ✅ Fixed setState during build with proper callbacks
+- ✅ Updated navigation label: 'Records' → 'Medical Record'
+- ✅ Updated medical record icon to Iconsax.health
 
 ### Next Priority
-1. Edit profile functionality with image update
-2. Appointment history and management screen
-3. Real-time appointment status tracking
-4. Payment gateway integration for online payments
+1. Implement reschedule appointment functionality
+2. Implement appointment details view screen
+3. Implement search functionality in appointments
+4. Add "Book Again" feature flow
+5. Edit profile functionality with image update
+6. Payment gateway integration for online payments
 
 ## 🤝 Contributing
 
@@ -647,6 +753,6 @@ This project is proprietary software owned by DoctorMate Team.
 ---
 
 **Version**: 1.0.0+1  
-**Last Updated**: December 5, 2025  
-**Current Branch**: features/appointment-logic  
-**Major Feature**: Complete Appointment Booking System with API Integration ✨
+**Last Updated**: December 9, 2025  
+**Current Branch**: features/appointment-mangement  
+**Major Feature**: Complete Appointment Management System with Tabs & Filters ✨

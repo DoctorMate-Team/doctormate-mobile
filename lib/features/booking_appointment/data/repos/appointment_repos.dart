@@ -1,10 +1,10 @@
 import 'package:doctor_mate/core/models/doctor_mate_response.dart';
 import 'package:doctor_mate/core/networking/api_error_handler.dart';
 import 'package:doctor_mate/core/networking/api_result.dart';
-import 'package:doctor_mate/features/appointment/data/apis/appointment_api_services.dart';
-import 'package:doctor_mate/features/appointment/data/models/appointment_request_body.dart';
-import 'package:doctor_mate/features/appointment/data/models/appointment_response_body.dart';
-import 'package:doctor_mate/features/appointment/data/models/available_slots_response.dart';
+import 'package:doctor_mate/features/booking_appointment/data/apis/appointment_api_services.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/appointment_request_body.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/available_slots_response.dart';
 
 class AppointmentRepos {
   final AppointmentApiServices _appointmentApiServices;

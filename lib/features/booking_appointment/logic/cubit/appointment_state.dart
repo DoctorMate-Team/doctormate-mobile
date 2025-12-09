@@ -1,5 +1,5 @@
-import 'package:doctor_mate/features/appointment/data/models/appointment_response_body.dart';
-import 'package:doctor_mate/features/appointment/data/models/available_slots_response.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/available_slots_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'appointment_state.freezed.dart';

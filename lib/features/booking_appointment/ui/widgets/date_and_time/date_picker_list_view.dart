@@ -2,7 +2,7 @@ import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/theme/font_weight_helper.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/date_and_time/date_picker_appointment_screen.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/widgets/date_and_time/date_picker_appointment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
