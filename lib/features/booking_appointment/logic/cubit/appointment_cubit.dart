@@ -1,6 +1,6 @@
-import 'package:doctor_mate/features/appointment/data/models/appointment_request_body.dart';
-import 'package:doctor_mate/features/appointment/data/repos/appointment_repos.dart';
-import 'package:doctor_mate/features/appointment/logic/cubit/appointment_state.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/appointment_request_body.dart';
+import 'package:doctor_mate/features/booking_appointment/data/repos/appointment_repos.dart';
+import 'package:doctor_mate/features/booking_appointment/logic/cubit/appointment_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppointmentCubit extends Cubit<AppointmentState> {

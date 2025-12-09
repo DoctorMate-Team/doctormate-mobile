@@ -76,7 +76,7 @@ class ModernAppBar extends StatelessWidget {
             border: Border.all(color: Colors.grey.shade200, width: 1),
           ),
           child: Icon(
-            Iconsax.setting_2,
+            Iconsax.search_normal_copy,
             color: Colors.grey.shade600,
             size: 20.sp,
           ),

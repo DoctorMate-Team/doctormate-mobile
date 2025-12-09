@@ -1,7 +1,7 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/date_and_time/appointment_type_list.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/date_and_time/date_picker_list_view.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/date_and_time/time_picker_grid_view.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/widgets/date_and_time/appointment_type_list.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/widgets/date_and_time/date_picker_list_view.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/widgets/date_and_time/time_picker_grid_view.dart';
 import 'package:flutter/material.dart';
 
 class DateAndTimeContent extends StatelessWidget {

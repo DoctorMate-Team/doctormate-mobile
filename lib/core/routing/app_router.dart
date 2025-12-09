@@ -1,9 +1,10 @@
 import 'package:doctor_mate/core/di/dependency_injection.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
-import 'package:doctor_mate/features/appointment/data/models/appointment_response_body.dart';
-import 'package:doctor_mate/features/appointment/logic/cubit/appointment_cubit.dart';
-import 'package:doctor_mate/features/appointment/ui/appointment_screen.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/appointment_success_screen.dart';
+import 'package:doctor_mate/features/appointment/ui/appointment_management_screen.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
+import 'package:doctor_mate/features/booking_appointment/logic/cubit/appointment_cubit.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/appointment_screen.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/widgets/appointment_success_screen.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:doctor_mate/features/details/data/models/doctor_details_model.dart';
 import 'package:doctor_mate/features/details/logic/cubit/details_cubit.dart';
@@ -142,6 +143,13 @@ class AppRouter {
           builder: (context, state) {
             final appointmentData = state.extra as AppointmentModel?;
             return AppointmentSuccessScreen(appointmentData: appointmentData);
+          },
+        ),
+        GoRoute(
+          path: Routes.appointmentManageScreen,
+          name: Routes.appointmentManageScreen,
+          builder: (context, state) {
+            return AppointmentManagementScreen();
           },
         ),
       ],
