@@ -6,9 +6,9 @@ class AppointmentManageCubit extends Cubit<AppointmentManageState> {
   AppointmentManageCubit(this._appointmentManageRepos) : super(AppointmentManageState.initial());
   final AppointmentManageRepos _appointmentManageRepos;
 
-  Future<void> getPatientAppointments({required int page, required int limit}) async {
+  Future<void> getPatientAppointments({required int page, required int limit, String? status}) async {
     emit(AppointmentManageState.loadingAppointmentsPatient());
-    final result = await _appointmentManageRepos.getPatientAppointments(page: page, limit: limit);
+    final result = await _appointmentManageRepos.getPatientAppointments(page: page, limit: limit, status: status);
     result.when(
       success: (response) {
         emit(AppointmentManageState.loadedAppointmentsPatient(response.data));

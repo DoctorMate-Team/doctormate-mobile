@@ -1,4 +1,5 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
+import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/features/home/logic/cubit/home_cubit.dart';
 import 'package:doctor_mate/features/home/ui/widgets/doctors_bloc_builder.dart';
 import 'package:doctor_mate/features/home/ui/widgets/health_status_card.dart';
@@ -11,6 +12,7 @@ import 'package:doctor_mate/features/home/ui/widgets/upcoming_appointments.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -114,9 +116,13 @@ class HomeScreenState extends State<HomeScreen>
                         verticalSpacing(18),
 
                         // Upcoming Appointments
-                        const SectionHeader(
+                        SectionHeader(
                           title: 'Upcoming Appointments',
                           actionText: 'View All',
+                          onActionTap: () {
+                            // Navigate to main layout and switch to appointments tab (index 1)
+                            context.pushNamed(Routes.mainLayout, extra: 1);
+                          },
                         ),
                         verticalSpacing(12),
                         const UpcomingAppointments(),
@@ -125,7 +131,7 @@ class HomeScreenState extends State<HomeScreen>
                         // Quick Actions Section - more compact
                         const SectionHeader(
                           title: 'Quick Actions',
-                          actionText: 'View All',
+                          actionText: '',
                         ),
                         const ModernQuickActions(),
                         verticalSpacing(20),
@@ -133,7 +139,7 @@ class HomeScreenState extends State<HomeScreen>
                         // Specialists Section - moved to top for better UX
                         const SectionHeader(
                           title: 'Specialists',
-                          actionText: 'View All',
+                          actionText: '',
                         ),
                         verticalSpacing(12),
                         SpecialtiesBlocBuilder(

@@ -6,11 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SectionHeader extends StatelessWidget {
   final String title;
   final String actionText;
-
+  final VoidCallback? onActionTap;
+  
   const SectionHeader({
     super.key,
     required this.title,
-    required this.actionText,
+    required this.actionText, this.onActionTap,
   });
 
   @override
@@ -26,7 +27,7 @@ class SectionHeader extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: onActionTap,
           style: TextButton.styleFrom(
             minimumSize: Size.zero,
             padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),

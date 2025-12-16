@@ -1,11 +1,30 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
+import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class ModernQuickActions extends StatelessWidget {
   const ModernQuickActions({super.key});
+
+  void _handleActionTap(BuildContext context, String label) {
+    switch (label) {
+      case 'Smart Checkup':
+        context.push(Routes.smartCheckupScreen);
+        break;
+      case 'Book Appointment':
+        // TODO: Navigate to booking screen
+        break;
+      case 'Scan QR':
+        // TODO: Navigate to QR scan screen
+        break;
+      case 'Consultation':
+        // TODO: Navigate to consultation screen
+        break;
+    }
+  }
 
   final List<Map<String, dynamic>> _actions = const [
     {
@@ -80,8 +99,7 @@ class ModernQuickActions extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(20.r),
               onTap: () {
-                // Add haptic feedback
-                // HapticFeedback.lightImpact();
+                _handleActionTap(context, action['label'] as String);
               },
               child: Padding(
                 padding: EdgeInsets.all(16.w),

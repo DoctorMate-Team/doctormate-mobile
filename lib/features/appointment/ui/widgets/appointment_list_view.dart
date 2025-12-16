@@ -26,16 +26,18 @@ class AppointmentListView extends StatelessWidget {
     required this.onReschedule,
   });
 
-  List<PatientAppointmentModel> _filterAppointmentsByStatus() {
+  List<PatientAppointmentModel> _filterAppointmentsByTabStatus() {
+    // Filter by tab status: upcoming, completed, cancelled
     switch (status) {
       case 'upcoming':
-        return appointments
-            .where(
-              (apt) =>
-                  apt.status.toLowerCase() == 'scheduled' ||
-                  apt.status.toLowerCase() == 'upcoming',
-            )
-            .toList();
+        return appointments.where((apt) {
+          final statusLower = apt.status.toLowerCase();
+          return statusLower == 'pending' ||
+              statusLower == 'confirmed' ||
+              statusLower == 'inprogress' ||
+              statusLower == 'scheduled' ||
+              statusLower == 'upcoming';
+        }).toList();
       case 'completed':
         return appointments
             .where((apt) => apt.status.toLowerCase() == 'completed')
@@ -52,14 +54,16 @@ class AppointmentListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppointmentManageCubit, AppointmentManageState>(
-      buildWhen: (previous, current) => current is LoadedAppointmentsPatient ||
-          current is ErrorAppointmentsPatient ||
-          current is LoadingAppointmentsPatient,
+      buildWhen:
+          (previous, current) =>
+              current is LoadedAppointmentsPatient ||
+              current is ErrorAppointmentsPatient ||
+              current is LoadingAppointmentsPatient,
       builder: (context, state) {
         return state.maybeWhen(
           loadingAppointmentsPatient: () => const AppointmentShimmerLoading(),
           loadedAppointmentsPatient: (_) {
-            final filteredAppointments = _filterAppointmentsByStatus();
+            final filteredAppointments = _filterAppointmentsByTabStatus();
 
             if (filteredAppointments.isEmpty) {
               return AppointmentEmptyState(status: status);

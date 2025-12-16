@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
-class AppointmentAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MedicalRecordAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   final VoidCallback onSearchPressed;
   final VoidCallback onFilterPressed;
 
-  const AppointmentAppBar({
+  const MedicalRecordAppBar({
     super.key,
     required this.onSearchPressed,
     required this.onFilterPressed,
@@ -17,7 +18,7 @@ class AppointmentAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text('My Appointments', style: TextStyles.font18DarkGreenBold),
+      title: Text('Medical Records', style: TextStyles.font18DarkGreenBold),
       backgroundColor: Colors.white,
       elevation: 0,
       centerTitle: true,

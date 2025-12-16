@@ -23,9 +23,15 @@ class _AppointmentManageApiServices implements AppointmentManageApiServices {
   Future<DoctorMateResponse<AppointmentListResponse>> getPatientAppointments({
     required int page,
     required int limit,
+    String? status,
   }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'page': page, r'limit': limit};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'limit': limit,
+      r'status': status,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options =

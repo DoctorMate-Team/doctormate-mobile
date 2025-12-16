@@ -6,19 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainNavigationScreen extends StatelessWidget {
-  const MainNavigationScreen({super.key});
-
+  const MainNavigationScreen({super.key, this.initialIndex});
+  final int? initialIndex;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainCubit, MainState>(
       builder: (context, state) {
         return Scaffold(
           body: IndexedStack(
-            index: state.currentIndex,
+            index: initialIndex ?? state.currentIndex,
             children: NavigationScreens.screens,
           ),
           bottomNavigationBar: CustomBottomNavigationBar(
-            currentIndex: state.currentIndex,
+            currentIndex: initialIndex ?? state.currentIndex,
             onTap: (index) => context.read<MainCubit>().changeTab(index),
           ),
         );

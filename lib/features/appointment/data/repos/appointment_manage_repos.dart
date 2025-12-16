@@ -10,11 +10,12 @@ class AppointmentManageRepos {
   AppointmentManageRepos(this._apiServices);
 
   Future<ApiResult<DoctorMateResponse<AppointmentListResponse>>>
-  getPatientAppointments({required int page, required int limit}) async {
+  getPatientAppointments({required int page, required int limit, String? status}) async {
     try {
       final response = await _apiServices.getPatientAppointments(
         page: page,
         limit: limit,
+        status: status,
       );
       return ApiResult.success(response);
     } catch (e) {
