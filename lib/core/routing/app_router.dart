@@ -14,9 +14,11 @@ import 'package:doctor_mate/features/auth/ui/screens/otp_screen.dart';
 import 'package:doctor_mate/features/auth/ui/screens/reset_password_screen.dart';
 import 'package:doctor_mate/features/details/ui/details_screen.dart';
 import 'package:doctor_mate/features/dignoses/ui/dignoses_screen.dart';
+import 'package:doctor_mate/features/medical-record/data/models/medical_record_list_response.dart';
 import 'package:doctor_mate/features/main_navigation/logic/cubit/main_cubit.dart';
 import 'package:doctor_mate/features/main_navigation/ui/main_navigation_screen.dart';
 import 'package:doctor_mate/features/onBoarding/ui/onBoarding_screen.dart';
+import 'package:doctor_mate/features/prescriptions/logic/cubit/prescriptions_cubit.dart';
 import 'package:doctor_mate/features/prescriptions/ui/prescriptions_screen.dart';
 import 'package:doctor_mate/features/profile/ui/profile_screen.dart';
 import 'package:doctor_mate/features/smart-checkup/data/models/symptom_check_response.dart';
@@ -159,7 +161,11 @@ class AppRouter {
           name: Routes.dignosesScreen,
           builder: (context, state) {
             final recordId = state.uri.queryParameters['recordId'] ?? '';
-            return DiagnosesScreen(recordId: recordId);
+            final diagnosisData = state.extra as DiagnosisModel?;
+            return DiagnosesScreen(
+              recordId: recordId,
+              diagnosisData: diagnosisData,
+            );
           },
         ),
         GoRoute(
@@ -167,7 +173,15 @@ class AppRouter {
           name: Routes.prescriptionsScreen,
           builder: (context, state) {
             final diagnosisId = state.uri.queryParameters['diagnosisId'] ?? '';
-            return PrescriptionsScreen(diagnosisId: diagnosisId);
+            final appointmentId =
+                state.uri.queryParameters['appointmentId'] ?? '';
+            return BlocProvider(
+              create: (context) => getIt<PrescriptionsCubit>(),
+              child: PrescriptionsScreen(
+                diagnosisId: diagnosisId,
+                appointmentId: appointmentId,
+              ),
+            );
           },
         ),
         GoRoute(

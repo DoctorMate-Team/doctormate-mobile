@@ -4,6 +4,7 @@ import 'package:doctor_mate/features/appointment/ui/appointment_management_scree
 import 'package:doctor_mate/features/chat/ui/chat_screen.dart';
 import 'package:doctor_mate/features/home/logic/cubit/home_cubit.dart';
 import 'package:doctor_mate/features/home/ui/home_screen.dart';
+import 'package:doctor_mate/features/medical-record/logic/cubit/medical_records_cubit.dart';
 import 'package:doctor_mate/features/medical-record/ui/medical_record_screen.dart';
 import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
 import 'package:doctor_mate/features/profile/ui/profile_screen.dart';
@@ -20,7 +21,13 @@ class NavigationScreens {
       create: (context) => getIt<AppointmentManageCubit>(),
       child: const AppointmentManagementScreen(),
     ),
-    const MedicalRecordScreen(),
+    BlocProvider(
+      create:
+          (context) =>
+              getIt<MedicalRecordsCubit>()
+                ..getPatientMedicalRecords(page: 1, limit: 10),
+      child: const MedicalRecordScreen(),
+    ),
     const ChatScreen(),
     BlocProvider(
       create: (context) => getIt<ProfileCubit>()..getProfile(),

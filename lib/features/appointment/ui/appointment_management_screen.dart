@@ -7,7 +7,6 @@ import 'package:doctor_mate/features/appointment/logic/cubit/appointment_manage_
 import 'package:doctor_mate/features/appointment/logic/cubit/appointment_manage_state.dart';
 import 'package:doctor_mate/features/appointment/ui/widgets/appointment_list_view.dart';
 import 'package:doctor_mate/features/appointment/ui/widgets/appointment_tab_bar.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/filter_chips_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,15 +100,15 @@ class _AppointmentManagementScreenState
         body: Column(
           children: [
             AppointmentTabBar(tabController: _tabController),
-            FilterChipsBar(
-              selectedFilter: _selectedStatusFilter,
-              onFilterChanged: (status) {
-                setState(() {
-                  _selectedStatusFilter = status;
-                });
-                _fetchAppointments(status: status);
-              },
-            ),
+            // FilterChipsBar(
+            //   selectedFilter: _selectedStatusFilter,
+            //   onFilterChanged: (status) {
+            //     setState(() {
+            //       _selectedStatusFilter = status;
+            //     });
+            //     _fetchAppointments(status: status);
+            //   },
+            // ),
             Expanded(
               child: TabBarView(
                 controller: _tabController,

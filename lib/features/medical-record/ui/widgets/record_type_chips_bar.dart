@@ -1,3 +1,4 @@
+import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class RecordTypeChipsBar extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         scrollDirection: Axis.horizontal,
         itemCount: recordTypes.length,
-        separatorBuilder: (context, index) => SizedBox(width: 8.w),
+        separatorBuilder: (context, index) => horizantialSpacing(8),
         itemBuilder: (context, index) {
           final type = recordTypes[index];
           final isSelected = selectedType == type;
