@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doctor_mate/core/functions/custom_image_picker_and_compress.dart';
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
@@ -229,9 +230,24 @@ class ImageUploadCard extends StatelessWidget {
     );
   }
 
-  void _handleImagePick(BuildContext context) {
-    // TODO: Implement actual image picker
-    // For now, simulate image selection with a mock path
-    onImagePicked('/mock/path/to/image.jpg');
+  void _handleImagePick(BuildContext context) async {
+    final pickedFile = await pickImageAndCompress();
+
+    if (pickedFile != null) {
+      onImagePicked(pickedFile.path);
+    } else {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Failed to pick image'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        );
+      }
+    }
   }
 }

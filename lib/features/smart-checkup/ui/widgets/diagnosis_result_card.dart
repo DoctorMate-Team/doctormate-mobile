@@ -1,13 +1,13 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
-import 'package:doctor_mate/features/smart-checkup/data/models/symptom_check_response.dart';
+import 'package:doctor_mate/features/smart-checkup/data/models/smart_check_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class DiagnosisResultCard extends StatelessWidget {
-  final DiagnosisResultModel diagnosis;
+  final SmartCheckResponse diagnosis;
   final String checkType;
 
   const DiagnosisResultCard({
@@ -41,24 +41,25 @@ class DiagnosisResultCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildSeverityBadge(),
-                if (diagnosis.description != null) ...[
-                  verticalSpacing(16),
-                  _buildDescription(),
-                ],
-                if (diagnosis.possibleCauses != null &&
-                    diagnosis.possibleCauses!.isNotEmpty) ...[
+                verticalSpacing(16),
+                _buildDescription(),
+                if (diagnosis.emergencyCare.isNotEmpty) ...[
                   verticalSpacing(20),
-                  _buildPossibleCauses(),
+                  _buildEmergencyCare(),
                 ],
-                if (diagnosis.recommendations != null &&
-                    diagnosis.recommendations!.isNotEmpty) ...[
+                if (diagnosis.additionalInfo?.riskFactors != null &&
+                    diagnosis.additionalInfo!.riskFactors.isNotEmpty) ...[
+                  verticalSpacing(20),
+                  _buildRiskFactors(),
+                ],
+                if (diagnosis.recommendations.isNotEmpty) ...[
                   verticalSpacing(20),
                   _buildRecommendations(),
                 ],
-                if (diagnosis.warningSymptoms != null &&
-                    diagnosis.warningSymptoms!.isNotEmpty) ...[
+                if (diagnosis.additionalInfo?.symptoms != null &&
+                    diagnosis.additionalInfo!.symptoms.isNotEmpty) ...[
                   verticalSpacing(20),
-                  _buildWarningSymptoms(),
+                  _buildSymptoms(),
                 ],
               ],
             ),
@@ -121,9 +122,9 @@ class DiagnosisResultCard extends StatelessWidget {
   Widget _buildSeverityBadge() {
     Color badgeColor;
     IconData badgeIcon;
-    String severityText = diagnosis.severity?.toUpperCase() ?? 'UNKNOWN';
+    String severityText = diagnosis.severity.toUpperCase();
 
-    switch (diagnosis.severity?.toLowerCase()) {
+    switch (diagnosis.severity.toLowerCase()) {
       case 'mild':
         badgeColor = Colors.green;
         badgeIcon = Iconsax.tick_circle;
@@ -205,7 +206,7 @@ class DiagnosisResultCard extends StatelessWidget {
             border: Border.all(color: Colors.grey.shade200, width: 1),
           ),
           child: Text(
-            diagnosis.description!,
+            diagnosis.description,
             style: TextStyles.font14DarkGreenMedium.copyWith(
               height: 1.6,
               color: Colors.grey.shade700,
@@ -216,7 +217,7 @@ class DiagnosisResultCard extends StatelessWidget {
     );
   }
 
-  Widget _buildPossibleCauses() {
+  Widget _buildRiskFactors() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -224,11 +225,11 @@ class DiagnosisResultCard extends StatelessWidget {
           children: [
             Icon(Iconsax.search_status, color: Colors.purple, size: 18.sp),
             horizantialSpacing(6),
-            Text('Possible Causes', style: TextStyles.font16DarkGreenBold),
+            Text('Risk Factors', style: TextStyles.font16DarkGreenBold),
           ],
         ),
         verticalSpacing(12),
-        ...diagnosis.possibleCauses!.asMap().entries.map((entry) {
+        ...diagnosis.additionalInfo!.riskFactors.asMap().entries.map((entry) {
           return Padding(
             padding: EdgeInsets.only(bottom: 8.h),
             child: Row(
@@ -272,7 +273,7 @@ class DiagnosisResultCard extends StatelessWidget {
           ],
         ),
         verticalSpacing(12),
-        ...diagnosis.recommendations!.asMap().entries.map((entry) {
+        ...diagnosis.recommendations.asMap().entries.map((entry) {
           return Container(
             margin: EdgeInsets.only(bottom: 8.h),
             padding: EdgeInsets.all(12.w),
@@ -317,7 +318,7 @@ class DiagnosisResultCard extends StatelessWidget {
     );
   }
 
-  Widget _buildWarningSymptoms() {
+  Widget _buildEmergencyCare() {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -333,40 +334,63 @@ class DiagnosisResultCard extends StatelessWidget {
               Icon(Iconsax.danger, color: Colors.red.shade700, size: 20.sp),
               horizantialSpacing(8),
               Text(
-                'Seek Immediate Care If:',
+                'Emergency Care',
                 style: TextStyles.font16DarkGreenBold.copyWith(
                   color: Colors.red.shade900,
                 ),
               ),
             ],
           ),
-          verticalSpacing(12),
-          ...diagnosis.warningSymptoms!.map((symptom) {
-            return Padding(
-              padding: EdgeInsets.only(bottom: 6.h),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Iconsax.warning_2,
-                    color: Colors.red.shade600,
-                    size: 16.sp,
-                  ),
-                  horizantialSpacing(8),
-                  Expanded(
-                    child: Text(
-                      symptom,
-                      style: TextStyles.font14DarkGreenMedium.copyWith(
-                        color: Colors.red.shade800,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
+          verticalSpacing(8),
+          Text(
+            diagnosis.emergencyCare,
+            style: TextStyles.font14DarkGreenMedium.copyWith(
+              color: Colors.red.shade800,
+              height: 1.5,
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSymptoms() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Iconsax.warning_2, color: Colors.orange, size: 18.sp),
+            horizantialSpacing(6),
+            Text('Associated Symptoms', style: TextStyles.font16DarkGreenBold),
+          ],
+        ),
+        verticalSpacing(12),
+        ...diagnosis.additionalInfo!.symptoms.map((symptom) {
+          return Padding(
+            padding: EdgeInsets.only(bottom: 6.h),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Iconsax.tick_circle,
+                  color: Colors.orange.shade600,
+                  size: 16.sp,
+                ),
+                horizantialSpacing(8),
+                Expanded(
+                  child: Text(
+                    symptom,
+                    style: TextStyles.font14DarkGreenMedium.copyWith(
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ],
     );
   }
 }

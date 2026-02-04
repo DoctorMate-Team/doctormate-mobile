@@ -25,6 +25,9 @@ import 'package:doctor_mate/features/prescriptions/logic/cubit/prescriptions_cub
 import 'package:doctor_mate/features/profile/data/apis/profile_api_services.dart';
 import 'package:doctor_mate/features/profile/data/repos/profile_repos.dart';
 import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
+import 'package:doctor_mate/features/smart-checkup/data/api/smart_checkup_api_services.dart';
+import 'package:doctor_mate/features/smart-checkup/data/repos/smart_checkup_repos.dart';
+import 'package:doctor_mate/features/smart-checkup/logic/cubit/smart_checkup_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -100,5 +103,16 @@ Future<void> setupGetIt() async {
   );
   getIt.registerFactory<PrescriptionsCubit>(
     () => PrescriptionsCubit(getIt()),
+  );
+
+  // Smart Checkup
+  getIt.registerLazySingleton<SmartCheckupApiServices>(
+    () => SmartCheckupApiServices(dio),
+  );
+  getIt.registerLazySingleton<SmartCheckupRepos>(
+    () => SmartCheckupRepos(getIt()),
+  );
+  getIt.registerFactory<SmartCheckupCubit>(
+    () => SmartCheckupCubit(getIt()),
   );
 }
