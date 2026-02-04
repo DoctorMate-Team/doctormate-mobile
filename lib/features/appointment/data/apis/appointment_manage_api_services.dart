@@ -11,11 +11,13 @@ part 'appointment_manage_api_services.g.dart';
 abstract class AppointmentManageApiServices {
   factory AppointmentManageApiServices(Dio dio, {String baseUrl}) =
       _AppointmentManageApiServices;
-
+      
+  //&status="pending", "confirmed", "inprogress", "completed", "cancelled"
   @GET(ApiConstants.patientAppointments)
   Future<DoctorMateResponse<AppointmentListResponse>> getPatientAppointments({
     @Query('page') required int page,
     @Query('limit') required int limit,
+    @Query('status') String? status,
   });
 
   @PUT(ApiConstants.updateAppointmentStatus)

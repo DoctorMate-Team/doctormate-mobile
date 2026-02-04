@@ -5,11 +5,8 @@ import 'package:doctor_mate/core/widgets/custom_material_button.dart';
 import 'package:doctor_mate/features/appointment/data/models/appointment_list_response.dart';
 import 'package:doctor_mate/features/appointment/logic/cubit/appointment_manage_cubit.dart';
 import 'package:doctor_mate/features/appointment/logic/cubit/appointment_manage_state.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/appointment_app_bar.dart';
 import 'package:doctor_mate/features/appointment/ui/widgets/appointment_list_view.dart';
 import 'package:doctor_mate/features/appointment/ui/widgets/appointment_tab_bar.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/filter_bottom_sheet.dart';
-import 'package:doctor_mate/features/appointment/ui/widgets/filter_chips_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +24,7 @@ class _AppointmentManagementScreenState
     extends State<AppointmentManagementScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String _selectedFilter = 'All';
+  String? _selectedStatusFilter;
   final int _currentPage = 1;
   final int _pageLimit = 10;
   List<PatientAppointmentModel> _allAppointments = [];
@@ -45,20 +42,23 @@ class _AppointmentManagementScreenState
     super.dispose();
   }
 
-  void _fetchAppointments() {
+  void _fetchAppointments({String? status}) {
     context.read<AppointmentManageCubit>().getPatientAppointments(
       page: _currentPage,
       limit: _pageLimit,
+      status: status ?? _selectedStatusFilter,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AppointmentManageCubit, AppointmentManageState>(
-      listenWhen: (previous, current) => current is LoadedAppointmentsPatient ||
-          current is ErrorAppointmentsPatient ||
-          current is UpdatedAppointmentStatus ||
-          current is ErrorUpdatingAppointmentStatus,
+      listenWhen:
+          (previous, current) =>
+              current is LoadedAppointmentsPatient ||
+              current is ErrorAppointmentsPatient ||
+              current is UpdatedAppointmentStatus ||
+              current is ErrorUpdatingAppointmentStatus,
       listener: (context, state) {
         state.maybeWhen(
           loadedAppointmentsPatient: (response) {
@@ -92,23 +92,23 @@ class _AppointmentManagementScreenState
       },
       child: Scaffold(
         backgroundColor: Colors.grey.shade50,
-        appBar: AppointmentAppBar(
-          onSearchPressed: () {
-            // TODO: Implement search
-          },
-          onFilterPressed: _showFilterBottomSheet,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text('My Appointments', style: TextStyles.font18DarkGreenBold),
+          centerTitle: true,
         ),
         body: Column(
           children: [
             AppointmentTabBar(tabController: _tabController),
-            FilterChipsBar(
-              selectedFilter: _selectedFilter,
-              onFilterChanged: (filter) {
-                setState(() {
-                  _selectedFilter = filter;
-                });
-              },
-            ),
+            // FilterChipsBar(
+            //   selectedFilter: _selectedStatusFilter,
+            //   onFilterChanged: (status) {
+            //     setState(() {
+            //       _selectedStatusFilter = status;
+            //     });
+            //     _fetchAppointments(status: status);
+            //   },
+            // ),
             Expanded(
               child: TabBarView(
                 controller: _tabController,
@@ -140,16 +140,6 @@ class _AppointmentManagementScreenState
           ],
         ),
       ),
-    );
-  }
-
-  void _showFilterBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-      ),
-      builder: (context) => const FilterBottomSheet(),
     );
   }
 

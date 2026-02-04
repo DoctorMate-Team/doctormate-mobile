@@ -1,4 +1,5 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
+import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/features/home/logic/cubit/home_cubit.dart';
 import 'package:doctor_mate/features/home/ui/widgets/doctors_bloc_builder.dart';
 import 'package:doctor_mate/features/home/ui/widgets/health_status_card.dart';
@@ -11,6 +12,7 @@ import 'package:doctor_mate/features/home/ui/widgets/upcoming_appointments.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -62,114 +64,133 @@ class HomeScreenState extends State<HomeScreen>
     super.dispose();
   }
 
+  Future<void> _onRefresh() async {
+    // Refresh all home screen data
+    context.read<HomeCubit>().getSpecialties();
+
+    if (selectedSpecialtyId != null) {
+      context.read<HomeCubit>().getDoctorsBySpecialty(
+        specialtyId: selectedSpecialtyId!,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        // Custom App Bar with Soft Gradient
-        SliverAppBar(
-          expandedHeight: 100.h,
-          floating: false,
-          pinned: true,
-          elevation: 0,
-          backgroundColor: Colors.white,
-          flexibleSpace: FlexibleSpaceBar(
-            background: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.white, Colors.grey.shade50],
-                ),
-              ),
-              child: SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 8.h,
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      color: Theme.of(context).primaryColor,
+      child: CustomScrollView(
+        slivers: [
+          // Custom App Bar with Soft Gradient
+          SliverAppBar(
+            expandedHeight: 100.h,
+            floating: false,
+            pinned: true,
+            elevation: 0,
+            backgroundColor: Colors.white,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.white, Colors.grey.shade50],
                   ),
-                  child: const ModernAppBar(),
+                ),
+                child: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 8.h,
+                    ),
+                    child: const ModernAppBar(),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
 
-        // Main Content
-        SliverToBoxAdapter(
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              return FadeTransition(
-                opacity: _fadeAnimation,
-                child: SlideTransition(
-                  position: _slideAnimation,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Health Status Card
-                        const HealthStatusCard(),
-                        verticalSpacing(18),
+          // Main Content
+          SliverToBoxAdapter(
+            child: AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: SlideTransition(
+                    position: _slideAnimation,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Health Status Card
+                          const HealthStatusCard(),
+                          verticalSpacing(18),
 
-                        // Upcoming Appointments
-                        const SectionHeader(
-                          title: 'Upcoming Appointments',
-                          actionText: 'View All',
-                        ),
-                        verticalSpacing(12),
-                        const UpcomingAppointments(),
-                        verticalSpacing(20),
+                          // Upcoming Appointments
+                          SectionHeader(
+                            title: 'Upcoming Appointments',
+                            actionText: 'View All',
+                            onActionTap: () {
+                              // Navigate to main layout and switch to appointments tab (index 1)
+                              context.pushNamed(Routes.mainLayout, extra: 1);
+                            },
+                          ),
+                          verticalSpacing(12),
+                          const UpcomingAppointments(),
+                          verticalSpacing(20),
 
-                        // Quick Actions Section - more compact
-                        const SectionHeader(
-                          title: 'Quick Actions',
-                          actionText: 'View All',
-                        ),
-                        const ModernQuickActions(),
-                        verticalSpacing(20),
+                          // Quick Actions Section - more compact
+                          const SectionHeader(
+                            title: 'Quick Actions',
+                            actionText: '',
+                          ),
+                          const ModernQuickActions(),
+                          verticalSpacing(20),
 
-                        // Specialists Section - moved to top for better UX
-                        const SectionHeader(
-                          title: 'Specialists',
-                          actionText: 'View All',
-                        ),
-                        verticalSpacing(12),
-                        SpecialtiesBlocBuilder(
-                          selectedSpecialtyId: selectedSpecialtyId,
-                          onSpecialistTap: (specialtyId) {
-                            setState(() {
-                              selectedSpecialtyId = specialtyId;
-                              showDoctors = true;
-                            });
-                            context.read<HomeCubit>().getDoctorsBySpecialty(
-                              specialtyId: specialtyId,
-                            );
-                          },
-                          onFirstSpecialtyLoaded: (specialtyId) {
-                            setState(() {
-                              selectedSpecialtyId = specialtyId;
-                            });
-                          },
-                        ),
-                        verticalSpacing(16),
+                          // Specialists Section - moved to top for better UX
+                          const SectionHeader(
+                            title: 'Specialists',
+                            actionText: '',
+                          ),
+                          verticalSpacing(12),
+                          SpecialtiesBlocBuilder(
+                            selectedSpecialtyId: selectedSpecialtyId,
+                            onSpecialistTap: (specialtyId) {
+                              setState(() {
+                                selectedSpecialtyId = specialtyId;
+                                showDoctors = true;
+                              });
+                              context.read<HomeCubit>().getDoctorsBySpecialty(
+                                specialtyId: specialtyId,
+                              );
+                            },
+                            onFirstSpecialtyLoaded: (specialtyId) {
+                              setState(() {
+                                selectedSpecialtyId = specialtyId;
+                              });
+                            },
+                          ),
+                          verticalSpacing(16),
 
-                        // Doctors List - Show when specialist is selected
-                        if (showDoctors) const DoctorsBlocBuilder(),
+                          // Doctors List - Show when specialist is selected
+                          if (showDoctors) const DoctorsBlocBuilder(),
 
-                        // Health Tips Card
-                        const HealthTipsCard(),
-                        verticalSpacing(18),
-                      ],
+                          // Health Tips Card
+                          const HealthTipsCard(),
+                          verticalSpacing(18),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

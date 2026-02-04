@@ -18,6 +18,8 @@ class ApiConstants {
   static const appointments = "appointments";
   static const patientAppointments = "$appointments/patient";
   static const updateAppointmentStatus = "$appointments/{appointmentId}/status";
+  static const medicalRecords = "records/patient";
+  static const prescriptions = "prescriptions";
 }
 
 class ApiErrors {

@@ -1,9 +1,11 @@
 import 'package:doctor_mate/core/helper/app_images.dart';
 import 'package:doctor_mate/core/helper/spacing.dart';
+import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class ModernAppBar extends StatelessWidget {
@@ -67,18 +69,23 @@ class ModernAppBar extends StatelessWidget {
           ),
         ),
         horizantialSpacing(8),
-        Container(
-          width: 40.w,
-          height: 40.h,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: Colors.grey.shade200, width: 1),
-          ),
-          child: Icon(
-            Iconsax.search_normal_copy,
-            color: Colors.grey.shade600,
-            size: 20.sp,
+        GestureDetector(
+          onTap: () {
+            context.pushNamed(Routes.searchScreen);
+          },
+          child: Container(
+            width: 40.w,
+            height: 40.h,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(10.r),
+              border: Border.all(color: Colors.grey.shade200, width: 1),
+            ),
+            child: Icon(
+              Iconsax.search_normal_copy,
+              color: Colors.grey.shade600,
+              size: 20.sp,
+            ),
           ),
         ),
       ],

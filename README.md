@@ -223,7 +223,99 @@ lib/
   - Smooth transitions between states
   - Error handling with retry functionality
 
-### 📅 Appointment Management System
+### � Medical Records & Prescriptions System
+
+#### 📋 Medical Records Screen
+- **Complete Medical History**:
+  - Patient medical records list with pagination
+  - Record type filtering (All, Diagnosis, Lab Results, Prescriptions)
+  - Professional card design with diagnosis information
+  - Status badges with color coding
+  - Navigation to detailed diagnosis view
+  
+- **Diagnosis Details Screen**:
+  - Complete diagnosis information display
+  - Diagnosis header with severity badge and ICD code
+  - Clinical description with creation date
+  - Doctor information card
+  - Action buttons (Download Report, View Prescription, Contact Doctor)
+  - Empty state handling with custom message
+  - Gradient design with professional UI
+  
+- **Professional Loading & States**:
+  - Custom shimmer loading matching card layouts
+  - Empty state with "No diagnosis data" message
+  - Error handling with retry functionality
+  - Smooth transitions between states
+
+#### 💊 Prescription Details Screen
+- **Complete Prescription Display**:
+  - Professional prescription header with Rx number
+  - Status badge (Active, Expired, Completed, Cancelled)
+  - Prescribed date with calendar format
+  
+- **Patient & Doctor Information Cards**:
+  - Patient information with profile image
+  - Prescribing doctor details with specialty
+  - CachedNetworkImage integration for avatars
+  - Fallback icons when images unavailable
+  
+- **Medications List**:
+  - Complete medication details:
+    - Drug name with numbered badges
+    - Dosage information with color coding
+    - Instructions with info icons
+    - Duration in days with calendar badges
+  - Medications count display
+  - List with dividers for clarity
+  - Color-coded medication cards (green theme)
+  
+- **Additional Information**:
+  - Important notes card with amber warning design
+  - Validity period with prescribed date
+  - Professional gradient containers
+  
+- **Action Buttons**:
+  - Download prescription (prepared)
+  - Share prescription (prepared)
+  - Contact doctor (prepared)
+  - CustomMaterialButton throughout
+  
+- **Professional UI Components**:
+  - **Shimmer Loading**: Complete skeleton matching screen layout
+    - Header card shimmer (150h)
+    - Patient card shimmer (100h)
+    - Doctor card shimmer (100h)
+    - Medications card with 3 item shimmers
+    - Validity card shimmer (80h)
+    - Action buttons shimmers
+  - **Error State**: Retry functionality with error message
+  - Responsive design with ScreenUtil
+  - Consistent spacing with custom helpers
+  
+- **Navigation Integration**:
+  - Accessible from diagnosis screen
+  - Receives diagnosisId and appointmentId via GoRouter
+  - AppointmentId used for API prescription fetch
+  
+- **Clean Architecture & Widget Extraction**:
+  - ✅ **10 reusable StatelessWidgets** extracted:
+    * PrescriptionHeaderCard - Header with Rx number and status
+    * PrescriptionPatientCard - Patient information display
+    * PrescriptionDoctorCard - Doctor information with specialty
+    * PrescriptionMedicationItem - Individual medication details
+    * PrescriptionMedicationsCard - Medications list container
+    * PrescriptionNotesCard - Important notes section
+    * PrescriptionValidityCard - Validity period information
+    * PrescriptionActionButtons - Download/Share/Contact actions
+    * PrescriptionErrorState - Error display with retry
+    * PrescriptionShimmerLoading - Complete loading skeleton
+  - ✅ **Main screen optimized** - Clean code with widget composition
+  - ✅ **Consistent custom widgets** - CustomMaterialButton, spacing helpers
+  - ✅ **No SizedBox usage** - All replaced with verticalSpacing/horizantialSpacing
+  - ✅ **Proper BLoC pattern** - PrescriptionsCubit with state management
+
+### �📅 Appointment Management System
 
 #### 🗓️ Appointment Management Screen (Bottom Navigation)
 - **3-Tab Interface** with professional Material Design:
@@ -343,6 +435,8 @@ lib/
   - `AppointmentManageCubit`: Appointments list, status updates (cancel)
   - `MainCubit`: Bottom navigation management
   - `ProfileCubit`: User profile data and updates
+  - `MedicalRecordsCubit`: Medical records list fetching
+  - `PrescriptionsCubit`: Prescription details fetching
 
 - **State Management Patterns**:
   - BlocListener for side effects (navigation, dialogs, snackbars)
@@ -368,6 +462,10 @@ lib/
     - POST `/appointments` - Book appointment
     - GET `/appointments?page={page}&limit={limit}` - Get patient appointments with pagination
     - PUT `/appointments/{appointmentId}` - Update appointment status (cancel)
+  - **Medical Records**:
+    - GET `/medical-records?page={page}&limit={limit}` - Get patient medical records with pagination
+  - **Prescriptions**:
+    - GET `/prescriptions/appointment/{appointmentId}` - Get prescription details by appointment ID
   - **Profile**: 
     - GET `/profile` - Get user profile
     - POST `/profile/upload-image` - Upload profile image
@@ -433,7 +531,60 @@ profile/
 ├── logic/
 │   └── cubit/            # ProfileCubit & states
 └── ui/
-    ├── screens/          # ProfileScreen
+    ├Medical Records & Prescriptions Feature
+```
+medical-record/
+├── data/
+│   ├── apis/                              # MedicalRecordsApiServices
+│   ├── models/                            # Medical record models
+│   │   └── medical_record_list_response.dart  # Response with DiagnosisModel
+│   └── repos/                             # MedicalRecordsRepos
+├── logic/
+│   └── cubit/                             # MedicalRecordsCubit & states
+└── ui/
+    ├── medical_record_screen.dart         # Main records list screen
+    └── widgets/
+        ├── medical_record_card.dart       # Individual record card
+        ├── medical_record_empty_state.dart
+        ├── medical_record_error_state.dart
+        └── record_type_chips_bar.dart     # Filter chips
+
+dignoses/
+└── ui/
+    ├── dignoses_screen.dart               # Diagnosis details screen
+    └── widgets/                           # Extracted diagnosis widgets
+        ├── diagnosis_header_card.dart
+        ├── diagnosis_details_card.dart
+        ├── doctor_info_card.dart
+        ├── diagnosis_action_buttons.dart
+        └── diagnosis_no_data_state.dart
+
+prescriptions/
+├── data/
+│   ├── apis/                              # PrescriptionsApiServices
+│   ├── models/                            # Prescription models
+│   │   └── prescription_details_response.dart  # Complete prescription structure
+│   │       # Includes: PrescriptionMedicationModel, PatientModel,
+│   │       # DoctorModel, DiagnosisModel, AppointmentModel
+│   └── repos/                             # PrescriptionsRepos
+├── logic/
+│   └── cubit/                             # PrescriptionsCubit & states
+└── ui/
+    ├── prescriptions_screen.dart          # Main prescription screen
+    └── widgets/                           # 10 extracted widgets
+        ├── prescription_header_card.dart
+        ├── prescription_patient_card.dart
+        ├── prescription_doctor_card.dart
+        ├── prescription_medication_item.dart
+        ├── prescription_medications_card.dart
+        ├── prescription_notes_card.dart
+        ├── prescription_validity_card.dart
+        ├── prescription_action_buttons.dart
+        ├── prescription_error_state.dart
+        └── prescription_shimmer_loading.dart
+```
+
+#### ── screens/          # ProfileScreen
     └── widgets/
         ├── custom_action_profile_button.dart
         └── profile_shimmer_loading.dart
@@ -525,8 +676,11 @@ void getDoctorsBySpecialty({required String specialtyId}) async {
   if (_doctorsCache.containsKey(specialtyId)) {
     emit(HomeState.getDoctorsBySpecialtySuccess(
       doctors: _doctorsCache[specialtyId]!,
-    ));
-    return;
+    ));edical Records** - Patient medical history list
+11. **Diagnosis Details** - Detailed diagnosis information
+12. **Prescription Details** - Complete prescription with medications
+13. **Main Navigation** - Bottom navigation wrapper
+14  return;
   }
   
   // Fetch from API and cache
@@ -553,12 +707,23 @@ All shimmer loading widgets match the exact design of their corresponding cards 
 - Dart SDK (3.0.0 or higher)
 - Android Studio / VS Code
 - iOS Simulator / Android Emulator
-
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/DoctorMate-Team/doctormate-mobile.git
+- ✅ **Medical Records Screen with diagnosis information**
+- ✅ **Diagnosis Details Screen with complete diagnosis data**
+- ✅ **Prescription Details Screen with medications list**
+- ✅ **10 extracted prescription widgets for clean code**
+- ✅~~Medical records and prescriptions~~ ✅ DONE
+4. Implement appointment reschedule functionality
+5. Implement appointment details view screen
+6. Implement search functionality in appointments
+7. Add "Book Again" feature
+8. Implement prescription download/share functionality
+9. Add lab results viewing in medical records
+10. Edit profile functionality
+11. Real-time chat feature
+12. Payment gateway integration
+13. Push notifications
+14. Advanced search and filters
+15t clone https://github.com/DoctorMate-Team/doctormate-mobile.git
 cd doctormate-mobile
 ```
 
@@ -588,11 +753,33 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - ✅ Doctor caching system implemented
 - ✅ Details screen redesign finished
 - ✅ Shimmer loading for all screens
-- ✅ Auto-selection of first specialty
-- ✅ Complete profile image picker
-- ✅ Profile screen with API integration
-- ✅ **Appointment booking feature COMPLETE with full API integration**
-- ✅ **4-step booking flow with professional UI**
+- ✅ Auto-selection of first specialtymedical-records-prescriptions`
+
+### Latest Milestone: Complete Medical Records & Prescriptions System ✨
+
+**Medical Records & Prescriptions - Full Implementation**:
+- ✅ **Medical Records Screen** with pagination support
+- ✅ **Record type filtering** (All, Diagnosis, Lab Results, Prescriptions)
+- ✅ **Diagnosis Details Screen** with complete information display
+- ✅ **Prescription Details Screen** with medications list
+- ✅ **10 extracted prescription widgets** for clean architecture
+- ✅ **Patient and Doctor information cards** with CachedNetworkImage
+- ✅ **Medications list** with complete details (drug, dosage, instructions, duration)
+- ✅ **Important notes section** with amber warning design
+- ✅ **Validity period display** with prescribed date
+- ✅ **Action buttons** (Download, Share, Contact Doctor)
+- ✅ **Shimmer loading** matching prescription layout
+- ✅ **Error state** with retry functionality
+- ✅ **No SizedBox usage** - verticalSpacing/horizantialSpacing throughout
+- ✅ **CustomMaterialButton** for all interactive elements
+- ✅ **BLoC pattern** with PrescriptionsCubit
+- ✅ **API integration** - GET prescription by appointmentId
+- ✅ **Navigation flow** - Diagnosis → Prescription with appointmentId
+- ✅ **Responsive design** with flutter_screenutil
+- ✅ **Status color coding** (Active, Expired, Completed, Cancelled)
+- ✅ **Professional gradient designs** for headers and cards
+
+**Previous Milestone: Appointment Management Scree
 - ✅ **Smart date picker filtered by doctor's working days**
 - ✅ **API-driven time slots with real-time availability**
 - ✅ **State persistence across navigation**
@@ -638,12 +825,14 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - Use `buildWhen` to optimize rebuilds
 - Implement proper error handling in all states
 
-### UI Guidelines
-- Use ScreenUtil for all dimensions (.w, .h, .sp, .r)
-- Follow Material Design principles
-- Maintain consistent spacing and padding
-- Implement proper loading and error states
-- Use const constructors where possible
+### UI Guidelprescription download/share functionality
+2. Add lab results viewing in medical records
+3. Implement appointment reschedule functionality
+4. Implement appointment details view screen
+5. Implement search functionality in appointments
+6. Add "Book Again" feature flow
+7. Edit profile functionality with image update
+8 Use const constructors where possible
 
 ## 🧪 Testing Strategy
 - Unit tests for cubits and repositories
@@ -662,9 +851,9 @@ flutter pub run build_runner build --delete-conflicting-outputs
 **Appointment Management Screen - Full Implementation**:
 - ✅ **3-tab interface** (Upcoming, Completed, Cancelled) with Material TabBar
 - ✅ **Professional appointment cards** with status-based gradient headers
-- ✅ **Filter system** with quick date chips (All, Today, This Week, This Month)
-- ✅ **Sort modal** with options (Date, Doctor Name, Specialty)
-- ✅ **Cancel appointment** with confirmation dialog and API integration
+- ✅ **Filter systeFebruary 4, 2026  
+**Current Branch**: features/medical-records-prescriptions  
+**Major Feature**: Complete Medical Records & Prescriptions System with Clean Architecture
 - ✅ **Pull-to-refresh** for manual data updates
 - ✅ **Shimmer loading** matching card design (5 cards)
 - ✅ **Empty states** with custom messages per tab
@@ -753,6 +942,6 @@ This project is proprietary software owned by DoctorMate Team.
 ---
 
 **Version**: 1.0.0+1  
-**Last Updated**: December 9, 2025  
-**Current Branch**: features/appointment-mangement  
-**Major Feature**: Complete Appointment Management System with Tabs & Filters ✨
+**Last Updated**: February 2, 2026  
+**Current Branch**: features/records-diagnoses-prescriptions
+**Major Feature**: Complete Medical Records, Diagnosis and Prescriptions System.

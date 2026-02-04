@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:doctor_mate/core/functions/custom_image_picker_and_compress.dart';
 import 'package:doctor_mate/core/helper/cache_helper.dart';
 import 'package:doctor_mate/core/helper/constants.dart';
+import 'package:doctor_mate/core/networking/dio_factory.dart';
 import 'package:doctor_mate/features/auth/data/models/complete_profile_request_body.dart';
 import 'package:doctor_mate/features/auth/data/models/send_otp_request_body.dart';
 import 'package:doctor_mate/features/auth/data/models/login_request_body.dart';
@@ -49,6 +50,8 @@ class AuthCubit extends Cubit<AuthState> {
             AppConstants.tokenKey,
             auth.data.token,
           );
+          // Update Dio headers with the new token
+          DioFactory.setTokenIntoHeaderAfterLogin(auth.data.token);
         }
         AppConstants.userTokenProvider = auth.data.token;
         emit(AuthState.loginSuccess(auth.data));

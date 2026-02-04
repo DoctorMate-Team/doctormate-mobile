@@ -16,6 +16,12 @@ import 'package:doctor_mate/features/home/data/apis/home_apis_services.dart';
 import 'package:doctor_mate/features/home/data/repos/home_repos.dart';
 import 'package:doctor_mate/features/home/logic/cubit/home_cubit.dart';
 import 'package:doctor_mate/features/main_navigation/logic/cubit/main_cubit.dart';
+import 'package:doctor_mate/features/medical-record/data/api/medical_records_api_services.dart';
+import 'package:doctor_mate/features/medical-record/data/repos/medical_records_repos.dart';
+import 'package:doctor_mate/features/medical-record/logic/cubit/medical_records_cubit.dart';
+import 'package:doctor_mate/features/prescriptions/data/api/prescriptions_api_services.dart';
+import 'package:doctor_mate/features/prescriptions/data/repos/prescriptions_repos.dart';
+import 'package:doctor_mate/features/prescriptions/logic/cubit/prescriptions_cubit.dart';
 import 'package:doctor_mate/features/profile/data/apis/profile_api_services.dart';
 import 'package:doctor_mate/features/profile/data/repos/profile_repos.dart';
 import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
@@ -72,5 +78,27 @@ Future<void> setupGetIt() async {
   );
   getIt.registerFactory<AppointmentManageCubit>(
     () => AppointmentManageCubit(getIt()),
+  );
+
+  // Medical Records
+  getIt.registerLazySingleton<MedicalRecordsApiServices>(
+    () => MedicalRecordsApiServices(dio),
+  );
+  getIt.registerLazySingleton<MedicalRecordsRepos>(
+    () => MedicalRecordsRepos(getIt()),
+  );
+  getIt.registerFactory<MedicalRecordsCubit>(
+    () => MedicalRecordsCubit(getIt()),
+  );
+
+  // Prescriptions
+  getIt.registerLazySingleton<PrescriptionsApiServices>(
+    () => PrescriptionsApiServices(dio),
+  );
+  getIt.registerLazySingleton<PrescriptionsRepos>(
+    () => PrescriptionsRepos(getIt()),
+  );
+  getIt.registerFactory<PrescriptionsCubit>(
+    () => PrescriptionsCubit(getIt()),
   );
 }
