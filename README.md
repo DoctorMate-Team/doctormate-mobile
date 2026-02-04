@@ -57,6 +57,17 @@ lib/
   - "Book Now" action button
   - Shimmer loading effects matching card design
   
+- **Modern Quick Actions** (2 Actions in Column Layout):
+  - **Scan QR**: Quick scan for appointments
+    - Purple gradient with scan barcode icon
+    - Horizontal card with arrow indicator
+  - **Smart Checkup**: AI-powered health checkup
+    - Red gradient with heart icon
+    - Navigation to Smart Checkup screen
+  - Professional card design with large icons (56×56)
+  - Gradient backgrounds with shadows
+  - Smooth tap interactions
+  
 - **Smart Caching System**:
   - Cache doctors by specialty ID
   - Prevent redundant API calls
@@ -222,6 +233,129 @@ lib/
   - Custom shimmer loading matching screen layout
   - Smooth transitions between states
   - Error handling with retry functionality
+
+### 🤖 Smart Checkup Feature (AI-Powered Health Analysis)
+
+#### 🩺 Smart Checkup Screen
+- **AI-Powered Health Check Interface**:
+  - Professional gradient header with heart icon
+  - Two checkup modes: Symptom Check & Skin Analysis
+  - Mode selector with animated toggle
+  
+- **Symptom Checkup Mode**:
+  - Multi-line text input for symptom description
+  - Real-time validation
+  - Professional card design with gradient accent
+  
+- **Skin Analysis Mode**:
+  - Image upload with camera/gallery picker
+  - Image compression using `pickImageAndCompress()`
+  - Preview uploaded image with remove option
+  - Professional upload card with camera icon
+  
+- **Important Disclaimer**:
+  - Amber-themed notice card
+  - Warning about AI limitations
+  - Professional medical advice recommendation
+  
+- **API Integration**:
+  - POST `/smart-checkup/skin` - FormData with image file
+  - POST `/smart-checkup/symptoms` - JSON with symptoms text
+  - SmartCheckResponse model with @JsonKey annotations
+  - BlocListener for navigation on success/error
+  - BlocBuilder for loading states
+  
+- **Clean Architecture & Widget Extraction**:
+  - ✅ **8 reusable StatelessWidgets** extracted:
+    * CheckupAppBar - App bar with back button
+    * CheckupHeaderCard - Header with gradient icon
+    * CheckupDisclaimerCard - Important notice card
+    * ResultAppBar - Result screen app bar
+    * ResultHeaderCard - Result header with severity
+    * ResultActionButtons - Action buttons
+    * ResultDisclaimerCard - Medical disclaimer
+    * RecommendedDoctorsSection - Doctors list
+  - ✅ **CheckupTypeSelector** - Toggle between modes
+  - ✅ **SymptomInputCard** - Symptom text input
+  - ✅ **ImageUploadCard** - Image picker with preview
+  - ✅ **No SizedBox usage** - Custom spacing throughout
+  - ✅ **CustomMaterialButton** for all buttons
+
+#### 🔬 Smart Checkup Result Screen
+- **Dynamic Severity Display**:
+  - Color-coded headers (Green/Orange/Red)
+  - Severity icons (Tick/Info/Danger)
+  - Gradient backgrounds based on severity
+  - Confidence percentage display
+  
+- **AI Analysis Results**:
+  - **Possible Diagnosis**: Main diagnosis with confidence
+  - **Description**: Detailed condition explanation
+  - **Emergency Care**: Urgent care instructions (if applicable)
+  - **Risk Factors**: List of identified risk factors
+  - **Recommendations**: Health recommendations
+  - **Symptoms**: Related symptoms list
+  
+- **Recommended Doctors Section**:
+  - List of specialist doctors for condition
+  - Reuses existing DoctorCard from home feature
+  - Navigation to doctor details screen
+  - Professional gradient section header
+  - Empty state when no doctors available
+  
+- **Action Buttons**:
+  - **New Checkup**: Returns to checkup screen
+  - **Save Report**: Saves analysis (shows success feedback)
+  - CustomMaterialButton with gradient styling
+  
+- **Medical Disclaimer**:
+  - Amber-themed warning card
+  - Custom disclaimer text from API response
+  - Professional typography
+  
+- **API Response Handling**:
+  - SmartCheckResponse model with snake_case mapping
+  - @JsonKey annotations for proper JSON parsing:
+    * possible_diagnosis → possibleDiagnosis
+    * emergency_care → emergencyCare
+    * risk_factors → riskFactors
+    * recommended_doctors → recommendedDoctors
+    * additional_info → additionalInfo
+  - RecommendedDoctorModel with specialty conversion
+  - Proper error handling with user feedback
+
+#### 🏗️ Smart Checkup Architecture
+- **State Management**:
+  - SmartCheckupCubit with 4 states per mode (Initial/Loading/Success/Error)
+  - BlocListener for navigation and error handling
+  - BlocBuilder for loading states and button management
+  
+- **API Services**:
+  - Retrofit with FormData for multipart uploads
+  - @Body() FormData for skin checkup endpoint
+  - @Body() SymptomCheckupRequestBody for symptom checkup
+  - build_runner code generation
+  
+- **Data Models**:
+  - SmartCheckResponse (main response)
+  - AdditionalInfoModel (nested data)
+  - RecommendedDoctorModel (doctor recommendations)
+  - SymptomCheckupRequestBody (request)
+  
+- **Navigation Flow**:
+  - Smart Checkup Screen → Result Screen
+  - Result Screen → Doctor Details (via DoctorCard)
+  - Query parameters for checkType (symptom/skin)
+  - GoRouter integration with named routes
+
+- **Technical Features**:
+  - Real image picker implementation (no mock data)
+  - Image compression before upload
+  - FormData construction for multipart requests
+  - Error SnackBar with user-friendly messages
+  - Loading state with disabled button
+  - Professional gradient designs throughout
+  - Responsive design with flutter_screenutil
 
 ### � Medical Records & Prescriptions System
 
@@ -437,6 +571,7 @@ lib/
   - `ProfileCubit`: User profile data and updates
   - `MedicalRecordsCubit`: Medical records list fetching
   - `PrescriptionsCubit`: Prescription details fetching
+  - `SmartCheckupCubit`: AI health analysis (skin & symptom checkups)
 
 - **State Management Patterns**:
   - BlocListener for side effects (navigation, dialogs, snackbars)
@@ -465,7 +600,10 @@ lib/
   - **Medical Records**:
     - GET `/medical-records?page={page}&limit={limit}` - Get patient medical records with pagination
   - **Prescriptions**:
-    - GET `/prescriptions/appointment/{appointmentId}` - Get prescription details by appointment ID
+    - Smart Checkup** (AI Health Analysis):
+    - POST `/smart-checkup/skin` - Skin analysis with image upload (FormData)
+    - POST `/smart-checkup/symptoms` - Symptom analysis with text description
+  - **GET `/prescriptions/appointment/{appointmentId}` - Get prescription details by appointment ID
   - **Profile**: 
     - GET `/profile` - Get user profile
     - POST `/profile/upload-image` - Upload profile image
@@ -707,23 +845,10 @@ All shimmer loading widgets match the exact design of their corresponding cards 
 - Dart SDK (3.0.0 or higher)
 - Android Studio / VS Code
 - iOS Simulator / Android Emulator
-- ✅ **Medical Records Screen with diagnosis information**
-- ✅ **Diagnosis Details Screen with complete diagnosis data**
-- ✅ **Prescription Details Screen with medications list**
-- ✅ **10 extracted prescription widgets for clean code**
-- ✅~~Medical records and prescriptions~~ ✅ DONE
-4. Implement appointment reschedule functionality
-5. Implement appointment details view screen
-6. Implement search functionality in appointments
-7. Add "Book Again" feature
-8. Implement prescription download/share functionality
-9. Add lab results viewing in medical records
-10. Edit profile functionality
-11. Real-time chat feature
-12. Payment gateway integration
-13. Push notifications
-14. Advanced search and filters
-15t clone https://github.com/DoctorMate-Team/doctormate-mobile.git
+**Installation**:
+
+```bash
+git clone https://github.com/DoctorMate-Team/doctormate-mobile.git
 cd doctormate-mobile
 ```
 
@@ -737,23 +862,59 @@ flutter pub get
 flutter pub run build_runner build --delete-conflicting-outputs
 ### Current Screens
 1. **Splash Screen** - App initialization
-2. **Onboarding** - First-time user experience
-3. **Login** - User authentication
-4. **Sign Up** - New user registration
-5. **Home** - Specialties and doctors listing
+2. **Onboarding** - First, doctors listing, and quick actions
 6. **Doctor Details** - Comprehensive doctor information
 7. **Appointment Booking** - Multi-step booking flow
 8. **Appointment Success** - Booking confirmation
+9. **Appointment Management** - View/manage appointments with tabs
+10. **Medical Records** - Patient medical history list
+11. **Diagnosis Details** - Detailed diagnosis information
+12. **Prescription Details** - Complete prescription with medications
+13. **Smart Checkup** - AI-powered health analysis (symptom/skin)
+14. **Smart Checkup Result** - AI analysis results with doctor recommendations
+15. **Main Navigation** - Bottom navigation wrapper
+16 **Appointment Success** - Booking confirmation
 9. **Appointment Management** - View/manage appointments with tabs
 10. **Main Navigation** - Bottom navigation wrapper
 11. **Profile** - User profile with settings and support
 
 ### Recent Updates
-- ✅ Home screen API integration complete with pagination
-- ✅ Doctor caching system implemented
+- ✅ Medical Records & Prescriptions system complete
+- ✅ Smart Checkup feature with AI analysis (skin & symptoms)
+- ✅ Modern Quick Actions redesigned (2 actions in column)
+- ✅ Widget extraction for clean architecture
+
+### Latest Milestone: Smart Checkup Feature - AI Health Analysis
 - ✅ Details screen redesign finished
 - ✅ Shimmer loading for all screens
-- ✅ Auto-selection of first specialtymedical-records-prescriptions`
+- Smart Checkup Feature - AI-Powered Health Analysis**:
+- ✅ **Smart Checkup Screen** with dual modes (Symptom & Skin Analysis)
+- ✅ **Symptom Checkup Mode** with multi-line text input
+- ✅ **Skin Analysis Mode** with real image picker and compression
+- ✅ **Smart Checkup Result Screen** with dynamic severity display
+- ✅ **AI Analysis Display** (diagnosis, confidence, emergency care, risk factors, recommendations)
+- ✅ **Recommended Doctors Section** using existing DoctorCard component
+- ✅ **FormData integration** for multipart file uploads
+- ✅ **8 extracted StatelessWidgets** for clean architecture:
+  * CheckupAppBar, CheckupHeaderCard, CheckupDisclaimerCard
+  * ResultAppBar, ResultHeaderCard, ResultActionButtons
+  * ResultDisclaimerCard, RecommendedDoctorsSection
+- ✅ **API Integration**:
+  * POST `/smart-checkup/skin` with FormData
+  * POST `/smart-checkup/symptoms` with JSON body
+- ✅ **SmartCheckResponse model** with @JsonKey annotations for snake_case mapping
+- ✅ **BLoC state management** with SmartCheckupCubit
+- ✅ **Navigation flow** with query parameters for checkType
+- ✅ **Modern Quick Actions redesigned** - 2 actions in column layout:
+  * Scan QR (purple gradient)
+  * Smart Checkup (red gradient with navigation)
+- ✅ **All widgets use** CustomMaterialButton and custom spacing helpers
+- ✅ **No SizedBox usage** - verticalSpacing/horizantialSpacing throughout
+- ✅ **Professional gradient designs** with color-coded severity states
+- ✅ **Real image picker** implementation (no mock data)
+- ✅ **Error handling** with user-friendly SnackBars
+
+**Previous Milestone: ✅ Auto-selection of first specialtymedical-records-prescriptions`
 
 ### Latest Milestone: Complete Medical Records & Prescriptions System ✨
 
@@ -769,16 +930,21 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - ✅ **Validity period display** with prescribed date
 - ✅ **Action buttons** (Download, Share, Contact Doctor)
 - ✅ **Shimmer loading** matching prescription layout
-- ✅ **Error state** with retry functionality
-- ✅ **No SizedBox usage** - verticalSpacing/horizantialSpacing throughout
-- ✅ **CustomMaterialButton** for all interactive elements
-- ✅ **BLoC pattern** with PrescriptionsCubit
-- ✅ **API integration** - GET prescription by appointmentId
-- ✅ **Navigation flow** - Diagnosis → Prescription with appointmentId
-- ✅ **Responsive design** with flutter_screenutil
-- ✅ **Status color coding** (Active, Expired, Completed, Cancelled)
-- ✅ **Professional gradient designs** for headers and cards
-
+- ✅~~Medical Records & Prescriptions system~~ ✅ DONE
+4. ~~Smart Checkup with AI analysis~~ ✅ DONE
+5. Implement QR code scanning functionality
+6. Implement appointment reschedule functionality
+7. Implement appointment details view screen
+8. Implement search functionality in appointments
+9. Add "Book Again" feature flow
+10. Implement prescription download/share functionality
+11. Add lab results viewing in medical records
+12. Edit profile functionality with image update
+13. Real-time chat feature
+14. Payment gateway integration
+15. Push notifications
+16. Advanced search and filters
+17
 **Previous Milestone: Appointment Management Scree
 - ✅ **Smart date picker filtered by doctor's working days**
 - ✅ **API-driven time slots with real-time availability**
@@ -862,74 +1028,16 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - ✅ **Pagination support** (page, limit parameters)
 - ✅ **Client-side filtering** by appointment status
 - ✅ **Real appointment data** from API with proper formatting
-- ✅ **Booking reference display** (8-char uppercase)
-- ✅ **Success/error feedback** with SnackBars
-
-**Clean Architecture & Widget Extraction**:
-- ✅ **11 reusable StatelessWidgets** extracted:
-  * AppointmentAppBar - Custom app bar with search & filter
-  * AppointmentTabBar - Tab navigation component
-  * FilterChipsBar - Date filter chips
-  * AppointmentListView - Complete list with BLoC integration
-  * AppointmentCard - Individual appointment card
-  * AppointmentInfoItem - Date/time info display
-  * AppointmentActionButtons - Status-based actions
-  * AppointmentEmptyState - Empty state per tab
-  * AppointmentErrorState - Error with retry
-  * AppointmentShimmerLoading - Loading skeleton
-  * FilterBottomSheet - Sort/filter modal
-- ✅ **Main screen reduced** from 900+ to 138 lines
-- ✅ **Consistent custom widgets** (CustomMaterialButton, showCustomDialog)
-- ✅ **GoRouter navigation** (context.pop() everywhere)
-- ✅ **Proper BLoC pattern** (BlocListener + BlocBuilder)
-
-**API Endpoints Integrated**:
-- GET `/appointments?page={page}&limit={limit}` - Fetch patient appointments
-- PUT `/appointments/{appointmentId}` - Update appointment status (cancel)
-- GET `/doctors/{doctorId}/available-slots?date={date}` - Time slots
-- POST `/appointments` - Book appointment
-
-**Data Models**:
-- AppointmentListResponse (pagination + appointments[])
-- PatientAppointmentModel (full appointment with nested doctor)
-- AppointmentDoctorModel (doctor info in list response)
-- AppointmentRequestBody (booking request)
-- AppointmentResponseBody (booking response)
-- AvailableSlotsResponse (time slots)
-
-**Technical Achievements**:
-- AppointmentManageCubit for appointments management
-- BlocListener for state changes and user feedback
-- BlocBuilder with buildWhen optimization
-- State management with setState for local state
-- TabController with SingleTickerProviderStateMixin
-- Client-side status filtering (upcoming/completed/cancelled)
-- Proper error handling with retry functionality
-- Professional UI/UX with Material Design 3
-- Responsive design with flutter_screenutil
-- Image caching with CachedNetworkImage
-
-**Bug Fixes**:
-- ✅ Fixed ProviderNotFoundException in cancel dialog
-- ✅ Fixed setState during build with proper callbacks
-- ✅ Updated navigation label: 'Records' → 'Medical Record'
-- ✅ Updated medical record icon to Iconsax.health
-
-### Next Priority
-1. Implement reschedule appointment functionality
-2. Implement appointment details view screen
-3. Implement search functionality in appointments
-4. Add "Book Again" feature flow
-5. Edit profile functionality with image update
-6. Payment gateway integration for online payments
-
-## 🤝 Contributing
-
-1. Create a feature branch from `development`
-2. Follow the coding standards
-3. Write meaningful commit messages
-4. Test your changes thoroughly
-5. Create a pull request with detailed description
+**Previous Milestones**:
+- ✅ Complete Appointment Management with 3-tab interface
+- ✅ Professional appointment cards with status-based gradients
+- ✅ Filter system with date chips and sort modal
+- ✅ Cancel appointment functionality with confirmation
+- ✅ 11 extracted widgets for clean architecture
+- ✅ Medical Records & Prescriptions system
+- ✅ 10 extracted prescription widgets
+- ✅ Diagnosis details with doctor information
+- ✅ Medications list with complete detailn
 
 ## 📄 License
 
@@ -945,3 +1053,6 @@ This project is proprietary software owned by DoctorMate Team.
 **Last Updated**: February 2, 2026  
 **Current Branch**: features/records-diagnoses-prescriptions
 **Major Feature**: Complete Medical Records, Diagnosis and Prescriptions System.
+4, 2026  
+**Current Branch**: features/ai-integration 
+**Major Feature**: AI-Powered Smart Checkup System with Symptom & Skin Analysis

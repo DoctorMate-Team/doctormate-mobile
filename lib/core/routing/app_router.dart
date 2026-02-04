@@ -21,7 +21,8 @@ import 'package:doctor_mate/features/onBoarding/ui/onBoarding_screen.dart';
 import 'package:doctor_mate/features/prescriptions/logic/cubit/prescriptions_cubit.dart';
 import 'package:doctor_mate/features/prescriptions/ui/prescriptions_screen.dart';
 import 'package:doctor_mate/features/profile/ui/profile_screen.dart';
-import 'package:doctor_mate/features/smart-checkup/data/models/symptom_check_response.dart';
+import 'package:doctor_mate/features/smart-checkup/data/models/smart_check_response.dart';
+import 'package:doctor_mate/features/smart-checkup/logic/cubit/smart_checkup_cubit.dart';
 import 'package:doctor_mate/features/smart-checkup/ui/smart_checkup_result_screen.dart';
 import 'package:doctor_mate/features/smart-checkup/ui/smart_checkup_screen.dart';
 import 'package:doctor_mate/features/chat/data/models/chat_message_response.dart';
@@ -187,20 +188,25 @@ class AppRouter {
         GoRoute(
           path: Routes.smartCheckupScreen,
           name: Routes.smartCheckupScreen,
-          builder: (context, state) => const SmartCheckupScreen(),
+          builder:
+              (context, state) => BlocProvider(
+                create: (context) => getIt<SmartCheckupCubit>(),
+                child: const SmartCheckupScreen(),
+              ),
         ),
         GoRoute(
           path: Routes.smartCheckupResultScreen,
           name: Routes.smartCheckupResultScreen,
           builder: (context, state) {
-            final checkupResult = state.extra as SymptomCheckResponse?;
-            return SmartCheckupResultScreen(
-              checkupResult:
-                  checkupResult ??
-                  SymptomCheckResponse(
-                    id: 'default',
-                    diagnosis: DiagnosisResultModel(),
-                  ),
+            final checkupResult = state.extra as SmartCheckResponse;
+            final checkType =
+                state.uri.queryParameters['checkType'] ?? 'symptom';
+            return BlocProvider(
+              create: (context) => getIt<SmartCheckupCubit>(),
+              child: SmartCheckupResultScreen(
+                checkupResult: checkupResult,
+                checkType: checkType,
+              ),
             );
           },
         ),

@@ -20,6 +20,12 @@ class ApiConstants {
   static const updateAppointmentStatus = "$appointments/{appointmentId}/status";
   static const medicalRecords = "records/patient";
   static const prescriptions = "prescriptions";
+
+  // AI Endpoints
+  static const aiBaseUrl = "https://doctormate-ai-production.up.railway.app/";
+  static const aiSkinCheck = "ai/skin/check";
+  static const aiSymptomsCheck = "ai/symptoms/check";
+
 }
 
 class ApiErrors {

@@ -14,26 +14,13 @@ class ModernQuickActions extends StatelessWidget {
       case 'Smart Checkup':
         context.push(Routes.smartCheckupScreen);
         break;
-      case 'Book Appointment':
-        // TODO: Navigate to booking screen
-        break;
       case 'Scan QR':
         // TODO: Navigate to QR scan screen
-        break;
-      case 'Consultation':
-        // TODO: Navigate to consultation screen
         break;
     }
   }
 
   final List<Map<String, dynamic>> _actions = const [
-    {
-      'icon': Iconsax.calendar,
-      'label': 'Book Appointment',
-      'subtitle': 'Book with top doctors',
-      'color': Color(0xFF4285F4),
-      'gradient': [Color(0xFF4285F4), Color(0xFF1976D2)],
-    },
     {
       'icon': Iconsax.scan_barcode,
       'label': 'Scan QR',
@@ -42,16 +29,9 @@ class ModernQuickActions extends StatelessWidget {
       'gradient': [Color(0xFF9C27B0), Color(0xFF7B1FA2)],
     },
     {
-      'icon': Iconsax.message_question,
-      'label': 'Consultation',
-      'subtitle': 'Instant medical consultation',
-      'color': Color(0xFF34A853),
-      'gradient': [Color(0xFF34A853), Color(0xFF2E7D32)],
-    },
-    {
       'icon': Iconsax.heart_add,
       'label': 'Smart Checkup',
-      'subtitle': 'Comprehensive health checkup',
+      'subtitle': 'AI-powered health checkup',
       'color': Color(0xFFEA4335),
       'gradient': [Color(0xFFEA4335), Color(0xFFD32F2F)],
     },
