@@ -1,10 +1,16 @@
 import 'package:doctor_mate/core/di/dependency_injection.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
+import 'package:doctor_mate/features/appointment/data/models/appointment_list_response.dart';
+import 'package:doctor_mate/features/appointment/logic/cubit/appointment_manage_cubit.dart';
+import 'package:doctor_mate/features/appointment_details/logic/cubit/appointment_details_cubit.dart';
+import 'package:doctor_mate/features/appointment_details/ui/appointment_details_screen.dart';
+import 'package:doctor_mate/features/appointment/ui/reschedule_appointment_screen.dart';
 import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
 import 'package:doctor_mate/features/booking_appointment/logic/cubit/appointment_cubit.dart';
 import 'package:doctor_mate/features/booking_appointment/ui/appointment_screen.dart';
 import 'package:doctor_mate/features/booking_appointment/ui/widgets/appointment_success_screen.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
+import 'package:doctor_mate/features/chat/logic/communication_cubit.dart';
 import 'package:doctor_mate/features/details/data/models/doctor_details_model.dart';
 import 'package:doctor_mate/features/details/logic/cubit/details_cubit.dart';
 import 'package:doctor_mate/features/auth/ui/screens/auth_screen.dart';
@@ -28,6 +34,7 @@ import 'package:doctor_mate/features/smart-checkup/ui/smart_checkup_screen.dart'
 import 'package:doctor_mate/features/chat/data/models/chat_message_response.dart';
 import 'package:doctor_mate/features/chat/ui/chat_conversation_screen.dart';
 import 'package:doctor_mate/features/chat/ui/chat_screen.dart';
+import 'package:doctor_mate/features/search/logic/cubit/search_cubit.dart';
 import 'package:doctor_mate/features/search/ui/search_screen.dart';
 import 'package:doctor_mate/features/splash/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +42,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  static GoRouter mainRouting() {
+  // Static router instance
+  static GoRouter? _router;
+
+  static GoRouter get router {
+    _router ??= _createRouter();
+    return _router!;
+  }
+
+  static GoRouter _createRouter() {
     return GoRouter(
       initialLocation: Routes.splash,
       routes: [
@@ -154,7 +169,43 @@ class AppRouter {
           name: Routes.bookingConfirmation,
           builder: (context, state) {
             final appointmentData = state.extra as AppointmentModel?;
-            return AppointmentSuccessScreen(appointmentData: appointmentData);
+            return BlocProvider(
+              create: (context) => getIt<AppointmentCubit>(),
+              child: AppointmentSuccessScreen(appointmentData: appointmentData),
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.rescheduleAppointment,
+          name: Routes.rescheduleAppointment,
+          builder: (context, state) {
+            final appointment = state.extra as PatientAppointmentModel;
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => getIt<AppointmentCubit>()),
+                BlocProvider.value(value: getIt<AppointmentManageCubit>()),
+              ],
+              child: RescheduleAppointmentScreen(appointment: appointment),
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.appointmentDetails,
+          name: Routes.appointmentDetails,
+          builder: (context, state) {
+            final appointment = state.extra as PatientAppointmentModel;
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => getIt<CommunicationCubit>()),
+                BlocProvider(
+                  create:
+                      (context) =>
+                          getIt<AppointmentDetailsCubit>()
+                            ..getAppointmentDetails(appointment.id.toString()),
+                ),
+              ],
+              child: AppointmentDetailsScreen(appointment: appointment),
+            );
           },
         ),
         GoRoute(
@@ -230,7 +281,11 @@ class AppRouter {
         GoRoute(
           path: Routes.searchScreen,
           name: Routes.searchScreen,
-          builder: (context, state) => const SearchScreen(),
+          builder:
+              (context, state) => BlocProvider(
+                create: (context) => getIt<SearchCubit>(),
+                child: const SearchScreen(),
+              ),
         ),
       ],
       errorBuilder:
@@ -238,4 +293,7 @@ class AppRouter {
               const Scaffold(body: Center(child: Text('Page not found'))),
     );
   }
+
+  // Backward compatibility method
+  static GoRouter mainRouting() => router;
 }

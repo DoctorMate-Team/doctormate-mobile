@@ -17,14 +17,14 @@ class AppointmentCard extends StatelessWidget {
   final PatientAppointmentModel appointment;
   final String status;
   final VoidCallback onCancel;
-  final VoidCallback onReschedule;
+  final VoidCallback onRefresh;
 
   const AppointmentCard({
     super.key,
     required this.appointment,
     required this.status,
     required this.onCancel,
-    required this.onReschedule,
+    required this.onRefresh,
   });
 
   @override
@@ -102,7 +102,7 @@ class AppointmentCard extends StatelessWidget {
             appointment: appointment,
             status: status,
             onCancel: onCancel,
-            onReschedule: onReschedule,
+            onRefresh: onRefresh,
           ),
         ],
       ),
@@ -281,6 +281,8 @@ class AppointmentCard extends StatelessWidget {
         return ColorsManager.green;
       case 'cancelled':
         return Colors.red;
+      case 'inprogress':
+        return Colors.orange;
       default:
         return ColorsManager.gray;
     }
@@ -294,6 +296,8 @@ class AppointmentCard extends StatelessWidget {
         return Iconsax.tick_circle;
       case 'cancelled':
         return Iconsax.close_circle;
+      case 'inprogress':
+        return Iconsax.play_circle;
       default:
         return Iconsax.info_circle;
     }
@@ -307,6 +311,8 @@ class AppointmentCard extends StatelessWidget {
         return 'Completed';
       case 'cancelled':
         return 'Cancelled';
+      case 'inprogress':
+        return 'In Progress';
       default:
         return 'Unknown';
     }

@@ -221,7 +221,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             ? 'video'
             : selectedAppointmentType == 1
             ? 'voice'
-            : 'in-person';
+            : 'in_person';
 
     context.read<AppointmentCubit>().bookAppointment(
       doctorId: doctorId,

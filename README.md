@@ -4,7 +4,7 @@ A professional Flutter application for booking medical appointments with doctors
 
 ## 📱 Project Overview
 
-DoctorMate is a comprehensive medical appointment booking platform that connects patients with healthcare professionals. The app features a modern, user-friendly interface with real-time data integration and advanced state management.
+DoctorMate is a comprehensive medical appointment booking platform that connects patients with healthcare professionals. The app features a modern, user-friendly interface with real-time data integration, advanced state management, and push notification support for appointment reminders and health updates.
 
 ## 🏗️ Architecture
 
@@ -16,9 +16,10 @@ lib/
 │   ├── di/                 # Dependency Injection (GetIt)
 │   ├── functions/          # Utility functions
 │   ├── helper/             # Helper classes
-│   ├── models/             # Core models
+│   ├── models/             # Core models (including NotificationData, NotificationType)
 │   ├── networking/         # API configuration (Retrofit, Dio)
 │   ├── routing/            # Navigation (GoRouter)
+│   ├── services/           # Firebase & Notification services
 │   ├── theme/              # App theme & styles
 │   └── widgets/            # Reusable widgets
 ├── features/
@@ -551,6 +552,66 @@ lib/
   - GoRouter integration with named routes
   - Success screen redirects to home or appointment view
 
+### 🔔 Push Notifications System
+
+#### Firebase Cloud Messaging Integration
+- **Complete FCM Setup with Local Notifications**:
+  - Firebase Cloud Messaging for push notifications
+  - Flutter Local Notifications for custom notification display
+  - Background, foreground, and terminated state handling
+  - Notification tap navigation to relevant screens
+  
+- **Supported Notification Types**:
+  - **DiagnosisAdded**: New diagnosis available notifications
+    - Navigates to Medical Records screen
+    - Displays doctor name and diagnosis information
+  - **AppointmentReminder**: Upcoming appointment reminders
+    - Navigates to Appointment Management screen
+    - Shows scheduled date and time
+  - **AppointmentConfirmed**: Appointment confirmation notifications
+    - Navigates to Appointment Management screen
+    - Displays doctor information
+  - **PrescriptionCreated**: New prescription notifications
+    - Navigates to Prescription Details screen
+    - Shows medication count and doctor name
+  
+- **Notification Features**:
+  - **Custom Notification Content**: Dynamic title and body based on type
+  - **Rich Metadata**: Includes IDs, doctor names, dates, counts
+  - **Click Actions**: Custom navigation per notification type
+  - **Notification Channels** (Android): 4 channels (appointments, medical_records, prescriptions, general)
+  - **32-bit ID Generation**: Smart ID generation fitting Android's integer range
+  - **Background Handler**: Top-level function for terminated state notifications
+  
+- **Technical Implementation**:
+  - **Models**:
+    - `NotificationType` enum: DiagnosisAdded, AppointmentReminder, AppointmentConfirmed, PrescriptionCreated
+    - `NotificationClickAction` enum: OPEN_MEDICAL_RECORD, OPEN_APPOINTMENT
+    - `NotificationData`: Complete notification data parser with helper methods
+  - **Services**:
+    - `FirebaseMessagingService`: FCM initialization, token management, message handling
+    - `LocalNotificationService`: Local notification display, channel creation, tap handling
+    - `NotificationNavigationHandler`: Smart navigation based on notification type and action
+  - **Testing Tools**:
+    - `NotificationTestHelper`: Test notification generation for all types
+    - `notification_data_test.dart`: Unit tests for notification parsing (8 tests, all passing)
+  
+- **Android Configuration**:
+  - Core library desugaring enabled (desugar_jdk_libs: 2.1.4)
+  - Notification channels created on app initialization
+  - Default notification icon and color configured
+  
+- **iOS Configuration**:
+  - Push Notifications capability enabled
+  - Permission requests for alert, badge, and sound
+  - APNs integration with Firebase Console
+  
+- **Documentation**:
+  - Complete implementation guide in `NOTIFICATIONS_GUIDE.md`
+  - FCM message format examples
+  - Backend integration instructions
+  - Debugging and troubleshooting tips
+
 ### 🎨 UI/UX Features
 - **Responsive Design**: Using flutter_screenutil for all dimensions
 - **Modern Animations**: Fade, slide, and scale transitions
@@ -644,11 +705,32 @@ lib/
 - `shared_preferences` - Local storage
 - `flutter_secure_storage` - Secure storage
 
+### Firebase & Notifications
+- `firebase_core` - Firebase initialization
+- `firebase_messaging` - FCM push notifications
+- `flutter_local_notifications` - Local notification display
+
 ### Utilities
 - `image_picker` - Image selection
 - `intl` - Date formatting
 
 ## 📂 Project Structure Details
+
+### Core Services
+
+#### Firebase & Notification Services
+```
+core/
+├── services/
+│   ├── firebase_messaging_service.dart      # FCM initialization & handling
+│   ├── local_notification_service.dart      # Local notifications display
+│   └── notification_navigation_handler.dart # Notification tap navigation
+├── models/
+│   ├── notification_data.dart               # Notification data parser
+│   └── notification_type.dart               # Notification enums
+└── helper/
+    └── notification_test_helper.dart        # Testing & debugging tools
+```
 
 ### Features Organization
 
@@ -879,6 +961,9 @@ flutter pub run build_runner build --delete-conflicting-outputs
 11. **Profile** - User profile with settings and support
 
 ### Recent Updates
+- ✅ **Firebase Cloud Messaging** - Complete push notifications system
+- ✅ **Flutter Local Notifications** - Custom local notifications with navigation
+- ✅ **4 Notification Types** - Diagnosis, Appointments, Prescriptions support
 - ✅ Medical Records & Prescriptions system complete
 - ✅ Smart Checkup feature with AI analysis (skin & symptoms)
 - ✅ Modern Quick Actions redesigned (2 actions in column)
@@ -966,14 +1051,14 @@ flutter pub run build_runner build --delete-conflicting-outputs
 ### Next Steps
 1. ~~API integration for appointment booking~~ ✅ DONE
 2. ~~Appointment history and management~~ ✅ DONE
-3. Implement appointment reschedule functionality
-4. Implement appointment details view screen
-5. Implement search functionality in appointments
-6. Add "Book Again" feature
-7. Edit profile functionality
-8. Real-time chat feature
-9. Payment gateway integration
-10. Push notifications
+3. ~~Push notifications~~ ✅ DONE
+4. Implement appointment reschedule functionality
+5. Implement appointment details view screen
+6. Implement search functionality in appointments
+7. Add "Book Again" feature
+8. Edit profile functionality
+9. Real-time chat feature
+10. Payment gateway integration
 11. Advanced search and filters
 12. Favorites management
 
@@ -1050,9 +1135,18 @@ This project is proprietary software owned by DoctorMate Team.
 ---
 
 **Version**: 1.0.0+1  
-**Last Updated**: February 2, 2026  
-**Current Branch**: features/records-diagnoses-prescriptions
-**Major Feature**: Complete Medical Records, Diagnosis and Prescriptions System.
-4, 2026  
-**Current Branch**: features/ai-integration 
-**Major Feature**: AI-Powered Smart Checkup System with Symptom & Skin Analysis
+**Last Updated**: February 21, 2026  
+**Current Branch**: features/search-appointmentDetails-communication-notification  
+**Major Feature**: Firebase Cloud Messaging & Flutter Local Notifications Integration
+
+**Previous Milestones**:
+- ✅ Complete Appointment Management with 3-tab interface
+- ✅ Professional appointment cards with status-based gradients
+- ✅ Filter system with date chips and sort modal
+- ✅ Cancel appointment functionality with confirmation
+- ✅ Medical Records & Prescriptions system
+- ✅ 10 extracted prescription widgets
+- ✅ Diagnosis details with doctor information
+- ✅ Medications list with complete details
+- ✅ Smart Checkup Feature - AI Health Analysis (Symptom & Skin)
+- ✅ 8 extracted checkup widgets for clean architecture

@@ -10,7 +10,11 @@ class AppointmentManageRepos {
   AppointmentManageRepos(this._apiServices);
 
   Future<ApiResult<DoctorMateResponse<AppointmentListResponse>>>
-  getPatientAppointments({required int page, required int limit, String? status}) async {
+  getPatientAppointments({
+    required int page,
+    required int limit,
+    String? status,
+  }) async {
     try {
       final response = await _apiServices.getPatientAppointments(
         page: page,
@@ -30,6 +34,30 @@ class AppointmentManageRepos {
       final response = await _apiServices.updateAppointmentStatus(
         appointmentId: appointmentId,
         statusUpdate: {'status': "Cancelled"},
+      );
+      return ApiResult.success(response);
+    } catch (e) {
+      return ApiResult.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  Future<ApiResult<DoctorMateResponse<PatientAppointmentModel>>>
+  rescheduleAppointment({
+    required String appointmentId,
+    required String newDate,
+    required String newTime,
+    required String reason,
+    required String appointmentType,
+  }) async {
+    try {
+      final response = await _apiServices.rescheduleAppointment(
+        appointmentId: appointmentId,
+        rescheduleData: {
+          "newDate": newDate,
+          "newTime": newTime,
+          "reason": reason,
+          "appointmentType": appointmentType,
+        },
       );
       return ApiResult.success(response);
     } catch (e) {

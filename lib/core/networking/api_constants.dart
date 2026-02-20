@@ -18,8 +18,16 @@ class ApiConstants {
   static const appointments = "appointments";
   static const patientAppointments = "$appointments/patient";
   static const updateAppointmentStatus = "$appointments/{appointmentId}/status";
+  static const rescheduleAppointment = "$appointments/{appointmentId}/reschedule";
+  static const appointmentDetails = "$appointments/{appointmentId}/details";
   static const medicalRecords = "records/patient";
   static const prescriptions = "prescriptions";
+  static const communicationSessions = "communication/sessions";
+  static const communicationCallToken = "communication/call-token";
+  static const communicationCloseSession = "communication/sessions/{sessionId}/close";
+  static const communicationSessionByAppointment = "communication/sessions/{appointmentId}";
+  static const medicalImages = "medical-images";
+  static const searchDoctors = "doctors/Search";
 
   // AI Endpoints
   static const aiBaseUrl = "https://doctormate-ai-production.up.railway.app/";

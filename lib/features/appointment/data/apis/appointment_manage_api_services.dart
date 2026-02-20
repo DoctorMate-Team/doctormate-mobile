@@ -25,4 +25,10 @@ abstract class AppointmentManageApiServices {
     @Path('appointmentId') required String appointmentId,
     @Body() required Map<String, String> statusUpdate,
   });
+
+  @PUT(ApiConstants.rescheduleAppointment)
+  Future<DoctorMateResponse<PatientAppointmentModel>> rescheduleAppointment({
+    @Path('appointmentId') required String appointmentId,
+    @Body() required Map<String, String> rescheduleData,
+  });
 }

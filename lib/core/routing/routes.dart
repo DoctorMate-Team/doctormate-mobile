@@ -14,6 +14,8 @@ class Routes {
   static const String profileScreen = '/profileScreen';
   static const String appointmentScreen = '/appointmentScreen';
   static const String bookingConfirmation = '/bookingConfirmation';
+  static const String rescheduleAppointment = '/rescheduleAppointment';
+  static const String appointmentDetails = '/appointmentDetails';
   static const String appointmentManageScreen = '/appointmentManageScreen';
   static const String medicalRecordScreen = '/medicalRecordScreen';
   static const String dignosesScreen = '/dignosesScreen';

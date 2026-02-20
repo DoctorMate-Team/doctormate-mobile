@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:doctor_mate/core/models/doctor_mate_response.dart';
 import 'package:doctor_mate/core/networking/api_error_handler.dart';
 import 'package:doctor_mate/core/networking/api_result.dart';
@@ -12,10 +13,7 @@ class AppointmentRepos {
   AppointmentRepos(this._appointmentApiServices);
 
   Future<ApiResult<DoctorMateResponse<AvailableSlotsResponse>>>
-      getAvailableSlots({
-    required String doctorId,
-    required String date,
-  }) async {
+  getAvailableSlots({required String doctorId, required String date}) async {
     try {
       final response = await _appointmentApiServices.getAvailableSlots(
         doctorId,
@@ -28,12 +26,34 @@ class AppointmentRepos {
   }
 
   Future<ApiResult<DoctorMateResponse<AppointmentResponseBody>>>
-      bookAppointment({
-    required AppointmentRequestBody appointmentData,
+  bookAppointment({required AppointmentRequestBody appointmentData}) async {
+    try {
+      final response = await _appointmentApiServices.bookAppointment(
+        appointmentData,
+      );
+      return ApiResult.success(response);
+    } catch (e) {
+      return ApiResult.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  Future<ApiResult<DoctorMateResponse<void>>> uploadMedicalImage({
+    required String appointmentId,
+    required String description,
+    required String filePath,
   }) async {
     try {
-      final response =
-          await _appointmentApiServices.bookAppointment(appointmentData);
+      final formData = FormData.fromMap({
+        'AppointmentId': appointmentId,
+        'Description': description,
+        'File': await MultipartFile.fromFile(
+          filePath,
+          filename: filePath.split('/').last,
+        ),
+      });
+      final response = await _appointmentApiServices.uploadMedicalImage(
+        formData,
+      );
       return ApiResult.success(response);
     } catch (e) {
       return ApiResult.failure(ErrorHandler.handle(e));

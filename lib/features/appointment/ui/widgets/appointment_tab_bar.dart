@@ -13,6 +13,8 @@ class AppointmentTabBar extends StatelessWidget {
       color: Colors.white,
       child: TabBar(
         controller: tabController,
+        isScrollable: true,
+        tabAlignment: TabAlignment.start,
         indicatorColor: ColorsManager.primaryColor,
         indicatorWeight: 3,
         labelColor: ColorsManager.primaryColor,
@@ -21,6 +23,7 @@ class AppointmentTabBar extends StatelessWidget {
         unselectedLabelStyle: TextStyles.font14GrayRegular,
         tabs: const [
           Tab(text: 'Upcoming'),
+          Tab(text: 'In Progress'),
           Tab(text: 'Completed'),
           Tab(text: 'Cancelled'),
         ],

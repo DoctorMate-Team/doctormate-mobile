@@ -9,6 +9,11 @@ import 'package:doctor_mate/features/booking_appointment/logic/cubit/appointment
 import 'package:doctor_mate/features/auth/data/apis/auth_api_services.dart';
 import 'package:doctor_mate/features/auth/data/repos/auth_repos.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
+import 'package:doctor_mate/features/appointment_details/data/apis/appointment_details_api_services.dart';
+import 'package:doctor_mate/features/appointment_details/data/repos/appointment_details_repos.dart';
+import 'package:doctor_mate/features/appointment_details/logic/cubit/appointment_details_cubit.dart';
+import 'package:doctor_mate/features/chat/data/apis/chat_api_services.dart';
+import 'package:doctor_mate/features/chat/logic/communication_cubit.dart';
 import 'package:doctor_mate/features/details/data/apis/details_apis_services.dart';
 import 'package:doctor_mate/features/details/data/repos/details_repos.dart';
 import 'package:doctor_mate/features/details/logic/cubit/details_cubit.dart';
@@ -25,6 +30,9 @@ import 'package:doctor_mate/features/prescriptions/logic/cubit/prescriptions_cub
 import 'package:doctor_mate/features/profile/data/apis/profile_api_services.dart';
 import 'package:doctor_mate/features/profile/data/repos/profile_repos.dart';
 import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
+import 'package:doctor_mate/features/search/data/api/search_api_services.dart';
+import 'package:doctor_mate/features/search/data/repos/search_repos.dart';
+import 'package:doctor_mate/features/search/logic/cubit/search_cubit.dart';
 import 'package:doctor_mate/features/smart-checkup/data/api/smart_checkup_api_services.dart';
 import 'package:doctor_mate/features/smart-checkup/data/repos/smart_checkup_repos.dart';
 import 'package:doctor_mate/features/smart-checkup/logic/cubit/smart_checkup_cubit.dart';
@@ -101,9 +109,7 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<PrescriptionsRepos>(
     () => PrescriptionsRepos(getIt()),
   );
-  getIt.registerFactory<PrescriptionsCubit>(
-    () => PrescriptionsCubit(getIt()),
-  );
+  getIt.registerFactory<PrescriptionsCubit>(() => PrescriptionsCubit(getIt()));
 
   // Smart Checkup
   getIt.registerLazySingleton<SmartCheckupApiServices>(
@@ -112,7 +118,33 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<SmartCheckupRepos>(
     () => SmartCheckupRepos(getIt()),
   );
-  getIt.registerFactory<SmartCheckupCubit>(
-    () => SmartCheckupCubit(getIt()),
+  getIt.registerFactory<SmartCheckupCubit>(() => SmartCheckupCubit(getIt()));
+
+  // Chat & Communication
+  getIt.registerLazySingleton<ChatApiServices>(() => ChatApiServices(dio));
+  getIt.registerFactory<CommunicationCubit>(
+    () => CommunicationCubit(getIt<ChatApiServices>()),
+  );
+
+  // Appointment Details
+  getIt.registerLazySingleton<AppointmentDetailsApiServices>(
+    () => AppointmentDetailsApiServices(dio),
+  );
+  getIt.registerLazySingleton<AppointmentDetailsRepos>(
+    () => AppointmentDetailsRepos(getIt()),
+  );
+  getIt.registerFactory<AppointmentDetailsCubit>(
+    () => AppointmentDetailsCubit(getIt()),
+  );
+
+  // Search
+  getIt.registerLazySingleton<SearchApiServices>(
+    () => SearchApiServices(dio),
+  );
+  getIt.registerLazySingleton<SearchRepos>(
+    () => SearchRepos(getIt()),
+  );
+  getIt.registerFactory<SearchCubit>(
+    () => SearchCubit(getIt()),
   );
 }

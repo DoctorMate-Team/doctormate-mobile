@@ -7,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class AppBarAppointmentScreen extends StatelessWidget {
-  const AppBarAppointmentScreen({super.key});
+  final String? title;
+
+  const AppBarAppointmentScreen({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class AppBarAppointmentScreen extends StatelessWidget {
         Expanded(
           child: Center(
             child: Text(
-              'Book Appointment',
+              title ?? 'Book Appointment',
               style: TextStyles.font18DarkGreenBold.copyWith(
                 color: ColorsManager.darkBlue,
                 fontWeight: FontWeightHelper.semiBold,
@@ -40,7 +42,7 @@ class AppBarAppointmentScreen extends StatelessWidget {
             ),
           ),
         ),
-        horizantialSpacing(40) // Balance for centered title
+        horizantialSpacing(40), // Balance for centered title
       ],
     );
   }

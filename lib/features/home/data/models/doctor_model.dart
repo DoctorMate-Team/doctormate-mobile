@@ -9,10 +9,7 @@ class DoctorSpecialtyResponse {
   final Pagination pagination;
   final List<DoctorModel> doctors;
 
-  DoctorSpecialtyResponse({
-    required this.pagination,
-    required this.doctors,
-  });
+  DoctorSpecialtyResponse({required this.pagination, required this.doctors});
 
   factory DoctorSpecialtyResponse.fromJson(Map<String, dynamic> json) =>
       _$DoctorSpecialtyResponseFromJson(json);
@@ -23,24 +20,24 @@ class DoctorSpecialtyResponse {
 class DoctorModel {
   final String id;
   final String fullName;
-  final SpecialtyModel specialty;
+  final SpecialtyModel? specialty;
   final String imageUrl;
-  final double consultationFee;
-  final String address;
-  final String workingTime;
-  final String qualifications;
-  final String licenseNumber;
+  final double? consultationFee;
+  final String? address;
+  final String? workingTime;
+  final String? qualifications;
+  final String? licenseNumber;
 
   DoctorModel({
     required this.id,
     required this.fullName,
-    required this.specialty,
+    this.specialty,
     required this.imageUrl,
-    required this.consultationFee,
-    required this.address,
-    required this.workingTime,
-    required this.qualifications,
-    required this.licenseNumber,
+    this.consultationFee,
+    this.address,
+    this.workingTime,
+    this.qualifications,
+    this.licenseNumber,
   });
 
   factory DoctorModel.fromJson(Map<String, dynamic> json) =>

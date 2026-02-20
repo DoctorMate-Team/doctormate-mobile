@@ -63,6 +63,13 @@ class DoctorCard extends StatelessWidget {
 
   const DoctorCard({super.key, required this.doctor});
 
+  bool _isValidImageUrl(String? url) {
+    if (url == null || url.isEmpty) return false;
+    if (url.startsWith('//')) return false; // Invalid scheme
+    if (url.toLowerCase().contains('default image')) return false;
+    return Uri.tryParse(url)?.hasScheme ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -93,16 +100,23 @@ class DoctorCard extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12.r),
-                  child: CachedNetworkImage(
-                    imageUrl: doctor.imageUrl,
-                    fit: BoxFit.cover,
-                    placeholder:
-                        (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
-                    errorWidget:
-                        (context, url, error) =>
-                            Icon(Icons.person, size: 40.sp, color: Colors.grey),
-                  ),
+                  child:
+                      _isValidImageUrl(doctor.imageUrl)
+                          ? CachedNetworkImage(
+                            imageUrl: doctor.imageUrl,
+                            fit: BoxFit.cover,
+                            placeholder:
+                                (context, url) => const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                            errorWidget:
+                                (context, url, error) => Icon(
+                                  Icons.person,
+                                  size: 40.sp,
+                                  color: Colors.grey,
+                                ),
+                          )
+                          : Icon(Icons.person, size: 40.sp, color: Colors.grey),
                 ),
               ),
               horizantialSpacing(16),
@@ -118,42 +132,45 @@ class DoctorCard extends StatelessWidget {
                     ),
                     verticalSpacing(4),
                     Text(
-                      doctor.address,
+                      doctor.address ?? 'Address not available',
                       style: TextStyles.font14GrayRegular,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    verticalSpacing(8),
-                    Row(
-                      children: [
-                        Icon(Icons.verified, size: 16.sp, color: Colors.blue),
-                        horizantialSpacing(4),
-                        Expanded(
-                          child: Text(
-                            doctor.qualifications,
-                            style: TextStyles.font14DarkGreenMedium.copyWith(
-                              fontWeight: FontWeightHelper.semiBold,
+                    if (doctor.qualifications != null) ...[
+                      verticalSpacing(8),
+                      Row(
+                        children: [
+                          Icon(Icons.verified, size: 16.sp, color: Colors.blue),
+                          horizantialSpacing(4),
+                          Expanded(
+                            child: Text(
+                              doctor.qualifications!,
+                              style: TextStyles.font14DarkGreenMedium.copyWith(
+                                fontWeight: FontWeightHelper.semiBold,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ],
                 ),
               ),
 
               // Price
-              Column(
-                children: [
-                  Text(
-                    'EGP ${doctor.consultationFee.toStringAsFixed(0)}',
-                    style: TextStyles.font16DarkGreenBold,
-                  ),
-                  Text('per visit', style: TextStyles.font12GrayRegular),
-                ],
-              ),
+              if (doctor.consultationFee != null)
+                Column(
+                  children: [
+                    Text(
+                      'EGP ${doctor.consultationFee!.toStringAsFixed(0)}',
+                      style: TextStyles.font16DarkGreenBold,
+                    ),
+                    Text('per visit', style: TextStyles.font12GrayRegular),
+                  ],
+                ),
             ],
           ),
 
@@ -162,27 +179,31 @@ class DoctorCard extends StatelessWidget {
           // Availability and Book Button
           Row(
             children: [
-              Container(
-                height: 36.h,
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                decoration: BoxDecoration(
-                  color: Colors.green.shade50,
-                  borderRadius: BorderRadius.circular(8.r),
+              if (doctor.workingTime != null)
+                Container(
+                  height: 36.h,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 6.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade50,
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.access_time, size: 14.sp, color: Colors.green),
+                      horizantialSpacing(6),
+                      Text(
+                        doctor.workingTime!,
+                        style: TextStyles.font12DarkGreenSemiBold,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.access_time, size: 14.sp, color: Colors.green),
-                    horizantialSpacing(6),
-                    Text(
-                      doctor.workingTime,
-                      style: TextStyles.font12DarkGreenSemiBold,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
 
               const Spacer(),
 
