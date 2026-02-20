@@ -8,6 +8,7 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
 part 'appointment_api_services.g.dart';
+
 @RestApi(baseUrl: ApiConstants.apiBaseUrl)
 abstract class AppointmentApiServices {
   factory AppointmentApiServices(Dio dio, {String? baseUrl}) =
@@ -22,5 +23,10 @@ abstract class AppointmentApiServices {
   @POST(ApiConstants.appointments)
   Future<DoctorMateResponse<AppointmentResponseBody>> bookAppointment(
     @Body() AppointmentRequestBody appointmentData,
+  );
+
+  @POST(ApiConstants.medicalImages)
+  Future<DoctorMateResponse<void>> uploadMedicalImage(
+    @Body() FormData formData,
   );
 }

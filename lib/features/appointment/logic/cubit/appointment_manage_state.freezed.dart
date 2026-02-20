@@ -27,6 +27,10 @@ mixin _$AppointmentManageState {
     required TResult Function() updatingAppointmentStatus,
     required TResult Function() updatedAppointmentStatus,
     required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
@@ -38,6 +42,10 @@ mixin _$AppointmentManageState {
     TResult? Function()? updatingAppointmentStatus,
     TResult? Function()? updatedAppointmentStatus,
     TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
@@ -49,6 +57,10 @@ mixin _$AppointmentManageState {
     TResult Function()? updatingAppointmentStatus,
     TResult Function()? updatedAppointmentStatus,
     TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,6 +78,12 @@ mixin _$AppointmentManageState {
     updatedAppointmentStatus,
     required TResult Function(ErrorUpdatingAppointmentStatus value)
     errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
@@ -80,6 +98,10 @@ mixin _$AppointmentManageState {
     TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult? Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
@@ -94,6 +116,10 @@ mixin _$AppointmentManageState {
     TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -174,6 +200,10 @@ class _$InitialImpl implements _Initial {
     required TResult Function() updatingAppointmentStatus,
     required TResult Function() updatedAppointmentStatus,
     required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
   }) {
     return initial();
   }
@@ -189,6 +219,10 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? updatingAppointmentStatus,
     TResult? Function()? updatedAppointmentStatus,
     TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
   }) {
     return initial?.call();
   }
@@ -204,6 +238,10 @@ class _$InitialImpl implements _Initial {
     TResult Function()? updatingAppointmentStatus,
     TResult Function()? updatedAppointmentStatus,
     TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -228,6 +266,12 @@ class _$InitialImpl implements _Initial {
     updatedAppointmentStatus,
     required TResult Function(ErrorUpdatingAppointmentStatus value)
     errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
   }) {
     return initial(this);
   }
@@ -246,6 +290,10 @@ class _$InitialImpl implements _Initial {
     TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult? Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
   }) {
     return initial?.call(this);
   }
@@ -264,6 +312,10 @@ class _$InitialImpl implements _Initial {
     TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -333,6 +385,10 @@ class _$LoadingAppointmentsPatientImpl implements LoadingAppointmentsPatient {
     required TResult Function() updatingAppointmentStatus,
     required TResult Function() updatedAppointmentStatus,
     required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
   }) {
     return loadingAppointmentsPatient();
   }
@@ -348,6 +404,10 @@ class _$LoadingAppointmentsPatientImpl implements LoadingAppointmentsPatient {
     TResult? Function()? updatingAppointmentStatus,
     TResult? Function()? updatedAppointmentStatus,
     TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
   }) {
     return loadingAppointmentsPatient?.call();
   }
@@ -363,6 +423,10 @@ class _$LoadingAppointmentsPatientImpl implements LoadingAppointmentsPatient {
     TResult Function()? updatingAppointmentStatus,
     TResult Function()? updatedAppointmentStatus,
     TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (loadingAppointmentsPatient != null) {
@@ -387,6 +451,12 @@ class _$LoadingAppointmentsPatientImpl implements LoadingAppointmentsPatient {
     updatedAppointmentStatus,
     required TResult Function(ErrorUpdatingAppointmentStatus value)
     errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
   }) {
     return loadingAppointmentsPatient(this);
   }
@@ -405,6 +475,10 @@ class _$LoadingAppointmentsPatientImpl implements LoadingAppointmentsPatient {
     TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult? Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
   }) {
     return loadingAppointmentsPatient?.call(this);
   }
@@ -423,6 +497,10 @@ class _$LoadingAppointmentsPatientImpl implements LoadingAppointmentsPatient {
     TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (loadingAppointmentsPatient != null) {
@@ -524,6 +602,10 @@ class _$LoadedAppointmentsPatientImpl implements LoadedAppointmentsPatient {
     required TResult Function() updatingAppointmentStatus,
     required TResult Function() updatedAppointmentStatus,
     required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
   }) {
     return loadedAppointmentsPatient(appointmentListResponse);
   }
@@ -539,6 +621,10 @@ class _$LoadedAppointmentsPatientImpl implements LoadedAppointmentsPatient {
     TResult? Function()? updatingAppointmentStatus,
     TResult? Function()? updatedAppointmentStatus,
     TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
   }) {
     return loadedAppointmentsPatient?.call(appointmentListResponse);
   }
@@ -554,6 +640,10 @@ class _$LoadedAppointmentsPatientImpl implements LoadedAppointmentsPatient {
     TResult Function()? updatingAppointmentStatus,
     TResult Function()? updatedAppointmentStatus,
     TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (loadedAppointmentsPatient != null) {
@@ -578,6 +668,12 @@ class _$LoadedAppointmentsPatientImpl implements LoadedAppointmentsPatient {
     updatedAppointmentStatus,
     required TResult Function(ErrorUpdatingAppointmentStatus value)
     errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
   }) {
     return loadedAppointmentsPatient(this);
   }
@@ -596,6 +692,10 @@ class _$LoadedAppointmentsPatientImpl implements LoadedAppointmentsPatient {
     TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult? Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
   }) {
     return loadedAppointmentsPatient?.call(this);
   }
@@ -614,6 +714,10 @@ class _$LoadedAppointmentsPatientImpl implements LoadedAppointmentsPatient {
     TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (loadedAppointmentsPatient != null) {
@@ -722,6 +826,10 @@ class _$ErrorAppointmentsPatientImpl implements ErrorAppointmentsPatient {
     required TResult Function() updatingAppointmentStatus,
     required TResult Function() updatedAppointmentStatus,
     required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
   }) {
     return errorAppointmentsPatient(message);
   }
@@ -737,6 +845,10 @@ class _$ErrorAppointmentsPatientImpl implements ErrorAppointmentsPatient {
     TResult? Function()? updatingAppointmentStatus,
     TResult? Function()? updatedAppointmentStatus,
     TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
   }) {
     return errorAppointmentsPatient?.call(message);
   }
@@ -752,6 +864,10 @@ class _$ErrorAppointmentsPatientImpl implements ErrorAppointmentsPatient {
     TResult Function()? updatingAppointmentStatus,
     TResult Function()? updatedAppointmentStatus,
     TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (errorAppointmentsPatient != null) {
@@ -776,6 +892,12 @@ class _$ErrorAppointmentsPatientImpl implements ErrorAppointmentsPatient {
     updatedAppointmentStatus,
     required TResult Function(ErrorUpdatingAppointmentStatus value)
     errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
   }) {
     return errorAppointmentsPatient(this);
   }
@@ -794,6 +916,10 @@ class _$ErrorAppointmentsPatientImpl implements ErrorAppointmentsPatient {
     TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult? Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
   }) {
     return errorAppointmentsPatient?.call(this);
   }
@@ -812,6 +938,10 @@ class _$ErrorAppointmentsPatientImpl implements ErrorAppointmentsPatient {
     TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (errorAppointmentsPatient != null) {
@@ -890,6 +1020,10 @@ class _$UpdatingAppointmentStatusImpl implements UpdatingAppointmentStatus {
     required TResult Function() updatingAppointmentStatus,
     required TResult Function() updatedAppointmentStatus,
     required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
   }) {
     return updatingAppointmentStatus();
   }
@@ -905,6 +1039,10 @@ class _$UpdatingAppointmentStatusImpl implements UpdatingAppointmentStatus {
     TResult? Function()? updatingAppointmentStatus,
     TResult? Function()? updatedAppointmentStatus,
     TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
   }) {
     return updatingAppointmentStatus?.call();
   }
@@ -920,6 +1058,10 @@ class _$UpdatingAppointmentStatusImpl implements UpdatingAppointmentStatus {
     TResult Function()? updatingAppointmentStatus,
     TResult Function()? updatedAppointmentStatus,
     TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (updatingAppointmentStatus != null) {
@@ -944,6 +1086,12 @@ class _$UpdatingAppointmentStatusImpl implements UpdatingAppointmentStatus {
     updatedAppointmentStatus,
     required TResult Function(ErrorUpdatingAppointmentStatus value)
     errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
   }) {
     return updatingAppointmentStatus(this);
   }
@@ -962,6 +1110,10 @@ class _$UpdatingAppointmentStatusImpl implements UpdatingAppointmentStatus {
     TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult? Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
   }) {
     return updatingAppointmentStatus?.call(this);
   }
@@ -980,6 +1132,10 @@ class _$UpdatingAppointmentStatusImpl implements UpdatingAppointmentStatus {
     TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (updatingAppointmentStatus != null) {
@@ -1049,6 +1205,10 @@ class _$UpdatedAppointmentStatusImpl implements UpdatedAppointmentStatus {
     required TResult Function() updatingAppointmentStatus,
     required TResult Function() updatedAppointmentStatus,
     required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
   }) {
     return updatedAppointmentStatus();
   }
@@ -1064,6 +1224,10 @@ class _$UpdatedAppointmentStatusImpl implements UpdatedAppointmentStatus {
     TResult? Function()? updatingAppointmentStatus,
     TResult? Function()? updatedAppointmentStatus,
     TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
   }) {
     return updatedAppointmentStatus?.call();
   }
@@ -1079,6 +1243,10 @@ class _$UpdatedAppointmentStatusImpl implements UpdatedAppointmentStatus {
     TResult Function()? updatingAppointmentStatus,
     TResult Function()? updatedAppointmentStatus,
     TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (updatedAppointmentStatus != null) {
@@ -1103,6 +1271,12 @@ class _$UpdatedAppointmentStatusImpl implements UpdatedAppointmentStatus {
     updatedAppointmentStatus,
     required TResult Function(ErrorUpdatingAppointmentStatus value)
     errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
   }) {
     return updatedAppointmentStatus(this);
   }
@@ -1121,6 +1295,10 @@ class _$UpdatedAppointmentStatusImpl implements UpdatedAppointmentStatus {
     TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult? Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
   }) {
     return updatedAppointmentStatus?.call(this);
   }
@@ -1139,6 +1317,10 @@ class _$UpdatedAppointmentStatusImpl implements UpdatedAppointmentStatus {
     TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (updatedAppointmentStatus != null) {
@@ -1240,6 +1422,10 @@ class _$ErrorUpdatingAppointmentStatusImpl
     required TResult Function() updatingAppointmentStatus,
     required TResult Function() updatedAppointmentStatus,
     required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
   }) {
     return errorUpdatingAppointmentStatus(message);
   }
@@ -1255,6 +1441,10 @@ class _$ErrorUpdatingAppointmentStatusImpl
     TResult? Function()? updatingAppointmentStatus,
     TResult? Function()? updatedAppointmentStatus,
     TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
   }) {
     return errorUpdatingAppointmentStatus?.call(message);
   }
@@ -1270,6 +1460,10 @@ class _$ErrorUpdatingAppointmentStatusImpl
     TResult Function()? updatingAppointmentStatus,
     TResult Function()? updatedAppointmentStatus,
     TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (errorUpdatingAppointmentStatus != null) {
@@ -1294,6 +1488,12 @@ class _$ErrorUpdatingAppointmentStatusImpl
     updatedAppointmentStatus,
     required TResult Function(ErrorUpdatingAppointmentStatus value)
     errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
   }) {
     return errorUpdatingAppointmentStatus(this);
   }
@@ -1312,6 +1512,10 @@ class _$ErrorUpdatingAppointmentStatusImpl
     TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult? Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
   }) {
     return errorUpdatingAppointmentStatus?.call(this);
   }
@@ -1330,6 +1534,10 @@ class _$ErrorUpdatingAppointmentStatusImpl
     TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
     TResult Function(ErrorUpdatingAppointmentStatus value)?
     errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
     required TResult orElse(),
   }) {
     if (errorUpdatingAppointmentStatus != null) {
@@ -1352,6 +1560,642 @@ abstract class ErrorUpdatingAppointmentStatus
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorUpdatingAppointmentStatusImplCopyWith<
     _$ErrorUpdatingAppointmentStatusImpl
+  >
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReschedulingAppointmentImplCopyWith<$Res> {
+  factory _$$ReschedulingAppointmentImplCopyWith(
+    _$ReschedulingAppointmentImpl value,
+    $Res Function(_$ReschedulingAppointmentImpl) then,
+  ) = __$$ReschedulingAppointmentImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ReschedulingAppointmentImplCopyWithImpl<$Res>
+    extends
+        _$AppointmentManageStateCopyWithImpl<
+          $Res,
+          _$ReschedulingAppointmentImpl
+        >
+    implements _$$ReschedulingAppointmentImplCopyWith<$Res> {
+  __$$ReschedulingAppointmentImplCopyWithImpl(
+    _$ReschedulingAppointmentImpl _value,
+    $Res Function(_$ReschedulingAppointmentImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppointmentManageState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ReschedulingAppointmentImpl implements ReschedulingAppointment {
+  const _$ReschedulingAppointmentImpl();
+
+  @override
+  String toString() {
+    return 'AppointmentManageState.reschedulingAppointment()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReschedulingAppointmentImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loadingAppointmentsPatient,
+    required TResult Function(AppointmentListResponse appointmentListResponse)
+    loadedAppointmentsPatient,
+    required TResult Function(String message) errorAppointmentsPatient,
+    required TResult Function() updatingAppointmentStatus,
+    required TResult Function() updatedAppointmentStatus,
+    required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
+  }) {
+    return reschedulingAppointment();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loadingAppointmentsPatient,
+    TResult? Function(AppointmentListResponse appointmentListResponse)?
+    loadedAppointmentsPatient,
+    TResult? Function(String message)? errorAppointmentsPatient,
+    TResult? Function()? updatingAppointmentStatus,
+    TResult? Function()? updatedAppointmentStatus,
+    TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
+  }) {
+    return reschedulingAppointment?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loadingAppointmentsPatient,
+    TResult Function(AppointmentListResponse appointmentListResponse)?
+    loadedAppointmentsPatient,
+    TResult Function(String message)? errorAppointmentsPatient,
+    TResult Function()? updatingAppointmentStatus,
+    TResult Function()? updatedAppointmentStatus,
+    TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
+    required TResult orElse(),
+  }) {
+    if (reschedulingAppointment != null) {
+      return reschedulingAppointment();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(LoadingAppointmentsPatient value)
+    loadingAppointmentsPatient,
+    required TResult Function(LoadedAppointmentsPatient value)
+    loadedAppointmentsPatient,
+    required TResult Function(ErrorAppointmentsPatient value)
+    errorAppointmentsPatient,
+    required TResult Function(UpdatingAppointmentStatus value)
+    updatingAppointmentStatus,
+    required TResult Function(UpdatedAppointmentStatus value)
+    updatedAppointmentStatus,
+    required TResult Function(ErrorUpdatingAppointmentStatus value)
+    errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
+  }) {
+    return reschedulingAppointment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(LoadingAppointmentsPatient value)?
+    loadingAppointmentsPatient,
+    TResult? Function(LoadedAppointmentsPatient value)?
+    loadedAppointmentsPatient,
+    TResult? Function(ErrorAppointmentsPatient value)? errorAppointmentsPatient,
+    TResult? Function(UpdatingAppointmentStatus value)?
+    updatingAppointmentStatus,
+    TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
+    TResult? Function(ErrorUpdatingAppointmentStatus value)?
+    errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
+  }) {
+    return reschedulingAppointment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(LoadingAppointmentsPatient value)?
+    loadingAppointmentsPatient,
+    TResult Function(LoadedAppointmentsPatient value)?
+    loadedAppointmentsPatient,
+    TResult Function(ErrorAppointmentsPatient value)? errorAppointmentsPatient,
+    TResult Function(UpdatingAppointmentStatus value)?
+    updatingAppointmentStatus,
+    TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
+    TResult Function(ErrorUpdatingAppointmentStatus value)?
+    errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
+    required TResult orElse(),
+  }) {
+    if (reschedulingAppointment != null) {
+      return reschedulingAppointment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReschedulingAppointment implements AppointmentManageState {
+  const factory ReschedulingAppointment() = _$ReschedulingAppointmentImpl;
+}
+
+/// @nodoc
+abstract class _$$RescheduledAppointmentImplCopyWith<$Res> {
+  factory _$$RescheduledAppointmentImplCopyWith(
+    _$RescheduledAppointmentImpl value,
+    $Res Function(_$RescheduledAppointmentImpl) then,
+  ) = __$$RescheduledAppointmentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PatientAppointmentModel updatedAppointment});
+}
+
+/// @nodoc
+class __$$RescheduledAppointmentImplCopyWithImpl<$Res>
+    extends
+        _$AppointmentManageStateCopyWithImpl<$Res, _$RescheduledAppointmentImpl>
+    implements _$$RescheduledAppointmentImplCopyWith<$Res> {
+  __$$RescheduledAppointmentImplCopyWithImpl(
+    _$RescheduledAppointmentImpl _value,
+    $Res Function(_$RescheduledAppointmentImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppointmentManageState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? updatedAppointment = null}) {
+    return _then(
+      _$RescheduledAppointmentImpl(
+        null == updatedAppointment
+            ? _value.updatedAppointment
+            : updatedAppointment // ignore: cast_nullable_to_non_nullable
+                as PatientAppointmentModel,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$RescheduledAppointmentImpl implements RescheduledAppointment {
+  const _$RescheduledAppointmentImpl(this.updatedAppointment);
+
+  @override
+  final PatientAppointmentModel updatedAppointment;
+
+  @override
+  String toString() {
+    return 'AppointmentManageState.rescheduledAppointment(updatedAppointment: $updatedAppointment)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RescheduledAppointmentImpl &&
+            (identical(other.updatedAppointment, updatedAppointment) ||
+                other.updatedAppointment == updatedAppointment));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, updatedAppointment);
+
+  /// Create a copy of AppointmentManageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RescheduledAppointmentImplCopyWith<_$RescheduledAppointmentImpl>
+  get copyWith =>
+      __$$RescheduledAppointmentImplCopyWithImpl<_$RescheduledAppointmentImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loadingAppointmentsPatient,
+    required TResult Function(AppointmentListResponse appointmentListResponse)
+    loadedAppointmentsPatient,
+    required TResult Function(String message) errorAppointmentsPatient,
+    required TResult Function() updatingAppointmentStatus,
+    required TResult Function() updatedAppointmentStatus,
+    required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
+  }) {
+    return rescheduledAppointment(updatedAppointment);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loadingAppointmentsPatient,
+    TResult? Function(AppointmentListResponse appointmentListResponse)?
+    loadedAppointmentsPatient,
+    TResult? Function(String message)? errorAppointmentsPatient,
+    TResult? Function()? updatingAppointmentStatus,
+    TResult? Function()? updatedAppointmentStatus,
+    TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
+  }) {
+    return rescheduledAppointment?.call(updatedAppointment);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loadingAppointmentsPatient,
+    TResult Function(AppointmentListResponse appointmentListResponse)?
+    loadedAppointmentsPatient,
+    TResult Function(String message)? errorAppointmentsPatient,
+    TResult Function()? updatingAppointmentStatus,
+    TResult Function()? updatedAppointmentStatus,
+    TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
+    required TResult orElse(),
+  }) {
+    if (rescheduledAppointment != null) {
+      return rescheduledAppointment(updatedAppointment);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(LoadingAppointmentsPatient value)
+    loadingAppointmentsPatient,
+    required TResult Function(LoadedAppointmentsPatient value)
+    loadedAppointmentsPatient,
+    required TResult Function(ErrorAppointmentsPatient value)
+    errorAppointmentsPatient,
+    required TResult Function(UpdatingAppointmentStatus value)
+    updatingAppointmentStatus,
+    required TResult Function(UpdatedAppointmentStatus value)
+    updatedAppointmentStatus,
+    required TResult Function(ErrorUpdatingAppointmentStatus value)
+    errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
+  }) {
+    return rescheduledAppointment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(LoadingAppointmentsPatient value)?
+    loadingAppointmentsPatient,
+    TResult? Function(LoadedAppointmentsPatient value)?
+    loadedAppointmentsPatient,
+    TResult? Function(ErrorAppointmentsPatient value)? errorAppointmentsPatient,
+    TResult? Function(UpdatingAppointmentStatus value)?
+    updatingAppointmentStatus,
+    TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
+    TResult? Function(ErrorUpdatingAppointmentStatus value)?
+    errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
+  }) {
+    return rescheduledAppointment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(LoadingAppointmentsPatient value)?
+    loadingAppointmentsPatient,
+    TResult Function(LoadedAppointmentsPatient value)?
+    loadedAppointmentsPatient,
+    TResult Function(ErrorAppointmentsPatient value)? errorAppointmentsPatient,
+    TResult Function(UpdatingAppointmentStatus value)?
+    updatingAppointmentStatus,
+    TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
+    TResult Function(ErrorUpdatingAppointmentStatus value)?
+    errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
+    required TResult orElse(),
+  }) {
+    if (rescheduledAppointment != null) {
+      return rescheduledAppointment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RescheduledAppointment implements AppointmentManageState {
+  const factory RescheduledAppointment(
+    final PatientAppointmentModel updatedAppointment,
+  ) = _$RescheduledAppointmentImpl;
+
+  PatientAppointmentModel get updatedAppointment;
+
+  /// Create a copy of AppointmentManageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RescheduledAppointmentImplCopyWith<_$RescheduledAppointmentImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ErrorReschedulingAppointmentImplCopyWith<$Res> {
+  factory _$$ErrorReschedulingAppointmentImplCopyWith(
+    _$ErrorReschedulingAppointmentImpl value,
+    $Res Function(_$ErrorReschedulingAppointmentImpl) then,
+  ) = __$$ErrorReschedulingAppointmentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$ErrorReschedulingAppointmentImplCopyWithImpl<$Res>
+    extends
+        _$AppointmentManageStateCopyWithImpl<
+          $Res,
+          _$ErrorReschedulingAppointmentImpl
+        >
+    implements _$$ErrorReschedulingAppointmentImplCopyWith<$Res> {
+  __$$ErrorReschedulingAppointmentImplCopyWithImpl(
+    _$ErrorReschedulingAppointmentImpl _value,
+    $Res Function(_$ErrorReschedulingAppointmentImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppointmentManageState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? message = null}) {
+    return _then(
+      _$ErrorReschedulingAppointmentImpl(
+        message:
+            null == message
+                ? _value.message
+                : message // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$ErrorReschedulingAppointmentImpl
+    implements ErrorReschedulingAppointment {
+  const _$ErrorReschedulingAppointmentImpl({required this.message});
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'AppointmentManageState.errorReschedulingAppointment(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ErrorReschedulingAppointmentImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppointmentManageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ErrorReschedulingAppointmentImplCopyWith<
+    _$ErrorReschedulingAppointmentImpl
+  >
+  get copyWith => __$$ErrorReschedulingAppointmentImplCopyWithImpl<
+    _$ErrorReschedulingAppointmentImpl
+  >(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loadingAppointmentsPatient,
+    required TResult Function(AppointmentListResponse appointmentListResponse)
+    loadedAppointmentsPatient,
+    required TResult Function(String message) errorAppointmentsPatient,
+    required TResult Function() updatingAppointmentStatus,
+    required TResult Function() updatedAppointmentStatus,
+    required TResult Function(String message) errorUpdatingAppointmentStatus,
+    required TResult Function() reschedulingAppointment,
+    required TResult Function(PatientAppointmentModel updatedAppointment)
+    rescheduledAppointment,
+    required TResult Function(String message) errorReschedulingAppointment,
+  }) {
+    return errorReschedulingAppointment(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loadingAppointmentsPatient,
+    TResult? Function(AppointmentListResponse appointmentListResponse)?
+    loadedAppointmentsPatient,
+    TResult? Function(String message)? errorAppointmentsPatient,
+    TResult? Function()? updatingAppointmentStatus,
+    TResult? Function()? updatedAppointmentStatus,
+    TResult? Function(String message)? errorUpdatingAppointmentStatus,
+    TResult? Function()? reschedulingAppointment,
+    TResult? Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult? Function(String message)? errorReschedulingAppointment,
+  }) {
+    return errorReschedulingAppointment?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loadingAppointmentsPatient,
+    TResult Function(AppointmentListResponse appointmentListResponse)?
+    loadedAppointmentsPatient,
+    TResult Function(String message)? errorAppointmentsPatient,
+    TResult Function()? updatingAppointmentStatus,
+    TResult Function()? updatedAppointmentStatus,
+    TResult Function(String message)? errorUpdatingAppointmentStatus,
+    TResult Function()? reschedulingAppointment,
+    TResult Function(PatientAppointmentModel updatedAppointment)?
+    rescheduledAppointment,
+    TResult Function(String message)? errorReschedulingAppointment,
+    required TResult orElse(),
+  }) {
+    if (errorReschedulingAppointment != null) {
+      return errorReschedulingAppointment(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(LoadingAppointmentsPatient value)
+    loadingAppointmentsPatient,
+    required TResult Function(LoadedAppointmentsPatient value)
+    loadedAppointmentsPatient,
+    required TResult Function(ErrorAppointmentsPatient value)
+    errorAppointmentsPatient,
+    required TResult Function(UpdatingAppointmentStatus value)
+    updatingAppointmentStatus,
+    required TResult Function(UpdatedAppointmentStatus value)
+    updatedAppointmentStatus,
+    required TResult Function(ErrorUpdatingAppointmentStatus value)
+    errorUpdatingAppointmentStatus,
+    required TResult Function(ReschedulingAppointment value)
+    reschedulingAppointment,
+    required TResult Function(RescheduledAppointment value)
+    rescheduledAppointment,
+    required TResult Function(ErrorReschedulingAppointment value)
+    errorReschedulingAppointment,
+  }) {
+    return errorReschedulingAppointment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(LoadingAppointmentsPatient value)?
+    loadingAppointmentsPatient,
+    TResult? Function(LoadedAppointmentsPatient value)?
+    loadedAppointmentsPatient,
+    TResult? Function(ErrorAppointmentsPatient value)? errorAppointmentsPatient,
+    TResult? Function(UpdatingAppointmentStatus value)?
+    updatingAppointmentStatus,
+    TResult? Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
+    TResult? Function(ErrorUpdatingAppointmentStatus value)?
+    errorUpdatingAppointmentStatus,
+    TResult? Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult? Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult? Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
+  }) {
+    return errorReschedulingAppointment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(LoadingAppointmentsPatient value)?
+    loadingAppointmentsPatient,
+    TResult Function(LoadedAppointmentsPatient value)?
+    loadedAppointmentsPatient,
+    TResult Function(ErrorAppointmentsPatient value)? errorAppointmentsPatient,
+    TResult Function(UpdatingAppointmentStatus value)?
+    updatingAppointmentStatus,
+    TResult Function(UpdatedAppointmentStatus value)? updatedAppointmentStatus,
+    TResult Function(ErrorUpdatingAppointmentStatus value)?
+    errorUpdatingAppointmentStatus,
+    TResult Function(ReschedulingAppointment value)? reschedulingAppointment,
+    TResult Function(RescheduledAppointment value)? rescheduledAppointment,
+    TResult Function(ErrorReschedulingAppointment value)?
+    errorReschedulingAppointment,
+    required TResult orElse(),
+  }) {
+    if (errorReschedulingAppointment != null) {
+      return errorReschedulingAppointment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ErrorReschedulingAppointment implements AppointmentManageState {
+  const factory ErrorReschedulingAppointment({required final String message}) =
+      _$ErrorReschedulingAppointmentImpl;
+
+  String get message;
+
+  /// Create a copy of AppointmentManageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ErrorReschedulingAppointmentImplCopyWith<
+    _$ErrorReschedulingAppointmentImpl
   >
   get copyWith => throw _privateConstructorUsedError;
 }

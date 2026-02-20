@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAsNhq9V5kio_p5voj42T_Q4RPkBE0Pt5I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>767064413529</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.doctormate.app</string>
+	<key>PROJECT_ID</key>
+	<string>doctormate-e4eef</string>
+	<key>STORAGE_BUCKET</key>
+	<string>doctormate-e4eef.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:767064413529:ios:ea6dcb47256fc28c4ca848</string>
+</dict>
+</plist>

@@ -1,4 +1,4 @@
-package com.health.doctor_mate
+package com.doctormate.app
 
 import io.flutter.embedding.android.FlutterActivity
 

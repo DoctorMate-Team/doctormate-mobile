@@ -1,3 +1,4 @@
+import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class CustomMaterialButton extends StatelessWidget {
     this.textColor,
     this.minWidth,
     this.borderColor,
+    this.icon,
   });
   final String textButton;
   final Function() onPressed;
@@ -25,6 +27,7 @@ class CustomMaterialButton extends StatelessWidget {
   final double? minWidth;
   final EdgeInsets? padding;
   final Color? textColor;
+  final IconData? icon;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -37,10 +40,26 @@ class CustomMaterialButton extends StatelessWidget {
       minWidth: minWidth ?? double.infinity,
       padding: padding,
       height: height ?? 43.h,
-      child: Text(
-        textButton,
-        style: TextStyles.font16WhiteMedium.copyWith(color: textColor),
-      ),
+      child:
+          icon != null
+              ? Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(icon, size: 18.sp, color: textColor ?? Colors.white),
+                  horizantialSpacing(8),
+                  Text(
+                    textButton,
+                    style: TextStyles.font16WhiteMedium.copyWith(
+                      color: textColor,
+                    ),
+                  ),
+                ],
+              )
+              : Text(
+                textButton,
+                style: TextStyles.font16WhiteMedium.copyWith(color: textColor),
+              ),
     );
   }
 }

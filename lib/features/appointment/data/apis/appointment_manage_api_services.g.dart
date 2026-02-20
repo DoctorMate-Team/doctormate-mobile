@@ -96,6 +96,44 @@ class _AppointmentManageApiServices implements AppointmentManageApiServices {
     return _value;
   }
 
+  @override
+  Future<DoctorMateResponse<PatientAppointmentModel>> rescheduleAppointment({
+    required String appointmentId,
+    required Map<String, String> rescheduleData,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(rescheduleData);
+    final _options =
+        _setStreamType<DoctorMateResponse<PatientAppointmentModel>>(
+          Options(method: 'PUT', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'appointments/${appointmentId}/reschedule',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late DoctorMateResponse<PatientAppointmentModel> _value;
+    try {
+      _value = DoctorMateResponse<PatientAppointmentModel>.fromJson(
+        _result.data!,
+        (json) =>
+            PatientAppointmentModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

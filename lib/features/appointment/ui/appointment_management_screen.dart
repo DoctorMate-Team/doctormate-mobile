@@ -32,7 +32,7 @@ class _AppointmentManagementScreenState
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     _fetchAppointments();
   }
 
@@ -118,21 +118,24 @@ class _AppointmentManagementScreenState
                     appointments: _allAppointments,
                     onRefresh: _fetchAppointments,
                     onCancel: _showCancelDialog,
-                    onReschedule: _showRescheduleDialog,
+                  ),
+                  AppointmentListView(
+                    status: 'inprogress',
+                    appointments: _allAppointments,
+                    onRefresh: _fetchAppointments,
+                    onCancel: _showCancelDialog,
                   ),
                   AppointmentListView(
                     status: 'completed',
                     appointments: _allAppointments,
                     onRefresh: _fetchAppointments,
                     onCancel: _showCancelDialog,
-                    onReschedule: _showRescheduleDialog,
                   ),
                   AppointmentListView(
                     status: 'cancelled',
                     appointments: _allAppointments,
                     onRefresh: _fetchAppointments,
                     onCancel: _showCancelDialog,
-                    onReschedule: _showRescheduleDialog,
                   ),
                 ],
               ),
@@ -167,43 +170,6 @@ class _AppointmentManagementScreenState
             );
           },
           backgroundColor: Colors.red,
-          height: 40.h,
-          minWidth: 120.w,
-          raduisBorder: 8,
-        ),
-      ],
-    );
-  }
-
-  void _showRescheduleDialog(PatientAppointmentModel appointment) {
-    showCustomDialog(
-      context,
-      title: 'Reschedule Appointment?',
-      subtitle:
-          'Do you want to reschedule your appointment with ${appointment.doctor.doctorName}?',
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(
-            'Cancel',
-            style: TextStyles.font14GrayRegular.copyWith(
-              color: ColorsManager.gray,
-            ),
-          ),
-        ),
-        CustomMaterialButton(
-          textButton: 'Reschedule',
-          onPressed: () {
-            context.pop();
-            // TODO: Navigate to reschedule screen with appointment data
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Reschedule feature coming soon'),
-                backgroundColor: Colors.orange,
-              ),
-            );
-          },
-          backgroundColor: ColorsManager.primaryColor,
           height: 40.h,
           minWidth: 120.w,
           raduisBorder: 8,

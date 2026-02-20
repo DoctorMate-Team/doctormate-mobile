@@ -27,4 +27,13 @@ class AppointmentState with _$AppointmentState {
   const factory AppointmentState.bookAppointmentError({
     required String message,
   }) = BookAppointmentError;
+
+  // Upload Medical Image States
+  const factory AppointmentState.uploadMedicalImageLoading() =
+      UploadMedicalImageLoading;
+  const factory AppointmentState.uploadMedicalImageSuccess() =
+      UploadMedicalImageSuccess;
+  const factory AppointmentState.uploadMedicalImageError({
+    required String message,
+  }) = UploadMedicalImageError;
 }

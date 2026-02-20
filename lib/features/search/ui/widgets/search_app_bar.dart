@@ -1,3 +1,4 @@
+import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class SearchAppBar extends StatelessWidget {
-  final VoidCallback onBackPressed;
 
-  const SearchAppBar({super.key, required this.onBackPressed});
+  const SearchAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class SearchAppBar extends StatelessWidget {
           ),
 
           // Placeholder for symmetry
-          SizedBox(width: 40.w),
+          horizantialSpacing(40),
         ],
       ),
     );

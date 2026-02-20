@@ -19,9 +19,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     result.when(
       success: (availableSlotsResponse) {
         emit(
-          AppointmentState.availableSlotsLoaded(
-            availableSlotsResponse.data,
-          ),
+          AppointmentState.availableSlotsLoaded(availableSlotsResponse.data),
         );
       },
       failure: (error) {
@@ -54,14 +52,36 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     result.when(
       success: (appointmentResponseBody) {
         emit(
-          AppointmentState.bookAppointmentSuccess(
-            appointmentResponseBody.data,
-          ),
+          AppointmentState.bookAppointmentSuccess(appointmentResponseBody.data),
         );
       },
       failure: (error) {
         emit(
           AppointmentState.bookAppointmentError(
+            message: error.apiErrorModel.message!,
+          ),
+        );
+      },
+    );
+  }
+
+  void uploadMedicalImage({
+    required String appointmentId,
+    required String imagePath,
+  }) async {
+    emit(AppointmentState.uploadMedicalImageLoading());
+    final result = await _appointmentRepos.uploadMedicalImage(
+      description: "Medical image uploaded for appointment $appointmentId",
+      appointmentId: appointmentId,
+      filePath: imagePath,
+    );
+    result.when(
+      success: (_) {
+        emit(AppointmentState.uploadMedicalImageSuccess());
+      },
+      failure: (error) {
+        emit(
+          AppointmentState.uploadMedicalImageError(
             message: error.apiErrorModel.message!,
           ),
         );

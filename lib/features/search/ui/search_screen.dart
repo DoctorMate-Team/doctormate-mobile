@@ -3,12 +3,17 @@ import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/widgets/custom_text_form_field.dart';
 import 'package:doctor_mate/features/home/data/models/doctor_model.dart';
 import 'package:doctor_mate/features/home/data/models/specialty_model.dart';
-import 'package:doctor_mate/features/home/ui/widgets/doctors_list_for_specialist.dart';
 import 'package:doctor_mate/features/home/ui/widgets/doctors_shimmer_loading.dart';
+import 'package:doctor_mate/features/search/logic/cubit/search_cubit.dart';
+import 'package:doctor_mate/features/search/logic/cubit/search_state.dart';
+import 'package:doctor_mate/features/search/ui/widgets/doctors_list_widget.dart';
 import 'package:doctor_mate/features/search/ui/widgets/filter_chip_item.dart';
 import 'package:doctor_mate/features/search/ui/widgets/search_app_bar.dart';
+import 'package:doctor_mate/features/search/ui/widgets/search_empty_state.dart';
+import 'package:doctor_mate/features/search/ui/widgets/search_error_state.dart';
 import 'package:doctor_mate/features/search/ui/widgets/specialty_filter_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -22,176 +27,96 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
+  final ScrollController _scrollController = ScrollController();
 
-  bool _isLoading = false;
   String _searchQuery = '';
   String? _selectedSpecialtyId;
   String? _selectedSpecialtyName;
-  String _sortBy = 'none'; // none, highestReview
+  String _sortBy = 'none'; // none, rating
 
-  // Mock data - will be replaced with API call
+  // Pagination variables
+  int _currentPage = 1;
+  bool _hasMore = true;
+  bool _isLoadingMore = false;
   List<DoctorModel> _doctors = [];
   List<SpecialtyModel> _specialties = [];
 
   @override
   void initState() {
     super.initState();
-    _loadMockData();
     _searchFocusNode.requestFocus();
+    _scrollController.addListener(_onScroll);
+    // Fetch specialties for filter
+    context.read<SearchCubit>().getSpecialties();
+    // Initial search with empty query to get all doctors
+    _performSearch('');
   }
 
   @override
   void dispose() {
     _searchController.dispose();
     _searchFocusNode.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
-  void _loadMockData() {
-    // Mock specialties
-    _specialties = [
-      SpecialtyModel(
-        id: '1',
-        name: 'Cardiology',
-        description: 'Heart specialists',
-        imageUrl: 'https://example.com/cardio.png',
-      ),
-      SpecialtyModel(
-        id: '2',
-        name: 'Dermatology',
-        description: 'Skin specialists',
-        imageUrl: 'https://example.com/derm.png',
-      ),
-      SpecialtyModel(
-        id: '3',
-        name: 'Pediatrics',
-        description: 'Child specialists',
-        imageUrl: 'https://example.com/pedia.png',
-      ),
-      SpecialtyModel(
-        id: '4',
-        name: 'Orthopedics',
-        description: 'Bone specialists',
-        imageUrl: 'https://example.com/ortho.png',
-      ),
-      SpecialtyModel(
-        id: '5',
-        name: 'Neurology',
-        description: 'Brain specialists',
-        imageUrl: 'https://example.com/neuro.png',
-      ),
-    ];
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent - 200 &&
+        !_isLoadingMore &&
+        _hasMore) {
+      _loadMoreDoctors();
+    }
+  }
 
-    // Mock doctors
-    _doctors = [
-      DoctorModel(
-        id: '1',
-        fullName: 'Dr. Sarah Johnson',
-        specialty: _specialties[0],
-        imageUrl:
-            'https://res.cloudinary.com/dukkhnflu/image/upload/v1761876798/doctormate/users/lwphifll71jzpgmt8mjs.jpg',
-        consultationFee: 850.0,
-        address: 'Cairo Medical Center',
-        workingTime: '09:00 - 17:00',
-        qualifications: 'MD, Ph.D. in Cardiology',
-        licenseNumber: 'DOC-123456',
-      ),
-      DoctorModel(
-        id: '2',
-        fullName: 'Dr. Michael Chen',
-        specialty: _specialties[1],
-        imageUrl:
-            'https://res.cloudinary.com/dukkhnflu/image/upload/v1761876798/doctormate/users/lwphifll71jzpgmt8mjs.jpg',
-        consultationFee: 750.0,
-        address: 'Alexandria Hospital',
-        workingTime: '10:00 - 18:00',
-        qualifications: 'MD in Dermatology',
-        licenseNumber: 'DOC-789012',
-      ),
-      DoctorModel(
-        id: '3',
-        fullName: 'Dr. Emily Roberts',
-        specialty: _specialties[2],
-        imageUrl:
-            'https://res.cloudinary.com/dukkhnflu/image/upload/v1761876798/doctormate/users/lwphifll71jzpgmt8mjs.jpg',
-        consultationFee: 650.0,
-        address: 'Giza Children Clinic',
-        workingTime: '08:00 - 16:00',
-        qualifications: 'MD, Pediatric Specialist',
-        licenseNumber: 'DOC-345678',
-      ),
-      DoctorModel(
-        id: '4',
-        fullName: 'Dr. Ahmed Hassan',
-        specialty: _specialties[0],
-        imageUrl:
-            'https://res.cloudinary.com/dukkhnflu/image/upload/v1761876798/doctormate/users/lwphifll71jzpgmt8mjs.jpg',
-        consultationFee: 900.0,
-        address: 'Cairo Heart Institute',
-        workingTime: '11:00 - 19:00',
-        qualifications: 'MD, Ph.D. Cardiac Surgery',
-        licenseNumber: 'DOC-901234',
-      ),
-      DoctorModel(
-        id: '5',
-        fullName: 'Dr. Lisa Anderson',
-        specialty: _specialties[3],
-        imageUrl:
-            'https://res.cloudinary.com/dukkhnflu/image/upload/v1761876798/doctormate/users/lwphifll71jzpgmt8mjs.jpg',
-        consultationFee: 800.0,
-        address: 'Mansoura Orthopedic Center',
-        workingTime: '09:00 - 17:00',
-        qualifications: 'MD in Orthopedic Surgery',
-        licenseNumber: 'DOC-567890',
-      ),
-    ];
+  void _loadMoreDoctors() {
+    if (_isLoadingMore || !_hasMore) return;
+
+    setState(() {
+      _isLoadingMore = true;
+      _currentPage++;
+    });
+
+    context.read<SearchCubit>().searchDoctors(
+      query: _searchQuery,
+      specialtyId: _selectedSpecialtyId,
+      sort: _sortBy == 'rating' ? 'rating' : null,
+      page: _currentPage,
+      limit: 10,
+    );
   }
 
   void _performSearch(String query) {
     setState(() {
       _searchQuery = query;
-      _isLoading = true;
+      _currentPage = 1;
+      _hasMore = true;
+      _doctors.clear();
     });
 
-    // Simulate API call
-    Future.delayed(const Duration(milliseconds: 800), () {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    });
+    context.read<SearchCubit>().searchDoctors(
+      query: _searchQuery,
+      specialtyId: _selectedSpecialtyId,
+      sort: _sortBy == 'rating' ? 'rating' : null,
+      page: _currentPage,
+      limit: 10,
+    );
   }
 
-  List<DoctorModel> _getFilteredDoctors() {
-    List<DoctorModel> filtered = List.from(_doctors);
+  void _applyFilters() {
+    setState(() {
+      _currentPage = 1;
+      _hasMore = true;
+      _doctors.clear();
+    });
 
-    // Filter by search query
-    if (_searchQuery.isNotEmpty) {
-      filtered =
-          filtered
-              .where(
-                (doctor) => doctor.fullName.toLowerCase().contains(
-                  _searchQuery.toLowerCase(),
-                ),
-              )
-              .toList();
-    }
-
-    // Filter by specialty
-    if (_selectedSpecialtyId != null) {
-      filtered =
-          filtered
-              .where((doctor) => doctor.specialty.id == _selectedSpecialtyId)
-              .toList();
-    }
-
-    // Sort by highest review (mock - random for now)
-    if (_sortBy == 'highestReview') {
-      filtered.sort((a, b) => b.consultationFee.compareTo(a.consultationFee));
-    }
-
-    return filtered;
+    context.read<SearchCubit>().searchDoctors(
+      query: _searchQuery,
+      specialtyId: _selectedSpecialtyId,
+      sort: _sortBy == 'rating' ? 'rating' : null,
+      page: _currentPage,
+      limit: 10,
+    );
   }
 
   void _clearFilters() {
@@ -200,6 +125,7 @@ class _SearchScreenState extends State<SearchScreen> {
       _selectedSpecialtyName = null;
       _sortBy = 'none';
     });
+    _applyFilters();
   }
 
   void _showSpecialtyFilter() {
@@ -216,6 +142,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 _selectedSpecialtyId = specialty.id;
                 _selectedSpecialtyName = specialty.name;
               });
+              _applyFilters();
             },
           ),
     );
@@ -223,7 +150,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final filteredDoctors = _getFilteredDoctors();
     final hasActiveFilters = _selectedSpecialtyId != null || _sortBy != 'none';
 
     return Scaffold(
@@ -232,7 +158,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(
           children: [
             // App Bar
-            SearchAppBar(onBackPressed: () {}),
+            SearchAppBar(),
 
             // Search Bar
             Padding(
@@ -290,14 +216,12 @@ class _SearchScreenState extends State<SearchScreen> {
                         FilterChipItem(
                           label: 'Highest Review',
                           icon: Iconsax.star_1,
-                          isSelected: _sortBy == 'highestReview',
+                          isSelected: _sortBy == 'rating',
                           onTap: () {
                             setState(() {
-                              _sortBy =
-                                  _sortBy == 'highestReview'
-                                      ? 'none'
-                                      : 'highestReview';
+                              _sortBy = _sortBy == 'rating' ? 'none' : 'rating';
                             });
+                            _applyFilters();
                           },
                         ),
                       ],
@@ -347,24 +271,77 @@ class _SearchScreenState extends State<SearchScreen> {
 
             // Results
             Expanded(
-              child:
-                  _isLoading
-                      ? Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: const DoctorsShimmerLoading(),
-                      )
-                      : filteredDoctors.isEmpty
-                      ? _buildEmptyState()
-                      : ListView.builder(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        itemCount: filteredDoctors.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(bottom: 16.h),
-                            child: DoctorCard(doctor: filteredDoctors[index]),
-                          );
-                        },
-                      ),
+              child: BlocConsumer<SearchCubit, SearchState>(
+                listenWhen:
+                    (previous, current) =>
+                        current is SuccessGetDoctors ||
+                        current is ErrorGetDoctors ||
+                        current is SuccessGetSpecialties,
+                listener: (context, state) {
+                  state.whenOrNull(
+                    successGetDoctors: (response) {
+                      setState(() {
+                        if (_currentPage == 1) {
+                          _doctors = response.doctors;
+                        } else {
+                          _doctors.addAll(response.doctors);
+                        }
+                        _hasMore =
+                            response.pagination.page <
+                            response.pagination.totalPages;
+                        _isLoadingMore = false;
+                      });
+                    },
+                    successGetSpecialties: (specialties) {
+                      setState(() {
+                        _specialties = specialties;
+                      });
+                    },
+                    errorGetDoctors: (error) {
+                      setState(() {
+                        _isLoadingMore = false;
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(error),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    },
+                  );
+                },
+                buildWhen:
+                    (previous, current) =>
+                        current is LoadingGetDoctors ||
+                        current is ErrorGetDoctors ||
+                        current is SuccessGetDoctors,
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    loadingGetDoctors: () {
+                      if (_currentPage == 1) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: const DoctorsShimmerLoading(),
+                        );
+                      } else {
+                        return _buildDoctorsList();
+                      }
+                    },
+                    successGetDoctors: (_) => _buildDoctorsList(),
+                    errorGetDoctors: (error) {
+                      if (_doctors.isEmpty) {
+                        return SearchErrorState(
+                          error: error,
+                          onRetry: () => _performSearch(_searchQuery),
+                        );
+                      } else {
+                        return _buildDoctorsList();
+                      }
+                    },
+                    orElse: () => _buildDoctorsList(),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -372,37 +349,15 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildEmptyState() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 120.w,
-            height: 120.h,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Iconsax.search_normal,
-              size: 50.sp,
-              color: Colors.grey.shade400,
-            ),
-          ),
-          verticalSpacing(24),
-          Text('No doctors found', style: TextStyles.font18DarkGreenBold),
-          verticalSpacing(8),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 48.w),
-            child: Text(
-              'Try adjusting your search or filters to find what you\'re looking for',
-              style: TextStyles.font14GrayRegular,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
+  Widget _buildDoctorsList() {
+    if (_doctors.isEmpty) {
+      return const SearchEmptyState();
+    }
+
+    return DoctorsListWidget(
+      doctors: _doctors,
+      scrollController: _scrollController,
+      isLoadingMore: _isLoadingMore,
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
-import 'package:doctor_mate/core/widgets/custom_material_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -43,18 +42,6 @@ class AppointmentEmptyState extends StatelessWidget {
               style: TextStyles.font14GrayRegular,
               textAlign: TextAlign.center,
             ),
-            verticalSpacing(24),
-            if (status == 'upcoming')
-              CustomMaterialButton(
-                textButton: 'Book Appointment',
-                onPressed: () {
-                  // TODO: Navigate to book appointment
-                },
-                backgroundColor: ColorsManager.primaryColor,
-                height: 48.h,
-                raduisBorder: 12,
-                minWidth: 200.w,
-              ),
           ],
         ),
       ),

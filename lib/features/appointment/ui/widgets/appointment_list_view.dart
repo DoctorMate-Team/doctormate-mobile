@@ -15,7 +15,6 @@ class AppointmentListView extends StatelessWidget {
   final List<PatientAppointmentModel> appointments;
   final VoidCallback onRefresh;
   final Function(PatientAppointmentModel) onCancel;
-  final Function(PatientAppointmentModel) onReschedule;
 
   const AppointmentListView({
     super.key,
@@ -23,7 +22,6 @@ class AppointmentListView extends StatelessWidget {
     required this.appointments,
     required this.onRefresh,
     required this.onCancel,
-    required this.onReschedule,
   });
 
   List<PatientAppointmentModel> _filterAppointmentsByTabStatus() {
@@ -46,6 +44,10 @@ class AppointmentListView extends StatelessWidget {
         return appointments
             .where((apt) => apt.status.toLowerCase() == 'cancelled')
             .toList();
+      case 'inprogress':
+        return appointments
+            .where((apt) => apt.status.toLowerCase() == 'inprogress')
+            .toList();      
       default:
         return appointments;
     }
@@ -82,8 +84,7 @@ class AppointmentListView extends StatelessWidget {
                     appointment: filteredAppointments[index],
                     status: status,
                     onCancel: () => onCancel(filteredAppointments[index]),
-                    onReschedule:
-                        () => onReschedule(filteredAppointments[index]),
+                    onRefresh: onRefresh,
                   );
                 },
               ),

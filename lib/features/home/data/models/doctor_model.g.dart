@@ -26,13 +26,16 @@ Map<String, dynamic> _$DoctorSpecialtyResponseToJson(
 DoctorModel _$DoctorModelFromJson(Map<String, dynamic> json) => DoctorModel(
   id: json['id'] as String,
   fullName: json['fullName'] as String,
-  specialty: SpecialtyModel.fromJson(json['specialty'] as Map<String, dynamic>),
+  specialty:
+      json['specialty'] == null
+          ? null
+          : SpecialtyModel.fromJson(json['specialty'] as Map<String, dynamic>),
   imageUrl: json['imageUrl'] as String,
-  consultationFee: (json['consultationFee'] as num).toDouble(),
-  address: json['address'] as String,
-  workingTime: json['workingTime'] as String,
-  qualifications: json['qualifications'] as String,
-  licenseNumber: json['licenseNumber'] as String,
+  consultationFee: (json['consultationFee'] as num?)?.toDouble(),
+  address: json['address'] as String?,
+  workingTime: json['workingTime'] as String?,
+  qualifications: json['qualifications'] as String?,
+  licenseNumber: json['licenseNumber'] as String?,
 );
 
 Map<String, dynamic> _$DoctorModelToJson(DoctorModel instance) =>
