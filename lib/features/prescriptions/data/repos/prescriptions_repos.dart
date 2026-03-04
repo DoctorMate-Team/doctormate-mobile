@@ -9,12 +9,19 @@ class PrescriptionsRepos {
 
   PrescriptionsRepos(this._prescriptionsApiServices);
 
-  Future<ApiResult<DoctorMateResponse<PrescriptionDetailsResponse>>> getPrescriptionDetails({
-    required String appointmentId,
+  Future<ApiResult<DoctorMateResponse<PrescriptionDetailsResponse>>>
+  getPrescriptionDetails({
+    String? appointmentId,
+    String? prescriptionId,
   }) async {
     try {
-      final response = await _prescriptionsApiServices
-          .getPrescriptionDetails(appointmentId);
+      final response =
+          prescriptionId != null
+              ? await _prescriptionsApiServices.getPrescriptionDetailsById(
+                prescriptionId,
+              )
+              : await _prescriptionsApiServices
+                  .getPrescriptionDetailsByAppointment(appointmentId!);
       return ApiResult.success(response);
     } catch (e) {
       return ApiResult.failure(ErrorHandler.handle(e));

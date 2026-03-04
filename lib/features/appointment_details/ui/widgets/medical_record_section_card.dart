@@ -1,5 +1,5 @@
+import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
-import 'package:doctor_mate/features/appointment/data/models/appointment_list_response.dart';
 import 'package:doctor_mate/features/appointment_details/data/models/appointment_details_response.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/section_header_widget.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/section_empty_state_widget.dart';
@@ -8,12 +8,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class MedicalRecordSectionCard extends StatelessWidget {
-  final PatientAppointmentModel appointment;
+  final AppointmentDetailsResponse appointmentDetails;
   final MedicalRecord? medicalRecord;
 
   const MedicalRecordSectionCard({
     super.key,
-    required this.appointment,
+    required this.appointmentDetails,
     this.medicalRecord,
   });
 
@@ -67,9 +67,9 @@ class MedicalRecordSectionCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildDetailRow('Title', medicalRecord!.title),
-          SizedBox(height: 12.h),
+          verticalSpacing(12),
           _buildDetailRow('Type', medicalRecord!.recordType),
-          SizedBox(height: 12.h),
+          verticalSpacing(12),
           _buildDetailRow(
             'Date',
             '${medicalRecord!.recordDate.day}/${medicalRecord!.recordDate.month}/${medicalRecord!.recordDate.year}',

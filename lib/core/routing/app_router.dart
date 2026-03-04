@@ -23,6 +23,9 @@ import 'package:doctor_mate/features/dignoses/ui/dignoses_screen.dart';
 import 'package:doctor_mate/features/medical-record/data/models/medical_record_list_response.dart';
 import 'package:doctor_mate/features/main_navigation/logic/cubit/main_cubit.dart';
 import 'package:doctor_mate/features/main_navigation/ui/main_navigation_screen.dart';
+import 'package:doctor_mate/features/medical-record/ui/medical_record_screen.dart';
+import 'package:doctor_mate/features/notifications/logic/notifications_cubit.dart';
+import 'package:doctor_mate/features/notifications/ui/notifications_screen.dart';
 import 'package:doctor_mate/features/onBoarding/ui/onBoarding_screen.dart';
 import 'package:doctor_mate/features/prescriptions/logic/cubit/prescriptions_cubit.dart';
 import 'package:doctor_mate/features/prescriptions/ui/prescriptions_screen.dart';
@@ -193,18 +196,26 @@ class AppRouter {
           path: Routes.appointmentDetails,
           name: Routes.appointmentDetails,
           builder: (context, state) {
-            final appointment = state.extra as PatientAppointmentModel;
+            // Get appointmentId from either query parameters or extra object
+            final String appointmentId;
+
+            if (state.extra != null && state.extra is PatientAppointmentModel) {
+              // Coming from appointment list with full object
+              final appointment = state.extra as PatientAppointmentModel;
+              appointmentId = appointment.id.toString();
+            } else {
+              // Coming from notification or deep link with just ID
+              appointmentId = state.uri.queryParameters['appointmentId'] ?? '';
+            }
+
             return MultiBlocProvider(
               providers: [
                 BlocProvider(create: (context) => getIt<CommunicationCubit>()),
                 BlocProvider(
-                  create:
-                      (context) =>
-                          getIt<AppointmentDetailsCubit>()
-                            ..getAppointmentDetails(appointment.id.toString()),
+                  create: (context) => getIt<AppointmentDetailsCubit>(),
                 ),
               ],
-              child: AppointmentDetailsScreen(appointment: appointment),
+              child: AppointmentDetailsScreen(appointmentId: appointmentId),
             );
           },
         ),
@@ -224,14 +235,15 @@ class AppRouter {
           path: Routes.prescriptionsScreen,
           name: Routes.prescriptionsScreen,
           builder: (context, state) {
-            final diagnosisId = state.uri.queryParameters['diagnosisId'] ?? '';
-            final appointmentId =
-                state.uri.queryParameters['appointmentId'] ?? '';
+            final diagnosisId = state.uri.queryParameters['diagnosisId'];
+            final appointmentId = state.uri.queryParameters['appointmentId'];
+            final prescriptionId = state.uri.queryParameters['prescriptionId'];
             return BlocProvider(
               create: (context) => getIt<PrescriptionsCubit>(),
               child: PrescriptionsScreen(
                 diagnosisId: diagnosisId,
                 appointmentId: appointmentId,
+                prescriptionId: prescriptionId,
               ),
             );
           },
@@ -285,6 +297,27 @@ class AppRouter {
               (context, state) => BlocProvider(
                 create: (context) => getIt<SearchCubit>(),
                 child: const SearchScreen(),
+              ),
+        ),
+        GoRoute(
+          path: Routes.medicalRecordScreen,
+          name: Routes.medicalRecordScreen,
+          builder: (context, state) {
+            return BlocProvider(
+              create: (context) => getIt<AppointmentManageCubit>(),
+              child: MedicalRecordScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.notificationsScreen,
+          name: Routes.notificationsScreen,
+          builder:
+              (context, state) => BlocProvider(
+                create:
+                    (context) =>
+                        getIt<NotificationsCubit>()..getNotifications(),
+                child: const NotificationsScreen(),
               ),
         ),
       ],

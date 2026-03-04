@@ -1,7 +1,6 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/theme/font_weight_helper.dart';
-import 'package:doctor_mate/features/appointment/data/models/appointment_list_response.dart';
 import 'package:doctor_mate/features/appointment_details/data/models/appointment_details_response.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/section_header_widget.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/section_empty_state_widget.dart';
@@ -10,12 +9,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class PrescriptionSectionCard extends StatelessWidget {
-  final PatientAppointmentModel appointment;
+  final AppointmentDetailsResponse appointmentDetails;
   final List<Prescription> prescriptions;
 
   const PrescriptionSectionCard({
     super.key,
-    required this.appointment,
+    required this.appointmentDetails,
     this.prescriptions = const [],
   });
 
@@ -110,7 +109,7 @@ class PrescriptionSectionCard extends StatelessWidget {
             if (!isLast) verticalSpacing(12),
           ],
         );
-      }).toList(),
+      }),
     ];
   }
 

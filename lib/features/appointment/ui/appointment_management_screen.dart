@@ -24,30 +24,126 @@ class _AppointmentManagementScreenState
     extends State<AppointmentManagementScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String? _selectedStatusFilter;
-  final int _currentPage = 1;
   final int _pageLimit = 10;
-  List<PatientAppointmentModel> _allAppointments = [];
+
+  // Tracking for scheduled tab (fetches both 'scheduled' and 'confirmed')
+  int _scheduledPendingRequests = 0;
+  List<PatientAppointmentModel> _scheduledTempResults = [];
+  bool _isScheduledInitialLoad = false;
+
+  // Separate state for each tab
+  final Map<String, List<PatientAppointmentModel>> _tabAppointments = {
+    'scheduled': [],
+    'inprogress': [],
+    'completed': [],
+    'cancelled': [],
+  };
+
+  final Map<String, int> _tabPages = {
+    'scheduled': 1,
+    'inprogress': 1,
+    'completed': 1,
+    'cancelled': 1,
+  };
+
+  final Map<String, bool> _tabHasMore = {
+    'scheduled': true,
+    'inprogress': true,
+    'completed': true,
+    'cancelled': true,
+  };
+
+  final Map<String, bool> _tabIsLoadingMore = {
+    'scheduled': false,
+    'inprogress': false,
+    'completed': false,
+    'cancelled': false,
+  };
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
-    _fetchAppointments();
+    _tabController.addListener(_onTabChanged);
+    // Fetch initial data for the first tab
+    _fetchAppointments('scheduled', isInitial: true);
   }
 
   @override
   void dispose() {
+    _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
     super.dispose();
   }
 
-  void _fetchAppointments({String? status}) {
-    context.read<AppointmentManageCubit>().getPatientAppointments(
-      page: _currentPage,
-      limit: _pageLimit,
-      status: status ?? _selectedStatusFilter,
-    );
+  void _onTabChanged() {
+    if (!_tabController.indexIsChanging) return;
+
+    final status = _getStatusFromTabIndex(_tabController.index);
+    // Fetch data if this tab hasn't been loaded yet
+    if (_tabAppointments[status]?.isEmpty ?? true) {
+      _fetchAppointments(status, isInitial: true);
+    }
+  }
+
+  String _getStatusFromTabIndex(int index) {
+    switch (index) {
+      case 0:
+        return 'scheduled';
+      case 1:
+        return 'inprogress';
+      case 2:
+        return 'completed';
+      case 3:
+        return 'cancelled';
+      default:
+        return 'scheduled';
+    }
+  }
+
+  void _fetchAppointments(String status, {bool isInitial = false}) {
+    if (isInitial) {
+      _tabPages[status] = 1;
+    }
+
+    // Special handling for scheduled tab: fetch both 'scheduled' and 'confirmed'
+    if (status == 'scheduled') {
+      _scheduledPendingRequests = 2;
+      _scheduledTempResults = [];
+      _isScheduledInitialLoad = isInitial || _tabPages[status] == 1;
+
+      // Fetch 'scheduled' status
+      context.read<AppointmentManageCubit>().getPatientAppointments(
+        page: _tabPages[status]!,
+        limit: _pageLimit,
+        status: 'scheduled',
+      );
+
+      // Fetch 'confirmed' status
+      context.read<AppointmentManageCubit>().getPatientAppointments(
+        page: _tabPages[status]!,
+        limit: _pageLimit,
+        status: 'confirmed',
+      );
+    } else {
+      // Other tabs: single request
+      context.read<AppointmentManageCubit>().getPatientAppointments(
+        page: _tabPages[status]!,
+        limit: _pageLimit,
+        status: status,
+      );
+    }
+  }
+
+  void _loadMoreAppointments(String status) {
+    if (_tabIsLoadingMore[status]! || !_tabHasMore[status]!) return;
+
+    setState(() {
+      _tabIsLoadingMore[status] = true;
+      _tabPages[status] = _tabPages[status]! + 1;
+    });
+
+    _fetchAppointments(status);
   }
 
   @override
@@ -62,11 +158,80 @@ class _AppointmentManagementScreenState
       listener: (context, state) {
         state.maybeWhen(
           loadedAppointmentsPatient: (response) {
+            final currentStatus = _getStatusFromTabIndex(_tabController.index);
+
+            // Handle scheduled tab (accumulate results from both calls)
+            if (currentStatus == 'scheduled' && _scheduledPendingRequests > 0) {
+              _scheduledTempResults.addAll(response.appointments);
+              _scheduledPendingRequests--;
+
+              // If both requests complete, update state
+              if (_scheduledPendingRequests == 0) {
+                // Sort by date (newest first)
+                _scheduledTempResults.sort(
+                  (a, b) => b.appointmentDate.compareTo(a.appointmentDate),
+                );
+
+                setState(() {
+                  if (_isScheduledInitialLoad || _tabPages['scheduled'] == 1) {
+                    _tabAppointments['scheduled'] = _scheduledTempResults;
+                  } else {
+                    _tabAppointments['scheduled']!.addAll(
+                      _scheduledTempResults,
+                    );
+                  }
+
+                  // Update hasMore flag based on total results
+                  _tabHasMore['scheduled'] =
+                      _scheduledTempResults.length >= _pageLimit;
+                  _tabIsLoadingMore['scheduled'] = false;
+                  _scheduledTempResults = [];
+                });
+              }
+              return;
+            }
+
+            // Handle other tabs normally
             setState(() {
-              _allAppointments = response.appointments;
+              if (_tabPages[currentStatus] == 1) {
+                // Initial load or refresh
+                _tabAppointments[currentStatus] = response.appointments;
+              } else {
+                // Load more
+                _tabAppointments[currentStatus]!.addAll(response.appointments);
+              }
+
+              // Update hasMore flag
+              _tabHasMore[currentStatus] =
+                  response.appointments.length >= _pageLimit;
+              _tabIsLoadingMore[currentStatus] = false;
             });
           },
           errorAppointmentsPatient: (message) {
+            final currentStatus = _getStatusFromTabIndex(_tabController.index);
+
+            // Handle errors for scheduled tab
+            if (currentStatus == 'scheduled' && _scheduledPendingRequests > 0) {
+              _scheduledPendingRequests--;
+
+              // If both requests complete (even with errors), reset state
+              if (_scheduledPendingRequests == 0) {
+                setState(() {
+                  _tabIsLoadingMore['scheduled'] = false;
+                  _scheduledTempResults = [];
+                });
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(message), backgroundColor: Colors.red),
+                );
+              }
+              return;
+            }
+
+            // Handle errors for other tabs
+            setState(() {
+              _tabIsLoadingMore[currentStatus] = false;
+            });
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(message), backgroundColor: Colors.red),
             );
@@ -79,7 +244,9 @@ class _AppointmentManagementScreenState
               ),
             );
             context.pop();
-            _fetchAppointments();
+            // Refresh current tab
+            final currentStatus = _getStatusFromTabIndex(_tabController.index);
+            _fetchAppointments(currentStatus, isInitial: true);
           },
           errorUpdatingAppointmentStatus: (message) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -100,42 +267,49 @@ class _AppointmentManagementScreenState
         body: Column(
           children: [
             AppointmentTabBar(tabController: _tabController),
-            // FilterChipsBar(
-            //   selectedFilter: _selectedStatusFilter,
-            //   onFilterChanged: (status) {
-            //     setState(() {
-            //       _selectedStatusFilter = status;
-            //     });
-            //     _fetchAppointments(status: status);
-            //   },
-            // ),
             Expanded(
               child: TabBarView(
                 controller: _tabController,
                 children: [
                   AppointmentListView(
-                    status: 'upcoming',
-                    appointments: _allAppointments,
-                    onRefresh: _fetchAppointments,
+                    status: 'scheduled',
+                    appointments: _tabAppointments['scheduled']!,
+                    onRefresh:
+                        () => _fetchAppointments('scheduled', isInitial: true),
                     onCancel: _showCancelDialog,
+                    onLoadMore: () => _loadMoreAppointments('scheduled'),
+                    hasMore: _tabHasMore['scheduled']!,
+                    isLoadingMore: _tabIsLoadingMore['scheduled']!,
                   ),
                   AppointmentListView(
                     status: 'inprogress',
-                    appointments: _allAppointments,
-                    onRefresh: _fetchAppointments,
+                    appointments: _tabAppointments['inprogress']!,
+                    onRefresh:
+                        () => _fetchAppointments('inprogress', isInitial: true),
                     onCancel: _showCancelDialog,
+                    onLoadMore: () => _loadMoreAppointments('inprogress'),
+                    hasMore: _tabHasMore['inprogress']!,
+                    isLoadingMore: _tabIsLoadingMore['inprogress']!,
                   ),
                   AppointmentListView(
                     status: 'completed',
-                    appointments: _allAppointments,
-                    onRefresh: _fetchAppointments,
+                    appointments: _tabAppointments['completed']!,
+                    onRefresh:
+                        () => _fetchAppointments('completed', isInitial: true),
                     onCancel: _showCancelDialog,
+                    onLoadMore: () => _loadMoreAppointments('completed'),
+                    hasMore: _tabHasMore['completed']!,
+                    isLoadingMore: _tabIsLoadingMore['completed']!,
                   ),
                   AppointmentListView(
                     status: 'cancelled',
-                    appointments: _allAppointments,
-                    onRefresh: _fetchAppointments,
+                    appointments: _tabAppointments['cancelled']!,
+                    onRefresh:
+                        () => _fetchAppointments('cancelled', isInitial: true),
                     onCancel: _showCancelDialog,
+                    onLoadMore: () => _loadMoreAppointments('cancelled'),
+                    hasMore: _tabHasMore['cancelled']!,
+                    isLoadingMore: _tabIsLoadingMore['cancelled']!,
                   ),
                 ],
               ),

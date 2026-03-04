@@ -3,6 +3,7 @@ import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
+import 'package:doctor_mate/features/home/ui/widgets/notification_badge_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -54,20 +55,7 @@ class ModernAppBar extends StatelessWidget {
         ),
 
         // Minimalist Action Buttons
-        Container(
-          width: 40.w,
-          height: 40.h,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: Colors.grey.shade200, width: 1),
-          ),
-          child: Icon(
-            Iconsax.notification,
-            color: Colors.grey.shade600,
-            size: 20.sp,
-          ),
-        ),
+        const NotificationBadgeButton(),
         horizantialSpacing(8),
         GestureDetector(
           onTap: () {

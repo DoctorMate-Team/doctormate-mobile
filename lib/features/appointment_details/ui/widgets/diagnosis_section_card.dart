@@ -1,7 +1,6 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/theme/font_weight_helper.dart';
-import 'package:doctor_mate/features/appointment/data/models/appointment_list_response.dart';
 import 'package:doctor_mate/features/appointment_details/data/models/appointment_details_response.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/section_header_widget.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/section_empty_state_widget.dart';
@@ -10,12 +9,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class DiagnosisSectionCard extends StatelessWidget {
-  final PatientAppointmentModel appointment;
+  final AppointmentDetailsResponse appointmentDetails;
   final List<Diagnosis> diagnoses;
 
   const DiagnosisSectionCard({
     super.key,
-    required this.appointment,
+    required this.appointmentDetails,
     this.diagnoses = const [],
   });
 

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:doctor_mate/core/models/notification_data.dart';
 import 'package:doctor_mate/core/models/notification_type.dart';
+import 'package:doctor_mate/core/networking/device_token_repository.dart';
 import 'package:doctor_mate/core/services/local_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -42,9 +45,16 @@ class FirebaseMessagingService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final LocalNotificationService _localNotificationService =
       LocalNotificationService();
+  final DeviceTokenRepository? _deviceTokenRepository;
 
   // Router for navigation
   GoRouter? _router;
+
+  // Store current token
+  String? _currentToken;
+
+  FirebaseMessagingService({DeviceTokenRepository? deviceTokenRepository})
+    : _deviceTokenRepository = deviceTokenRepository;
 
   /// Set the router for navigation handling
   void setRouter(GoRouter router) {
@@ -68,6 +78,11 @@ class FirebaseMessagingService {
     final token = await getFCMToken();
     debugPrint('FCM Token: $token');
 
+    // Register device token with backend
+    if (token != null) {
+      await _registerDeviceToken(token);
+    }
+
     // Handle foreground messages
     FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
 
@@ -85,7 +100,7 @@ class FirebaseMessagingService {
     // Listen to token refresh
     _firebaseMessaging.onTokenRefresh.listen((newToken) {
       debugPrint('FCM Token refreshed: $newToken');
-      // TODO: Send new token to your server
+      _registerDeviceToken(newToken);
     });
   }
 
@@ -178,10 +193,10 @@ class FirebaseMessagingService {
 
     if (_router != null) {
       // Import the navigation handler
-      final NotificationNavigationHandler = () {
+      void NotificationNavigationHandler() {
         // Inline navigation logic
         _navigateBasedOnNotification(data);
-      };
+      }
       NotificationNavigationHandler();
     } else {
       debugPrint('Router not set. Cannot navigate.');
@@ -201,6 +216,19 @@ class FirebaseMessagingService {
       return;
     }
 
+    if (data.clickAction == NotificationClickAction.openAppointmentDetails) {
+      if (data.appointmentId != null) {
+        debugPrint('Navigating to appointment details: ${data.appointmentId}');
+        _router?.pushNamed(
+          '/appointmentDetails',
+          queryParameters: {'appointmentId': data.appointmentId!},
+        );
+      } else {
+        _router?.push('/appointmentManageScreen');
+      }
+      return;
+    }
+
     // Handle based on notification type
     switch (data.type) {
       case NotificationType.diagnosisAdded:
@@ -209,7 +237,13 @@ class FirebaseMessagingService {
 
       case NotificationType.appointmentReminder:
       case NotificationType.appointmentConfirmed:
+      case NotificationType.appointmentCancelled:
         if (data.appointmentId != null) {
+          _router?.pushNamed(
+            '/appointmentDetails',
+            queryParameters: {'appointmentId': data.appointmentId!},
+          );
+        } else {
           _router?.push('/appointmentManageScreen');
         }
         break;
@@ -223,11 +257,10 @@ class FirebaseMessagingService {
           if (data.appointmentId != null) {
             queryParams['appointmentId'] = data.appointmentId!;
           }
-          final uri = Uri(
-            path: '/prescriptionsScreen',
+          _router?.pushNamed(
+            '/prescriptionsScreen',
             queryParameters: queryParams,
           );
-          _router?.push(uri.toString());
         } else {
           _router?.push('/medicalRecordScreen');
         }
@@ -298,5 +331,74 @@ class FirebaseMessagingService {
       channelDescription: 'General notifications',
       importance: Importance.defaultImportance,
     );
+  }
+
+  /// Register device token with backend
+  Future<void> _registerDeviceToken(String token) async {
+    if (_deviceTokenRepository == null) {
+      debugPrint('DeviceTokenRepository not available');
+      return;
+    }
+
+    try {
+      _currentToken = token;
+      final deviceType = Platform.isAndroid ? 'android' : 'ios';
+      final deviceName = Platform.isAndroid ? 'Android Device' : 'iOS Device';
+
+      final result = await _deviceTokenRepository.registerDeviceToken(
+        token: token,
+        deviceType: deviceType,
+        deviceName: deviceName,
+      );
+
+      result.when(
+        success: (_) {
+          debugPrint('Device token registered successfully');
+        },
+        failure: (error) {
+          debugPrint(
+            'Error registering device token: ${error.apiErrorModel.message}',
+          );
+        },
+      );
+    } catch (e) {
+      debugPrint('Exception registering device token: $e');
+    }
+  }
+
+  /// Unregister device token from backend
+  Future<void> unregisterDeviceToken() async {
+    if (_deviceTokenRepository == null) {
+      debugPrint('DeviceTokenRepository not available');
+      return;
+    }
+
+    if (_currentToken == null) {
+      debugPrint('No token to unregister');
+      return;
+    }
+
+    try {
+      final result = await _deviceTokenRepository.unregisterDeviceToken(
+        token: _currentToken!,
+      );
+
+      result.when(
+        success: (_) {
+          debugPrint('Device token unregistered successfully');
+          _currentToken = null;
+        },
+        failure: (error) {
+          debugPrint(
+            'Error unregistering device token: ${error.apiErrorModel.message}',
+          );
+        },
+      );
+
+      // Also delete the FCM token
+      await deleteToken();
+    } catch (e) {
+      debugPrint('Exception unregistering device token: $e');
+    }
   }
 }

@@ -135,8 +135,14 @@ class _SmartCheckupScreenState extends State<SmartCheckupScreen> {
                         ),
                       verticalSpacing(32),
                       BlocBuilder<SmartCheckupCubit, SmartCheckupState>(
-                        buildWhen: (previous, current) => current is SkinCheckupLoading ||
-                            current is SymptomCheckupLoading,
+                        buildWhen:
+                            (previous, current) =>
+                                current is SkinCheckupLoading ||
+                                current is SymptomCheckupLoading ||
+                                current is SkinCheckupSuccess ||
+                                current is SymptomCheckupSuccess ||
+                                current is SkinCheckupFailure ||
+                                current is SymptomCheckupFailure,
                         builder: (context, state) {
                           final isLoading = state.maybeWhen(
                             skinCheckupLoading: () => true,

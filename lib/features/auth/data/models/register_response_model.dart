@@ -4,30 +4,34 @@ part 'register_response_model.g.dart';
 
 @JsonSerializable()
 class RegisterResponseModel {
-  final String id;
-  final String email;
-  final String role;
+  final String token;
+  final User user;
 
-  RegisterResponseModel({
-    required this.id,
-    required this.email,
-    required this.role,
-  });
-
+  RegisterResponseModel({required this.token, required this.user});
   factory RegisterResponseModel.fromJson(Map<String, dynamic> json) =>
       _$RegisterResponseModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$RegisterResponseModelToJson(this);
 }
 
-/*
-{
-    "code": 0,
-    "message": "string",
-    "data": {
-        "id": "string",
-        "email": "string",
-        "role": "string"
-    }
+@JsonSerializable()
+class User {
+  final String id;
+  final String? fullName;
+  final String email;
+  final String role;
+  final bool isVerified;
+  final bool isCompletedProfile;
+
+  User({
+    required this.id,
+    this.fullName,
+    required this.email,
+    required this.role,
+    required this.isVerified,
+    required this.isCompletedProfile,
+  });
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }
-*/

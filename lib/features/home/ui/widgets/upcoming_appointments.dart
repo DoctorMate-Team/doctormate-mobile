@@ -14,19 +14,44 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:intl/intl.dart';
 
-class UpcomingAppointments extends StatelessWidget {
+class UpcomingAppointments extends StatefulWidget {
   const UpcomingAppointments({super.key});
 
   @override
+  State<UpcomingAppointments> createState() => UpcomingAppointmentsState();
+}
+
+class UpcomingAppointmentsState extends State<UpcomingAppointments> {
+  late AppointmentManageCubit _cubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _cubit = getIt<AppointmentManageCubit>();
+    _loadAppointments();
+  }
+
+  @override
+  void dispose() {
+    _cubit.close();
+    super.dispose();
+  }
+
+  void _loadAppointments() {
+    _cubit.getPatientAppointments(page: 1, limit: 1, status: 'confirmed');
+  }
+
+  // Public method to refresh appointments from parent
+  Future<void> refresh() async {
+    _loadAppointments();
+    // Wait a bit for the API call to complete
+    await Future.delayed(const Duration(milliseconds: 500));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create:
-          (context) =>
-              getIt<AppointmentManageCubit>()..getPatientAppointments(
-                page: 1,
-                limit: 1,
-                status: 'confirmed',
-              ),
+    return BlocProvider.value(
+      value: _cubit,
       child: const _UpcomingAppointmentContent(),
     );
   }

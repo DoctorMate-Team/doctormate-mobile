@@ -612,6 +612,83 @@ lib/
   - Backend integration instructions
   - Debugging and troubleshooting tips
 
+### 🔔 Notifications System (In-App)
+
+#### Complete Notifications Management
+- **Notification Center Screen**:
+  - Real-time notifications list with pagination
+  - Unread count badge on notification bell icon
+  - Pull-to-refresh for manual updates
+  - Professional card design with notification types
+  - Status indicators (read/unread with blue dot)
+  - Navigation to relevant screens on tap
+  
+- **Notification Types Support**:
+  - **Appointment Notifications**: Confirmations, reminders, cancellations
+    - Navigates to Appointment Management screen with appointmentId
+  - **Medical Record Notifications**: New diagnosis added
+    - Navigates to Medical Records screen
+  - **Prescription Notifications**: New prescriptions created
+    - Navigates to Prescription Details with diagnosisId and appointmentId
+  - **General Notifications**: System announcements and updates
+  
+- **Interactive Features**:
+  - **Mark as Read**: Tap notification to mark as read and navigate
+  - **Mark All as Read**: Bulk action to clear all unread notifications
+  - **Delete Notification**: Swipe or tap to delete individual notifications
+  - **Clear All**: Remove all notifications with confirmation dialog
+  - **Real-time Updates**: Immediate UI refresh after actions
+  
+- **Filter System**:
+  - Filter chips: All, Unread, Read
+  - Visual selection with gradient backgrounds
+  - Client-side filtering for instant results
+  
+- **Professional UI States**:
+  - **Loading State**: Shimmer loading matching card design
+  - **Empty State**: Custom message "No notifications yet" with bell icon
+  - **Error State**: Retry button with error message display
+  - **Success Feedback**: SnackBar for actions (mark as read, delete, clear)
+  
+- **Pagination & Performance**:
+  - API pagination support (page: 1, limit: 10)
+  - Load more on scroll with loading indicator
+  - In-memory caching for instant display
+  - Optimized list rendering with ListView.builder
+  
+- **Clean Architecture Implementation**:
+  - ✅ **BlocProvider in app_router**: Proper dependency injection
+  - ✅ **3 extracted StatelessWidgets**:
+    * ClearAllDialog - Confirmation dialog with CustomMaterialButton
+    * NotificationsErrorState - Error display with retry functionality
+    * NotificationsLoadingIndicator - Reusable loading indicator
+  - ✅ **CustomMaterialButton usage**: All buttons use custom design system
+  - ✅ **Custom spacing helpers**: verticalSpacing/horizantialSpacing (no SizedBox)
+  - ✅ **Query parameters navigation**: Proper GoRouter integration
+  
+- **API Integration**:
+  - **GET** `/Notifications?page={page}&limit={limit}`: Fetch notifications list
+    - Response: NotificationsResponse with pagination metadata
+  - **GET** `/notifications/unread-count`: Get unread notifications count
+    - Response: UnreadCountResponse with count
+  - **PUT** `/notifications/{id}/read`: Mark single notification as read
+    - Response: Success message
+  - **PUT** `/notifications/read-all`: Mark all notifications as read
+    - Response: Success message with updated count
+  
+- **State Management**:
+  - NotificationsCubit with 13 states (loading, success, error for each action)
+  - 7 methods: getNotifications, loadMoreNotifications, getUnreadCount, markNotificationAsRead, markAllNotificationsAsRead, deleteNotification, clearAllNotifications
+  - BlocListener for side effects (navigation, snackbars)
+  - BlocBuilder for UI updates with buildWhen optimization
+  - Immediate UI refresh after marking as read (emits successNotifications)
+  
+- **Data Models**:
+  - NotificationModel: Complete notification structure with type, title, body, isRead, createdAt, metadata
+  - NotificationsResponse: Paginated response with notifications[], totalItems, page, limit, totalPages, hasNextPage
+  - UnreadCountResponse: Simple count wrapper
+  - All models with JSON serialization (@JsonSerializable)
+
 ### 🎨 UI/UX Features
 - **Responsive Design**: Using flutter_screenutil for all dimensions
 - **Modern Animations**: Fade, slide, and scale transitions
@@ -633,6 +710,7 @@ lib/
   - `MedicalRecordsCubit`: Medical records list fetching
   - `PrescriptionsCubit`: Prescription details fetching
   - `SmartCheckupCubit`: AI health analysis (skin & symptom checkups)
+  - `NotificationsCubit`: Notifications management with pagination, mark as read, delete, clear all
 
 - **State Management Patterns**:
   - BlocListener for side effects (navigation, dialogs, snackbars)
@@ -661,10 +739,15 @@ lib/
   - **Medical Records**:
     - GET `/medical-records?page={page}&limit={limit}` - Get patient medical records with pagination
   - **Prescriptions**:
-    - Smart Checkup** (AI Health Analysis):
+    - GET `/prescriptions/appointment/{appointmentId}` - Get prescription details by appointment ID
+  - **Notifications**:
+    - GET `/Notifications?page={page}&limit={limit}` - Get notifications list with pagination
+    - GET `/notifications/unread-count` - Get unread notifications count
+    - PUT `/notifications/{id}/read` - Mark notification as read
+    - PUT `/notifications/read-all` - Mark all notifications as read
+  - **Smart Checkup** (AI Health Analysis):
     - POST `/smart-checkup/skin` - Skin analysis with image upload (FormData)
     - POST `/smart-checkup/symptoms` - Symptom analysis with text description
-  - **GET `/prescriptions/appointment/{appointmentId}` - Get prescription details by appointment ID
   - **Profile**: 
     - GET `/profile` - Get user profile
     - POST `/profile/upload-image` - Upload profile image
@@ -802,6 +885,26 @@ prescriptions/
         ├── prescription_action_buttons.dart
         ├── prescription_error_state.dart
         └── prescription_shimmer_loading.dart
+```
+
+#### Notifications Feature
+```
+notifications/
+├── data/
+│   ├── apis/                              # NotificationsApiServices
+│   ├── models/                            # Notification models
+│   │   ├── notification_model.dart        # Individual notification structure
+│   │   ├── notifications_response.dart    # Paginated notifications response
+│   │   └── unread_count_response.dart     # Unread count wrapper
+│   └── repos/                             # NotificationsRepos
+├── logic/
+│   └── cubit/                             # NotificationsCubit & states (13 states)
+└── ui/
+    ├── notifications_screen.dart          # Main notifications center screen
+    └── widgets/                           # 3 extracted widgets
+        ├── clear_all_dialog.dart          # Confirmation dialog for clear all
+        ├── notifications_error_state.dart # Error display with retry
+        └── notifications_loading_indicator.dart  # Reusable loading indicator
 ```
 
 #### ── screens/          # ProfileScreen
@@ -944,7 +1047,10 @@ flutter pub get
 flutter pub run build_runner build --delete-conflicting-outputs
 ### Current Screens
 1. **Splash Screen** - App initialization
-2. **Onboarding** - First, doctors listing, and quick actions
+2. **Onboarding** - First-time user experience
+3. **Login/Sign Up** - Authentication screens
+4. **Complete Profile** - Profile setup with image upload
+5. **Home Screen** - Specialties, doctors listing, and quick actions
 6. **Doctor Details** - Comprehensive doctor information
 7. **Appointment Booking** - Multi-step booking flow
 8. **Appointment Success** - Booking confirmation
@@ -954,13 +1060,15 @@ flutter pub run build_runner build --delete-conflicting-outputs
 12. **Prescription Details** - Complete prescription with medications
 13. **Smart Checkup** - AI-powered health analysis (symptom/skin)
 14. **Smart Checkup Result** - AI analysis results with doctor recommendations
-15. **Main Navigation** - Bottom navigation wrapper
-16 **Appointment Success** - Booking confirmation
-9. **Appointment Management** - View/manage appointments with tabs
-10. **Main Navigation** - Bottom navigation wrapper
-11. **Profile** - User profile with settings and support
+15. **Notifications Center** - In-app notifications management
+16. **Profile** - User profile with settings and support
+17. **Main Navigation** - Bottom navigation wrapper
 
 ### Recent Updates
+- ✅ **Notifications System** - Complete in-app notifications management
+- ✅ **Notification Center** - List, filter, mark as read, delete, clear all
+- ✅ **Unread Badge** - Real-time unread count on notification bell
+- ✅ **Clean Architecture** - 3 extracted widgets with proper BLoC integration
 - ✅ **Firebase Cloud Messaging** - Complete push notifications system
 - ✅ **Flutter Local Notifications** - Custom local notifications with navigation
 - ✅ **4 Notification Types** - Diagnosis, Appointments, Prescriptions support
@@ -969,7 +1077,32 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - ✅ Modern Quick Actions redesigned (2 actions in column)
 - ✅ Widget extraction for clean architecture
 
-### Latest Milestone: Smart Checkup Feature - AI Health Analysis
+### Latest Milestone: Complete Notifications System ✨
+
+**Notifications Center - Full Implementation**:
+- ✅ **Notifications List Screen** with pagination and real-time updates
+- ✅ **Unread count badge** on notification bell icon in home screen
+- ✅ **4 API endpoints integration**: list, unread count, mark as read, mark all as read
+- ✅ **Interactive features**: mark as read, delete, clear all with confirmations
+- ✅ **Filter system**: All, Unread, Read with gradient chips
+- ✅ **Navigation to relevant screens** based on notification type
+- ✅ **Professional UI states**: Shimmer loading, empty state, error state
+- ✅ **Clean architecture implementation**:
+  * BlocProvider moved to app_router
+  * 3 extracted StatelessWidgets (ClearAllDialog, ErrorState, LoadingIndicator)
+  * CustomMaterialButton throughout
+  * Custom spacing helpers (no SizedBox)
+  * Query parameters for navigation
+- ✅ **State management**: NotificationsCubit with 13 states and 7 methods
+- ✅ **Data models**: NotificationModel, NotificationsResponse, UnreadCountResponse
+- ✅ **Bug fixes**:
+  * Navigation using queryParameters instead of pathParameters
+  * Immediate UI refresh after marking as read
+- ✅ **Pull-to-refresh** for manual updates
+- ✅ **Load more pagination** with loading indicator
+- ✅ **Success feedback** with SnackBars
+
+### Previous Milestone: Smart Checkup Feature - AI Health Analysis
 - ✅ Details screen redesign finished
 - ✅ Shimmer loading for all screens
 - Smart Checkup Feature - AI-Powered Health Analysis**:
@@ -1051,16 +1184,16 @@ flutter pub run build_runner build --delete-conflicting-outputs
 ### Next Steps
 1. ~~API integration for appointment booking~~ ✅ DONE
 2. ~~Appointment history and management~~ ✅ DONE
-3. ~~Push notifications~~ ✅ DONE
-4. Implement appointment reschedule functionality
-5. Implement appointment details view screen
-6. Implement search functionality in appointments
-7. Add "Book Again" feature
-8. Edit profile functionality
-9. Real-time chat feature
-10. Payment gateway integration
-11. Advanced search and filters
-12. Favorites management
+3. ~~Push notifications (FCM)~~ ✅ DONE
+4. ~~In-app notifications center~~ ✅ DONE
+5. ~~Appointment reschedule functionality~~ ✅ DONE
+6. ~~Appointment details view screen~~ ✅ DONE
+7. ~~Search functionality~~ ✅ DONE
+8. ~~Add "Book Again" feature~~ ✅ DONE
+9. Implement QR code scanning functionality
+10. Edit profile functionality with image update
+11. Real-time chat/messaging feature
+12. Payment gateway integration
 
 ## 📝 Coding Standards
 
@@ -1135,11 +1268,12 @@ This project is proprietary software owned by DoctorMate Team.
 ---
 
 **Version**: 1.0.0+1  
-**Last Updated**: February 21, 2026  
-**Current Branch**: features/search-appointmentDetails-communication-notification  
-**Major Feature**: Firebase Cloud Messaging & Flutter Local Notifications Integration
+**Last Updated**: March 5, 2026  
+**Current Branch**: features/notifications 
+**Major Feature**: Complete In-App Notifications System with Clean Architecture
 
 **Previous Milestones**:
+- ✅ Firebase Cloud Messaging & Flutter Local Notifications
 - ✅ Complete Appointment Management with 3-tab interface
 - ✅ Professional appointment cards with status-based gradients
 - ✅ Filter system with date chips and sort modal
@@ -1150,3 +1284,5 @@ This project is proprietary software owned by DoctorMate Team.
 - ✅ Medications list with complete details
 - ✅ Smart Checkup Feature - AI Health Analysis (Symptom & Skin)
 - ✅ 8 extracted checkup widgets for clean architecture
+- ✅ In-App Notifications Center with pagination
+- ✅ 3 extracted notification widgets for clean architecture

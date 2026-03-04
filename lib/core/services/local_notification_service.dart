@@ -203,6 +203,16 @@ class LocalNotificationService {
         }
         break;
 
+      case NotificationType.appointmentCancelled:
+        title = '❌ Appointment Cancelled';
+        if (data.doctorName != null) {
+          body =
+              'Your appointment with Dr. ${data.doctorName} has been cancelled';
+        } else {
+          body = 'Your appointment has been cancelled';
+        }
+        break;
+
       case NotificationType.prescriptionCreated:
         title = '💊 New Prescription';
         if (data.doctorName != null && data.medicationCount != null) {
