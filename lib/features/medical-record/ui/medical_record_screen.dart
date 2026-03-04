@@ -1,3 +1,4 @@
+import 'package:doctor_mate/core/functions/pdf_share_helper.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/features/medical-record/data/models/medical_record_list_response.dart';
@@ -7,7 +8,6 @@ import 'package:doctor_mate/features/medical-record/ui/widgets/medical_record_ap
 import 'package:doctor_mate/features/medical-record/ui/widgets/medical_record_card.dart';
 import 'package:doctor_mate/features/medical-record/ui/widgets/medical_record_empty_state.dart';
 import 'package:doctor_mate/features/medical-record/ui/widgets/medical_record_error_state.dart';
-import 'package:doctor_mate/features/medical-record/ui/widgets/medical_record_filter_sheet.dart';
 import 'package:doctor_mate/features/medical-record/ui/widgets/medical_record_shimmer_loading.dart';
 import 'package:doctor_mate/features/medical-record/ui/widgets/record_type_chips_bar.dart';
 import 'package:flutter/material.dart';
@@ -52,32 +52,11 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
         .toList();
   }
 
-  void _showFilterSheet() {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-      ),
-      builder: (context) => const MedicalRecordFilterSheet(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      appBar: MedicalRecordAppBar(
-        onSearchPressed: () {
-          // TODO: Implement search
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Search functionality coming soon'),
-              duration: Duration(seconds: 2),
-            ),
-          );
-        },
-        onFilterPressed: _showFilterSheet,
-      ),
+      appBar: MedicalRecordAppBar(),
       body: Column(
         children: [
           // Record type filter chips
@@ -103,9 +82,11 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
           ),
           Expanded(
             child: BlocBuilder<MedicalRecordsCubit, MedicalRecordsState>(
-              buildWhen: (previous, current) => current is LoadingGetMedicalRecords ||
-                  current is SuccessGetMedicalRecords ||
-                  current is ErrorGetMedicalRecords,
+              buildWhen:
+                  (previous, current) =>
+                      current is LoadingGetMedicalRecords ||
+                      current is SuccessGetMedicalRecords ||
+                      current is ErrorGetMedicalRecords,
               builder: (context, state) {
                 return state.when(
                   initial: () => const SizedBox.shrink(),
@@ -133,6 +114,7 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
     if (filteredRecords.isEmpty) {
       return MedicalRecordEmptyState(
         recordType: _selectedRecordType,
+        onRefresh: _fetchRecords,
         onAddPressed: () {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -192,22 +174,16 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
                     );
                   }
                 },
-                onDownload: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Download functionality coming soon'),
-                      duration: Duration(seconds: 2),
+                onDownload:
+                    () => PdfShareHelper.shareMedicalRecordPdf(
+                      context,
+                      filteredRecords[index],
                     ),
-                  );
-                },
-                onShare: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Share functionality coming soon'),
-                      duration: Duration(seconds: 2),
+                onShare:
+                    () => PdfShareHelper.shareMedicalRecordText(
+                      context,
+                      filteredRecords[index],
                     ),
-                  );
-                },
               ),
             ),
           );

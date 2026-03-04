@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/font_weight_helper.dart';
-import 'package:doctor_mate/features/appointment/data/models/appointment_list_response.dart';
 import 'package:doctor_mate/features/appointment_details/data/models/appointment_details_response.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/section_header_widget.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/section_empty_state_widget.dart';
@@ -12,12 +11,12 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:intl/intl.dart';
 
 class MedicalImagesSectionCard extends StatelessWidget {
-  final PatientAppointmentModel appointment;
+  final AppointmentDetailsResponse appointmentDetails;
   final List<MedicalImage> medicalImages;
 
   const MedicalImagesSectionCard({
     super.key,
-    required this.appointment,
+    required this.appointmentDetails,
     this.medicalImages = const [],
   });
 

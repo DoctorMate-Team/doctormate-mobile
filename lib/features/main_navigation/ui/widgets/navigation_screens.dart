@@ -6,6 +6,7 @@ import 'package:doctor_mate/features/home/logic/cubit/home_cubit.dart';
 import 'package:doctor_mate/features/home/ui/home_screen.dart';
 import 'package:doctor_mate/features/medical-record/logic/cubit/medical_records_cubit.dart';
 import 'package:doctor_mate/features/medical-record/ui/medical_record_screen.dart';
+import 'package:doctor_mate/features/notifications/logic/notifications_cubit.dart';
 import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
 import 'package:doctor_mate/features/profile/ui/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NavigationScreens {
   static final List<Widget> screens = [
-    BlocProvider(
-      create: (context) => getIt<HomeCubit>()..getSpecialties(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<HomeCubit>()..getSpecialties()),
+        BlocProvider(create: (context) => getIt<NotificationsCubit>()..getUnreadCount()),
+      ],
       child: const HomeScreen(),
     ),
     BlocProvider(

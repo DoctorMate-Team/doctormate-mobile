@@ -25,4 +25,5 @@ class Routes {
   static const String chatScreen = '/chatScreen';
   static const String chatConversationScreen = '/chatConversationScreen';
   static const String searchScreen = '/searchScreen';
+  static const String notificationsScreen = '/notificationsScreen';
 }

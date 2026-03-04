@@ -10,7 +10,6 @@ import 'package:doctor_mate/features/medical-record/data/models/medical_record_l
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class DiagnosesScreen extends StatefulWidget {
   final String recordId;
@@ -30,7 +29,6 @@ class _DiagnosesScreenState extends State<DiagnosesScreen> {
   @override
   void initState() {
     super.initState();
-    // TODO: If needed, fetch additional details from API using widget.recordId
   }
 
   Color _getSeverityColor() {
@@ -63,38 +61,6 @@ class _DiagnosesScreenState extends State<DiagnosesScreen> {
           icon: Icon(Icons.arrow_back_ios, color: ColorsManager.darkBlue),
           onPressed: () => context.pop(),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Iconsax.printer,
-              color: ColorsManager.darkBlue,
-              size: 24.sp,
-            ),
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Print functionality coming soon'),
-                  duration: Duration(seconds: 2),
-                ),
-              );
-            },
-          ),
-          IconButton(
-            icon: Icon(
-              Iconsax.share,
-              color: ColorsManager.darkBlue,
-              size: 24.sp,
-            ),
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Share functionality coming soon'),
-                  duration: Duration(seconds: 2),
-                ),
-              );
-            },
-          ),
-        ],
       ),
       body:
           widget.diagnosisData == null

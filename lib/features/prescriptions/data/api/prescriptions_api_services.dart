@@ -6,6 +6,7 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
 part 'prescriptions_api_services.g.dart';
+
 @RestApi(baseUrl: ApiConstants.apiBaseUrl)
 abstract class PrescriptionsApiServices {
   factory PrescriptionsApiServices(Dio dio, {String baseUrl}) =
@@ -13,6 +14,13 @@ abstract class PrescriptionsApiServices {
 
   //{{baseUrl}}prescriptions?appointment_id={{appointmentId}}
   @GET(ApiConstants.prescriptions)
-  Future<DoctorMateResponse<PrescriptionDetailsResponse>> getPrescriptionDetails(
-      @Query("appointment_id") String appointmentId);
-} 
+  Future<DoctorMateResponse<PrescriptionDetailsResponse>>
+  getPrescriptionDetailsByAppointment(
+    @Query("appointment_id") String appointmentId,
+  );
+
+  //{{baseUrl}}prescriptions/57892715-fc1c-4081-ba2a-0d2718f24fac
+  @GET('${ApiConstants.prescriptions}/{prescriptionId}')
+  Future<DoctorMateResponse<PrescriptionDetailsResponse>>
+  getPrescriptionDetailsById(@Path("prescriptionId") String prescriptionId);
+}

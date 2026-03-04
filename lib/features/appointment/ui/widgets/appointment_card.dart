@@ -275,7 +275,7 @@ class AppointmentCard extends StatelessWidget {
 
   Color _getStatusColor(String status) {
     switch (status) {
-      case 'upcoming':
+      case 'scheduled':
         return ColorsManager.primaryColor;
       case 'completed':
         return ColorsManager.green;
@@ -290,7 +290,7 @@ class AppointmentCard extends StatelessWidget {
 
   IconData _getStatusIcon(String status) {
     switch (status) {
-      case 'upcoming':
+      case 'scheduled':
         return Iconsax.clock;
       case 'completed':
         return Iconsax.tick_circle;
@@ -305,8 +305,8 @@ class AppointmentCard extends StatelessWidget {
 
   String _getStatusText(String status) {
     switch (status) {
-      case 'upcoming':
-        return 'Upcoming';
+      case 'scheduled':
+        return 'Scheduled';
       case 'completed':
         return 'Completed';
       case 'cancelled':

@@ -33,13 +33,14 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  void getDoctorsBySpecialty({
+  Future<void> getDoctorsBySpecialty({
     required String specialtyId,
     int page = 1,
     int limit = 10,
+    bool forceRefresh = false,
   }) async {
-    // Check if doctors for this specialty are already cached
-    if (_doctorsCache.containsKey(specialtyId)) {
+    // Check if doctors for this specialty are already cached and not forcing refresh
+    if (_doctorsCache.containsKey(specialtyId) && !forceRefresh) {
       emit(
         HomeState.getDoctorsBySpecialtySuccess(
           doctors: _doctorsCache[specialtyId]!,

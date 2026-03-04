@@ -21,7 +21,7 @@ class _PrescriptionsApiServices implements PrescriptionsApiServices {
 
   @override
   Future<DoctorMateResponse<PrescriptionDetailsResponse>>
-  getPrescriptionDetails(String appointmentId) async {
+  getPrescriptionDetailsByAppointment(String appointmentId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'appointment_id': appointmentId};
     final _headers = <String, dynamic>{};
@@ -38,6 +38,41 @@ class _PrescriptionsApiServices implements PrescriptionsApiServices {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late DoctorMateResponse<PrescriptionDetailsResponse> _value;
+    try {
+      _value = DoctorMateResponse<PrescriptionDetailsResponse>.fromJson(
+        _result.data!,
+        (json) =>
+            PrescriptionDetailsResponse.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<DoctorMateResponse<PrescriptionDetailsResponse>>
+  getPrescriptionDetailsById(String prescriptionId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<DoctorMateResponse<PrescriptionDetailsResponse>>(
+          Options(method: 'GET', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'prescriptions/${prescriptionId}',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late DoctorMateResponse<PrescriptionDetailsResponse> _value;
     try {

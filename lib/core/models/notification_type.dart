@@ -2,6 +2,7 @@ enum NotificationType {
   diagnosisAdded('DiagnosisAdded'),
   appointmentReminder('AppointmentReminder'),
   appointmentConfirmed('AppointmentConfirmed'),
+  appointmentCancelled('AppointmentCancelled'),
   prescriptionCreated('PrescriptionCreated'),
   unknown('Unknown');
 
@@ -21,6 +22,7 @@ enum NotificationType {
 enum NotificationClickAction {
   openMedicalRecord('OPEN_MEDICAL_RECORD'),
   openAppointment('OPEN_APPOINTMENT'),
+  openAppointmentDetails('OPEN_APPOINTMENT_DETAILS'),
   none('');
 
   final String value;

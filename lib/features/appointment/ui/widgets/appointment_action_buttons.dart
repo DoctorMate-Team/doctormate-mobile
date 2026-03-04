@@ -24,7 +24,7 @@ class AppointmentActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (status == 'upcoming') {
+    if (status == 'scheduled') {
       return Row(
         children: [
           Expanded(

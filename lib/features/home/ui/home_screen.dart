@@ -9,6 +9,7 @@ import 'package:doctor_mate/features/home/ui/widgets/modern_quick_actions.dart';
 import 'package:doctor_mate/features/home/ui/widgets/section_header.dart';
 import 'package:doctor_mate/features/home/ui/widgets/specialists_bloc_builder.dart';
 import 'package:doctor_mate/features/home/ui/widgets/upcoming_appointments.dart';
+import 'package:doctor_mate/features/notifications/logic/notifications_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,6 +30,10 @@ class HomeScreenState extends State<HomeScreen>
 
   String? selectedSpecialtyId;
   bool showDoctors = true;
+
+  // Key to access UpcomingAppointments state
+  final GlobalKey<UpcomingAppointmentsState> _upcomingAppointmentsKey =
+      GlobalKey<UpcomingAppointmentsState>();
 
   @override
   void initState() {
@@ -65,12 +70,24 @@ class HomeScreenState extends State<HomeScreen>
   }
 
   Future<void> _onRefresh() async {
-    // Refresh all home screen data
-    context.read<HomeCubit>().getSpecialties();
+    // Clear cache to force fresh data
+    context.read<HomeCubit>().clearDoctorsCache();
+
+    // Refresh all home screen data in parallel
+    await Future.wait([
+      // Refresh specialties and doctors
+      context.read<HomeCubit>().getSpecialties(),
+      context.read<NotificationsCubit>().getUnreadCount(),
+
+      // Refresh upcoming appointments
+      if (_upcomingAppointmentsKey.currentState != null)
+        _upcomingAppointmentsKey.currentState!.refresh(),
+    ]);
 
     if (selectedSpecialtyId != null) {
-      context.read<HomeCubit>().getDoctorsBySpecialty(
+      await context.read<HomeCubit>().getDoctorsBySpecialty(
         specialtyId: selectedSpecialtyId!,
+        forceRefresh: true,
       );
     }
   }
@@ -139,7 +156,7 @@ class HomeScreenState extends State<HomeScreen>
                             },
                           ),
                           verticalSpacing(12),
-                          const UpcomingAppointments(),
+                          UpcomingAppointments(key: _upcomingAppointmentsKey),
                           verticalSpacing(20),
 
                           // Quick Actions Section - more compact

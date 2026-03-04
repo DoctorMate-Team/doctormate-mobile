@@ -26,8 +26,13 @@ void main() async {
   // Set up background message handler
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  // Initialize Firebase Messaging
-  final firebaseMessagingService = FirebaseMessagingService();
+  // Setup dependency injection first
+  await setupGetIt();
+
+  // Initialize Firebase Messaging with device token repository
+  final firebaseMessagingService = FirebaseMessagingService(
+    deviceTokenRepository: getIt(),
+  );
   await firebaseMessagingService.initialize();
 
   // Set the router for navigation from notifications
@@ -40,9 +45,6 @@ void main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp, // الوضع الرأسي فقط
   ]);
-
-  // Setup dependency injection
-  await setupGetIt();
 
   runApp(
     EasyLocalization(

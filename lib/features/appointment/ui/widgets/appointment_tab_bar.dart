@@ -22,7 +22,7 @@ class AppointmentTabBar extends StatelessWidget {
         labelStyle: TextStyles.font14GreenSemiBold,
         unselectedLabelStyle: TextStyles.font14GrayRegular,
         tabs: const [
-          Tab(text: 'Upcoming'),
+          Tab(text: 'Scheduled'),
           Tab(text: 'In Progress'),
           Tab(text: 'Completed'),
           Tab(text: 'Cancelled'),

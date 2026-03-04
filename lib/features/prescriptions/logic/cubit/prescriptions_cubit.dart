@@ -7,10 +7,14 @@ class PrescriptionsCubit extends Cubit<PrescriptionsState> {
     : super(PrescriptionsState.initial());
   final PrescriptionsRepos _prescriptionsRepos;
 
-  void getPrescriptionDetails({required String appointmentId}) async {
+  void getPrescriptionDetails({
+    String? appointmentId,
+    String? prescriptionId,
+  }) async {
     emit(PrescriptionsState.loadingGettingPrescriptionDetails());
     final result = await _prescriptionsRepos.getPrescriptionDetails(
       appointmentId: appointmentId,
+      prescriptionId: prescriptionId,
     );
     result.when(
       success: (response) {

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:doctor_mate/core/networking/device_token_api_service.dart';
+import 'package:doctor_mate/core/networking/device_token_repository.dart';
 import 'package:doctor_mate/core/networking/dio_factory.dart';
 import 'package:doctor_mate/features/appointment/data/apis/appointment_manage_api_services.dart';
 import 'package:doctor_mate/features/appointment/data/repos/appointment_manage_repos.dart';
@@ -33,6 +35,9 @@ import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
 import 'package:doctor_mate/features/search/data/api/search_api_services.dart';
 import 'package:doctor_mate/features/search/data/repos/search_repos.dart';
 import 'package:doctor_mate/features/search/logic/cubit/search_cubit.dart';
+import 'package:doctor_mate/features/notifications/data/apis/notifications_api_service.dart';
+import 'package:doctor_mate/features/notifications/data/repos/notifications_repository.dart';
+import 'package:doctor_mate/features/notifications/logic/notifications_cubit.dart';
 import 'package:doctor_mate/features/smart-checkup/data/api/smart_checkup_api_services.dart';
 import 'package:doctor_mate/features/smart-checkup/data/repos/smart_checkup_repos.dart';
 import 'package:doctor_mate/features/smart-checkup/logic/cubit/smart_checkup_cubit.dart';
@@ -43,6 +48,14 @@ final getIt = GetIt.instance;
 Future<void> setupGetIt() async {
   // Dio & ApiService
   Dio dio = await DioFactory.getDio();
+
+  // Device Token
+  getIt.registerLazySingleton<DeviceTokenApiService>(
+    () => DeviceTokenApiService(dio),
+  );
+  getIt.registerLazySingleton<DeviceTokenRepository>(
+    () => DeviceTokenRepository(getIt()),
+  );
 
   // Auth
   getIt.registerLazySingleton<AuthApiServices>(() => AuthApiServices(dio));
@@ -138,13 +151,16 @@ Future<void> setupGetIt() async {
   );
 
   // Search
-  getIt.registerLazySingleton<SearchApiServices>(
-    () => SearchApiServices(dio),
+  getIt.registerLazySingleton<SearchApiServices>(() => SearchApiServices(dio));
+  getIt.registerLazySingleton<SearchRepos>(() => SearchRepos(getIt()));
+  getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt()));
+
+  // Notifications
+  getIt.registerLazySingleton<NotificationsApiService>(
+    () => NotificationsApiService(dio),
   );
-  getIt.registerLazySingleton<SearchRepos>(
-    () => SearchRepos(getIt()),
+  getIt.registerLazySingleton<NotificationsRepository>(
+    () => NotificationsRepository(getIt()),
   );
-  getIt.registerFactory<SearchCubit>(
-    () => SearchCubit(getIt()),
-  );
+  getIt.registerFactory<NotificationsCubit>(() => NotificationsCubit(getIt()));
 }

@@ -16,16 +16,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class PrescriptionsScreen extends StatefulWidget {
-  final String diagnosisId;
-  final String appointmentId;
+  final String? diagnosisId;
+  final String? appointmentId;
+  final String? prescriptionId;
 
   const PrescriptionsScreen({
     super.key,
-    required this.diagnosisId,
-    required this.appointmentId,
+    this.diagnosisId,
+    this.appointmentId,
+    this.prescriptionId,
   });
 
   @override
@@ -38,6 +39,7 @@ class _PrescriptionsScreenState extends State<PrescriptionsScreen> {
     super.initState();
     context.read<PrescriptionsCubit>().getPrescriptionDetails(
       appointmentId: widget.appointmentId,
+      prescriptionId: widget.prescriptionId,
     );
   }
 
@@ -74,28 +76,6 @@ class _PrescriptionsScreenState extends State<PrescriptionsScreen> {
           icon: Icon(Icons.arrow_back_ios, color: ColorsManager.darkBlue),
           onPressed: () => context.pop(),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Iconsax.printer,
-              color: ColorsManager.darkBlue,
-              size: 24.sp,
-            ),
-            onPressed: () {
-              // TODO: Implement print
-            },
-          ),
-          IconButton(
-            icon: Icon(
-              Iconsax.share,
-              color: ColorsManager.darkBlue,
-              size: 24.sp,
-            ),
-            onPressed: () {
-              // TODO: Implement share
-            },
-          ),
-        ],
       ),
       body: BlocBuilder<PrescriptionsCubit, PrescriptionsState>(
         buildWhen:
@@ -132,7 +112,7 @@ class _PrescriptionsScreenState extends State<PrescriptionsScreen> {
                     if (prescription.notes != null) verticalSpacing(16),
                     PrescriptionValidityCard(prescription: prescription),
                     verticalSpacing(24),
-                    const PrescriptionActionButtons(),
+                    PrescriptionActionButtons(prescription: prescription),
                     verticalSpacing(16),
                   ],
                 ),
@@ -144,6 +124,7 @@ class _PrescriptionsScreenState extends State<PrescriptionsScreen> {
                   onRetry: () {
                     context.read<PrescriptionsCubit>().getPrescriptionDetails(
                       appointmentId: widget.appointmentId,
+                      prescriptionId: widget.prescriptionId,
                     );
                   },
                 ),

@@ -23,6 +23,11 @@ class NotificationNavigationHandler {
       return;
     }
 
+    if (data.clickAction == NotificationClickAction.openAppointmentDetails) {
+      _navigateToAppointmentDetails(data, router);
+      return;
+    }
+
     // Handle based on notification type if no specific click action
     switch (data.type) {
       case NotificationType.diagnosisAdded:
@@ -31,6 +36,7 @@ class NotificationNavigationHandler {
 
       case NotificationType.appointmentReminder:
       case NotificationType.appointmentConfirmed:
+      case NotificationType.appointmentCancelled:
         _navigateToAppointmentDetails(data, router);
         break;
 
@@ -66,7 +72,7 @@ class NotificationNavigationHandler {
       debugPrint('Navigating to diagnosis: $diagnosisId');
       // Navigate to diagnosis screen with recordId if available
       // You might need to fetch the record ID from the diagnosis ID
-      router.push(Routes.dignosesScreen);
+      router.push(Routes.medicalRecordScreen);
     } else if (appointmentId != null) {
       // If no diagnosis ID but appointment ID is available
       router.push(Routes.medicalRecordScreen);
@@ -85,8 +91,11 @@ class NotificationNavigationHandler {
 
     if (appointmentId != null) {
       debugPrint('Navigating to appointment details: $appointmentId');
-      // Navigate to appointment management to see the appointment
-      router.push(Routes.appointmentManageScreen);
+      // Navigate to appointment details with query parameter
+      router.pushNamed(
+        Routes.appointmentDetails,
+        queryParameters: {'appointmentId': appointmentId},
+      );
     } else {
       // Fallback to appointment management screen
       router.push(Routes.appointmentManageScreen);
@@ -100,15 +109,17 @@ class NotificationNavigationHandler {
 
     if (prescriptionId != null || appointmentId != null) {
       debugPrint('Navigating to prescription: $prescriptionId');
-      // Navigate to prescriptions screen
-      final uri = Uri(
-        path: Routes.prescriptionsScreen,
-        queryParameters: {
-          if (prescriptionId != null) 'prescriptionId': prescriptionId,
-          if (appointmentId != null) 'appointmentId': appointmentId,
-        },
+      // Navigate to prescriptions screen with query parameters
+      final queryParams = <String, String>{};
+      if (prescriptionId != null) {
+        queryParams['prescriptionId'] = prescriptionId;
+      }
+      if (appointmentId != null) queryParams['appointmentId'] = appointmentId;
+
+      router.pushNamed(
+        Routes.prescriptionsScreen,
+        queryParameters: queryParams,
       );
-      router.push(uri.toString());
     } else {
       // Fallback to medical records
       router.push(Routes.medicalRecordScreen);
