@@ -59,9 +59,11 @@ lib/
   - Shimmer loading effects matching card design
   
 - **Modern Quick Actions** (2 Actions in Column Layout):
-  - **Scan QR**: Quick scan for appointments
+  - **Scan QR**: Quick scan for doctor information (FUNCTIONAL)
     - Purple gradient with scan barcode icon
-    - Horizontal card with arrow indicator
+    - Horizontal card with smooth tap interaction
+    - Full camera integration with mobile_scanner
+    - Automatic navigation to doctor details
   - **Smart Checkup**: AI-powered health checkup
     - Red gradient with heart icon
     - Navigation to Smart Checkup screen
@@ -94,7 +96,13 @@ lib/
 - **Tab System** (About, Location, Reviews):
   - **About Tab**: Working hours, contact info, location, qualifications
   - **Location Tab**: Clinic address with map placeholder
-  - **Reviews Tab**: Overall rating with individual patient reviews
+  - **Reviews Tab**: 
+    - Paginated doctor reviews list with pull-to-refresh
+    - Average rating calculation client-side
+    - Individual review cards with patient info
+    - Star rating display and relative timestamps
+    - Shimmer loading states
+    - Empty/error states with retry
   
 - **Bottom Actions**:
   - Message button
@@ -212,7 +220,99 @@ lib/
     - Enhanced About tab with working days as chips
     - Gradient working time card with availability badge
 
-### 👤 Profile Screen
+### � QR Code Scanner Feature
+- **Full-Screen Camera Scanner**:
+  - Mobile scanner integration (mobile_scanner: ^5.2.3)
+  - Real-time QR code detection with auto-focus
+  - Custom overlay with scanning frame and corner brackets
+  - Dark theme with modern UI design
+  
+- **Features**:
+  - Flashlight toggle button for low-light scanning
+  - Automatic doctor ID extraction from QR code
+  - Instant navigation to doctor details screen
+  - Error handling with user-friendly snackbars
+  - No duplicate detection for smooth experience
+  
+- **Platform Support**:
+  - Android camera permissions (AndroidManifest.xml)
+  - iOS camera usage description (Info.plist)
+  - Camera hardware feature detection
+  - Auto-focus support
+  
+- **UI/UX**:
+  - Professional dark AppBar with back button
+  - Scanning instructions at bottom
+  - Animated scanning frame overlay
+  - Smooth navigation flow
+  - Clean architecture with StatefulWidget
+
+### ⭐ Doctor Reviews System
+- **Complete Review Management**:
+  - Create, read, update, delete reviews
+  - 5-star rating system with interactive selector
+  - Multi-line comment input (500 char limit)
+  - Review submission after appointments
+  
+- **Doctor Details Reviews Tab**:
+  - Paginated reviews list with ScrollController
+  - Pull-to-refresh for manual updates
+  - Average rating calculation from all reviews
+  - Review count badge in header
+  - Shimmer loading states
+  - Empty state for no reviews
+  - Error state with retry functionality
+  
+- **Appointment Details Integration**:
+  - Review section card in appointment details
+  - "Write a Review" / "Edit Review" options
+  - Display existing review with star rating
+  - View full review in expandable card
+  
+- **Add/Edit Review Dialog**:
+  - Modal dialog with BLoC integration
+  - Interactive star rating selector (1-5 stars)
+  - Multi-line text field for comments
+  - Form validation (rating required, comment required)
+  - Loading states during submission
+  - Success/error notifications
+  
+- **API Integration** (5 endpoints):
+  - POST `/doctor-reviews` - Create review (appointmentId, rating, comment)
+  - GET `/doctor-reviews/doctor/{doctorId}?page=1&pageSize=5` - Get paginated reviews
+  - GET `/doctor-reviews/appointment/{appointmentId}/my-review` - Get user's review
+  - PUT `/doctor-reviews/{reviewId}` - Update review (rating, comment)
+  - DELETE `/doctor-reviews/{reviewId}` - Delete review
+  
+- **Data Models**:
+  - ReviewModel with JSON serialization (13 fields)
+  - DoctorReviewsResponse with pagination metadata
+  - CreateReviewRequest & UpdateReviewRequest
+  
+- **State Management**:
+  - ReviewsCubit with 13 freezed states
+  - Pagination logic with caching (_allReviews, _currentPage, _hasNextPage)
+  - 6 methods: getDoctorReviews, loadMoreReviews, getMyReviewForAppointment, createReview, updateReview, deleteReview
+  - BlocProvider in both DetailsScreen and AppointmentDetailsScreen routes
+  
+- **Clean Architecture**:
+  - ReviewsApiService (Retrofit)
+  - ReviewsRepository (error handling)
+  - ReviewsCubit (business logic)
+  - 2 UI widgets: AddReviewDialog, ReviewSectionCard
+  - BlocProvider.value for dialog context
+  - Dependency injection registered
+  
+- **UI Features**:
+  - Star rating with gold ColorsManager.gold color
+  - Relative date formatting (timeago)
+  - Patient avatar with CachedNetworkImage
+  - Custom spacing throughout (no SizedBox)
+  - CustomMaterialButton for actions
+  - Professional gradient designs
+  - Success SnackBars for user feedback
+
+### �👤 Profile Screen
 - **User Profile Display**:
   - Real-time profile data from API
   - Profile image with edit functionality
@@ -1061,10 +1161,16 @@ flutter pub run build_runner build --delete-conflicting-outputs
 13. **Smart Checkup** - AI-powered health analysis (symptom/skin)
 14. **Smart Checkup Result** - AI analysis results with doctor recommendations
 15. **Notifications Center** - In-app notifications management
-16. **Profile** - User profile with settings and support
-17. **Main Navigation** - Bottom navigation wrapper
+16. **QR Scanner** - Camera-based QR code scanner for doctor lookup
+17. **Profile** - User profile with settings and support
+18. **Main Navigation** - Bottom navigation wrapper
 
 ### Recent Updates
+- ✅ **QR Code Scanner** - Full camera integration with mobile_scanner
+- ✅ **Doctor Reviews System** - Complete CRUD with 5 API endpoints
+- ✅ **Review Management** - Create, edit, delete reviews with star ratings
+- ✅ **Reviews Tab Integration** - Paginated reviews in doctor details
+- ✅ **Appointment Reviews** - Review section in appointment details
 - ✅ **Notifications System** - Complete in-app notifications management
 - ✅ **Notification Center** - List, filter, mark as read, delete, clear all
 - ✅ **Unread Badge** - Real-time unread count on notification bell
@@ -1077,7 +1183,75 @@ flutter pub run build_runner build --delete-conflicting-outputs
 - ✅ Modern Quick Actions redesigned (2 actions in column)
 - ✅ Widget extraction for clean architecture
 
-### Latest Milestone: Complete Notifications System ✨
+### Latest Milestone: QR Scanner & Doctor Reviews System ✨
+
+**QR Code Scanner - Full Implementation**:
+- ✅ **Mobile Scanner Integration** with mobile_scanner package (v5.2.3)
+- ✅ **Full-screen camera view** with real-time QR code detection
+- ✅ **Custom overlay design** with scanning frame and corner brackets
+- ✅ **Dark theme UI** with professional AppBar
+- ✅ **Flashlight toggle** for low-light scanning
+- ✅ **Automatic doctor ID extraction** from scanned QR codes
+- ✅ **Instant navigation** to doctor details screen with ID
+- ✅ **Error handling** with user-friendly snackbars
+- ✅ **Platform permissions**:
+  * Android: Camera permission in AndroidManifest.xml
+  * iOS: Camera usage description in Info.plist
+- ✅ **No duplicate detection** for smooth scanning experience
+- ✅ **Instructional UI** with scanning guide at bottom
+- ✅ **Professional animations** and smooth transitions
+
+**Doctor Reviews System - Complete CRUD Implementation**:
+- ✅ **5 API endpoints integration**:
+  * POST `/doctor-reviews` - Create review
+  * GET `/doctor-reviews/doctor/{doctorId}` - Get paginated reviews
+  * GET `/doctor-reviews/appointment/{appointmentId}/my-review` - Get user's review
+  * PUT `/doctor-reviews/{reviewId}` - Update review
+  * DELETE `/doctor-reviews/{reviewId}` - Delete review
+- ✅ **Reviews Tab in Doctor Details**:
+  * Paginated reviews list with ScrollController
+  * Pull-to-refresh functionality
+  * Average rating calculation
+  * Review count badge in header
+  * Shimmer loading states
+  * Empty and error states with retry
+- ✅ **Appointment Details Integration**:
+  * ReviewSectionCard showing user's review
+  * \"Write a Review\" / \"Edit Review\" options
+  * Star rating display and comment preview
+- ✅ **Add/Edit Review Dialog**:
+  * Interactive 5-star rating selector
+  * Multi-line comment input (500 char limit)
+  * Form validation (rating & comment required)
+  * BLoC integration with ReviewsCubit
+  * BlocProvider.value for dialog context
+  * Success/error notifications
+- ✅ **State Management**:
+  * ReviewsCubit with 13 freezed states
+  * Pagination logic with caching
+  * 6 methods: getDoctorReviews, loadMoreReviews, getMyReviewForAppointment, createReview, updateReview, deleteReview
+  * MultiBlocProvider in DetailsScreen and AppointmentDetailsScreen routes
+- ✅ **Clean Architecture**:
+  * ReviewsApiService (Retrofit with 5 endpoints)
+  * ReviewsRepository (error handling with ApiResult)
+  * ReviewsCubit (business logic)
+  * 2 extracted widgets: AddReviewDialog, ReviewSectionCard
+  * ReviewsCustomerDetailsScreen updated with real data
+  * ReviewsTabBarViewBody rewritten to StatefulWidget
+- ✅ **Data Models**:
+  * ReviewModel with JSON serialization (13 fields)
+  * DoctorReviewsResponse with pagination metadata
+  * CreateReviewRequest & UpdateReviewRequest
+- ✅ **Dependency Injection** registered in GetIt
+- ✅ **Professional UI**:
+  * Star rating with ColorsManager.gold
+  * Patient avatar with CachedNetworkImage
+  * Relative date formatting
+  * Custom spacing throughout
+  * CustomMaterialButton for actions
+  * Success SnackBars for feedback
+
+### Previous Milestone: Complete Notifications System ✨
 
 **Notifications Center - Full Implementation**:
 - ✅ **Notifications List Screen** with pagination and real-time updates
@@ -1190,10 +1364,11 @@ flutter pub run build_runner build --delete-conflicting-outputs
 6. ~~Appointment details view screen~~ ✅ DONE
 7. ~~Search functionality~~ ✅ DONE
 8. ~~Add "Book Again" feature~~ ✅ DONE
-9. Implement QR code scanning functionality
-10. Edit profile functionality with image update
-11. Real-time chat/messaging feature
-12. Payment gateway integration
+9. ~~Implement QR code scanning functionality~~ ✅ DONE
+10. ~~Doctor Reviews System (Create, Read, Update, Delete)~~ ✅ DONE
+11. Edit profile functionality with image update
+12. Real-time chat/messaging feature
+13. Payment gateway integration
 
 ## 📝 Coding Standards
 
@@ -1268,11 +1443,16 @@ This project is proprietary software owned by DoctorMate Team.
 ---
 
 **Version**: 1.0.0+1  
-**Last Updated**: March 5, 2026  
-**Current Branch**: features/notifications 
-**Major Feature**: Complete In-App Notifications System with Clean Architecture
+**Last Updated**: March 7, 2026  
+**Current Branch**: features/review-qr 
+**Major Feature**: QR Code Scanner & Complete Doctor Reviews System
 
 **Previous Milestones**:
+- ✅ QR Code Scanner with mobile_scanner integration
+- ✅ Doctor Reviews System with complete CRUD operations
+- ✅ 5 Review API endpoints (create, read, update, delete, get my review)
+- ✅ Reviews Tab in Doctor Details with pagination
+- ✅ Review section in Appointment Details screen
 - ✅ Firebase Cloud Messaging & Flutter Local Notifications
 - ✅ Complete Appointment Management with 3-tab interface
 - ✅ Professional appointment cards with status-based gradients

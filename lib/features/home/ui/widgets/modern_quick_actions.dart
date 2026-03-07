@@ -15,7 +15,7 @@ class ModernQuickActions extends StatelessWidget {
         context.push(Routes.smartCheckupScreen);
         break;
       case 'Scan QR':
-        // TODO: Navigate to QR scan screen
+        context.push(Routes.qrScannerScreen);
         break;
     }
   }

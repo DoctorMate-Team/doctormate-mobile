@@ -38,6 +38,9 @@ import 'package:doctor_mate/features/search/logic/cubit/search_cubit.dart';
 import 'package:doctor_mate/features/notifications/data/apis/notifications_api_service.dart';
 import 'package:doctor_mate/features/notifications/data/repos/notifications_repository.dart';
 import 'package:doctor_mate/features/notifications/logic/notifications_cubit.dart';
+import 'package:doctor_mate/features/reviews/data/apis/reviews_api_service.dart';
+import 'package:doctor_mate/features/reviews/data/repos/reviews_repository.dart';
+import 'package:doctor_mate/features/reviews/logic/cubit/reviews_cubit.dart';
 import 'package:doctor_mate/features/smart-checkup/data/api/smart_checkup_api_services.dart';
 import 'package:doctor_mate/features/smart-checkup/data/repos/smart_checkup_repos.dart';
 import 'package:doctor_mate/features/smart-checkup/logic/cubit/smart_checkup_cubit.dart';
@@ -163,4 +166,11 @@ Future<void> setupGetIt() async {
     () => NotificationsRepository(getIt()),
   );
   getIt.registerFactory<NotificationsCubit>(() => NotificationsCubit(getIt()));
+
+  // Reviews
+  getIt.registerLazySingleton<ReviewsApiService>(() => ReviewsApiService(dio));
+  getIt.registerLazySingleton<ReviewsRepository>(
+    () => ReviewsRepository(getIt()),
+  );
+  getIt.registerFactory<ReviewsCubit>(() => ReviewsCubit(getIt()));
 }
