@@ -37,6 +37,7 @@ class ApiConstants {
   static const notificationsUnreadCount = "$notifications/unread-count";
   static const notificationsMarkRead = "$notifications/{notificationId}/read";
   static const notificationsMarkAllRead = "$notifications/read-all";
+  static const doctorReviews = "doctor-reviews";
 
   // AI Endpoints
   static const aiBaseUrl = "https://doctormate-ai-production.up.railway.app/";

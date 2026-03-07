@@ -15,6 +15,10 @@ import 'package:doctor_mate/features/appointment_details/ui/widgets/prescription
 import 'package:doctor_mate/features/chat/data/models/chat_message_response.dart';
 import 'package:doctor_mate/features/chat/logic/communication_cubit.dart';
 import 'package:doctor_mate/features/chat/logic/communication_state.dart';
+import 'package:doctor_mate/features/reviews/logic/cubit/reviews_cubit.dart';
+import 'package:doctor_mate/features/reviews/logic/cubit/reviews_state.dart';
+import 'package:doctor_mate/features/reviews/data/models/review_model.dart';
+import 'package:doctor_mate/features/reviews/ui/widgets/review_section_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,6 +37,7 @@ class AppointmentDetailsScreen extends StatefulWidget {
 class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
   String? _sessionId;
   String? _channelName;
+  ReviewModel? _myReview;
 
   @override
   void initState() {
@@ -41,6 +46,9 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
       widget.appointmentId,
     );
     context.read<CommunicationCubit>().checkSessionAvailability(
+      widget.appointmentId,
+    );
+    context.read<ReviewsCubit>().getMyReviewForAppointment(
       widget.appointmentId,
     );
   }
@@ -69,6 +77,58 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
                   ),
                 );
                 _returnToSessionActive();
+              },
+            );
+          },
+        ),
+        BlocListener<ReviewsCubit, ReviewsState>(
+          listenWhen:
+              (previous, current) => current.maybeWhen(
+                orElse: () => false,
+                getMyReviewSuccess: (_) => true,
+                createReviewSuccess: (_) => true,
+                updateReviewSuccess: (_) => true,
+                deleteReviewSuccess: (_) => true,
+              ),
+          listener: (context, state) {
+            state.whenOrNull(
+              getMyReviewSuccess: (review) {
+                setState(() {
+                  _myReview = review;
+                });
+              },
+              createReviewSuccess: (review) {
+                setState(() {
+                  _myReview = review;
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Review submitted successfully'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              },
+              updateReviewSuccess: (review) {
+                setState(() {
+                  _myReview = review;
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Review updated successfully'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              },
+              deleteReviewSuccess: (_) {
+                setState(() {
+                  _myReview = null;
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Review deleted successfully'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
               },
             );
           },
@@ -143,6 +203,16 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
                 MedicalImagesSectionCard(
                   appointmentDetails: details,
                   medicalImages: details.medicalImages,
+                ),
+                verticalSpacing(16),
+                ReviewSectionCard(
+                  appointmentId: widget.appointmentId,
+                  myReview: _myReview,
+                  onReviewSubmitted: () {
+                    context.read<ReviewsCubit>().getMyReviewForAppointment(
+                      widget.appointmentId,
+                    );
+                  },
                 ),
                 verticalSpacing(24),
               ],

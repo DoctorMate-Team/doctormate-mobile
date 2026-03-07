@@ -30,6 +30,8 @@ import 'package:doctor_mate/features/onBoarding/ui/onBoarding_screen.dart';
 import 'package:doctor_mate/features/prescriptions/logic/cubit/prescriptions_cubit.dart';
 import 'package:doctor_mate/features/prescriptions/ui/prescriptions_screen.dart';
 import 'package:doctor_mate/features/profile/ui/profile_screen.dart';
+import 'package:doctor_mate/features/qr_scanner/ui/qr_scanner_screen.dart';
+import 'package:doctor_mate/features/reviews/logic/cubit/reviews_cubit.dart';
 import 'package:doctor_mate/features/smart-checkup/data/models/smart_check_response.dart';
 import 'package:doctor_mate/features/smart-checkup/logic/cubit/smart_checkup_cubit.dart';
 import 'package:doctor_mate/features/smart-checkup/ui/smart_checkup_result_screen.dart';
@@ -147,11 +149,16 @@ class AppRouter {
           name: Routes.detailsScreen,
           builder: (context, state) {
             final doctorId = state.extra as String?;
-            return BlocProvider(
-              create:
-                  (context) =>
-                      getIt<DetailsCubit>()
-                        ..getDoctorDetails(doctorId: doctorId ?? ''),
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create:
+                      (context) =>
+                          getIt<DetailsCubit>()
+                            ..getDoctorDetails(doctorId: doctorId ?? ''),
+                ),
+                BlocProvider(create: (context) => getIt<ReviewsCubit>()),
+              ],
               child: const DetailsScreen(),
             );
           },
@@ -214,6 +221,7 @@ class AppRouter {
                 BlocProvider(
                   create: (context) => getIt<AppointmentDetailsCubit>(),
                 ),
+                BlocProvider(create: (context) => getIt<ReviewsCubit>()),
               ],
               child: AppointmentDetailsScreen(appointmentId: appointmentId),
             );
@@ -319,6 +327,11 @@ class AppRouter {
                         getIt<NotificationsCubit>()..getNotifications(),
                 child: const NotificationsScreen(),
               ),
+        ),
+        GoRoute(
+          path: Routes.qrScannerScreen,
+          name: Routes.qrScannerScreen,
+          builder: (context, state) => const QrScannerScreen(),
         ),
       ],
       errorBuilder:

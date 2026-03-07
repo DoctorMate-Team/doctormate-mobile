@@ -211,7 +211,9 @@ class _DetailsScreenState extends State<DetailsScreen>
                                     LocationTabBarViewBody(
                                       doctor: doctorDetails,
                                     ),
-                                    const ReviewsTabBarViewBody(),
+                                    ReviewsTabBarViewBody(
+                                      doctorId: doctorDetails.id,
+                                    ),
                                   ],
                                 ),
                               ),

@@ -26,4 +26,5 @@ class Routes {
   static const String chatConversationScreen = '/chatConversationScreen';
   static const String searchScreen = '/searchScreen';
   static const String notificationsScreen = '/notificationsScreen';
+  static const String qrScannerScreen = '/qrScannerScreen';
 }

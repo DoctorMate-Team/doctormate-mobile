@@ -1,14 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_mate/core/helper/app_images.dart';
 import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/core/theme/font_weight_helper.dart';
+import 'package:doctor_mate/features/reviews/data/models/review_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:intl/intl.dart';
 
 class ReviewsCustomerDetailsScreen extends StatelessWidget {
-  const ReviewsCustomerDetailsScreen({super.key});
+  final ReviewModel review;
+
+  const ReviewsCustomerDetailsScreen({super.key, required this.review});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,12 @@ class ReviewsCustomerDetailsScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 24.r,
-                backgroundImage: const AssetImage(AppImages.homeDoctorBanner),
+                backgroundImage:
+                    review.patientImage != null
+                        ? CachedNetworkImageProvider(review.patientImage!)
+                        : const AssetImage(AppImages.homeDoctorBanner)
+                            as ImageProvider,
+                backgroundColor: Colors.grey[200],
               ),
               horizantialSpacing(12),
               Expanded(
@@ -34,7 +44,7 @@ class ReviewsCustomerDetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Jenny Watson',
+                      review.patientName,
                       style: TextStyles.font14DarkGreenMedium.copyWith(
                         fontWeight: FontWeightHelper.semiBold,
                         fontSize: 15.sp,
@@ -48,8 +58,13 @@ class ReviewsCustomerDetailsScreen extends StatelessWidget {
                           (index) => Padding(
                             padding: EdgeInsets.only(right: 2.w),
                             child: Icon(
-                              Iconsax.star_1,
-                              color: ColorsManager.gold,
+                              index < review.rating
+                                  ? Iconsax.star_1
+                                  : Iconsax.star,
+                              color:
+                                  index < review.rating
+                                      ? ColorsManager.gold
+                                      : Colors.grey[300],
                               size: 14.sp,
                             ),
                           ),
@@ -59,16 +74,37 @@ class ReviewsCustomerDetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Text('2 days ago', style: TextStyles.font12GrayRegular),
+              Text(
+                _formatDate(review.createdAt),
+                style: TextStyles.font12GrayRegular,
+              ),
             ],
           ),
           verticalSpacing(12),
           Text(
-            'As someone who lives in a remote area with limited access to healthcare, this telemedicine app has been a game changer for me. I can easily schedule virtual appointments with doctors and get the care I need without having to travel long distances.',
+            review.comment,
             style: TextStyles.font14GrayRegular.copyWith(height: 1.5),
           ),
         ],
       ),
     );
+  }
+
+  String _formatDate(DateTime date) {
+    final now = DateTime.now();
+    final difference = now.difference(date);
+
+    if (difference.inDays == 0) {
+      return 'Today';
+    } else if (difference.inDays == 1) {
+      return 'Yesterday';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays} days ago';
+    } else if (difference.inDays < 30) {
+      final weeks = (difference.inDays / 7).floor();
+      return '$weeks ${weeks == 1 ? 'week' : 'weeks'} ago';
+    } else {
+      return DateFormat('MMM dd, yyyy').format(date);
+    }
   }
 }
