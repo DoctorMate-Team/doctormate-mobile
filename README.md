@@ -6,9 +6,13 @@ A professional, fully-featured Flutter application for booking medical appointme
 
 DoctorMate is a comprehensive medical appointment booking platform that connects patients with healthcare professionals. The app features a modern, user-friendly interface with real-time data integration, advanced state management, secure payment handling, and real-time communication (chat/video calls). It serves as a complete digital healthcare companion for patients.
 
+## 📱 Demo APK
+
+[![DoctorMate APK Demo](https://drive.google.com/file/d/1zubHmJ8JN1NT3kMn7YpahVe6KohNqWHI/view?usp=drivesdk)](https://drive.google.com/file/d/1xevKD4etvpW2nQ71ycVvSU4z_jMVz1KN/view?usp=drivesdk)
+
 ## 🎥 Video Demo
 
-[![DoctorMate Video Demo](https://img.youtube.com/vi/YOUR_YOUTUBE_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_YOUTUBE_VIDEO_ID)
+[![DoctorMate Video Demo](https://drive.google.com/file/d/1zubHmJ8JN1NT3kMn7YpahVe6KohNqWHI/view?usp=drivesdk)](https://drive.google.com/file/d/1svmx5vHlga2gr2i7FeGsSogzPs8cLOeO/view?usp=drivesdk)
 
 ## 📸 Screenshots
 
