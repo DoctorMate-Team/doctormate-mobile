@@ -140,7 +140,7 @@ class _AppointmentApiServices implements AppointmentApiServices {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'payments/{appointmentId}/status',
+            'payments/${paymentId}/status',
             queryParameters: queryParameters,
             data: _data,
           )
