@@ -1,0 +1,163 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'appointment_manage_api_services.dart';
+
+// **************************************************************************
+// RetrofitGenerator
+// **************************************************************************
+
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
+
+class _AppointmentManageApiServices implements AppointmentManageApiServices {
+  _AppointmentManageApiServices(this._dio, {this.baseUrl, this.errorLogger}) {
+    baseUrl ??= 'https://doctormate.runasp.net/api/';
+  }
+
+  final Dio _dio;
+
+  String? baseUrl;
+
+  final ParseErrorLogger? errorLogger;
+
+  @override
+  Future<DoctorMateResponse<AppointmentListResponse>> getPatientAppointments({
+    required int page,
+    required int limit,
+    String? status,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'limit': limit,
+      r'status': status,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<DoctorMateResponse<AppointmentListResponse>>(
+          Options(method: 'GET', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'appointments/patient',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late DoctorMateResponse<AppointmentListResponse> _value;
+    try {
+      _value = DoctorMateResponse<AppointmentListResponse>.fromJson(
+        _result.data!,
+        (json) =>
+            AppointmentListResponse.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<DoctorMateResponse<void>> updateAppointmentStatus({
+    required String appointmentId,
+    required Map<String, String> statusUpdate,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(statusUpdate);
+    final _options = _setStreamType<DoctorMateResponse<void>>(
+      Options(method: 'PUT', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'appointments/${appointmentId}/status',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late DoctorMateResponse<void> _value;
+    try {
+      _value = DoctorMateResponse<void>.fromJson(
+        _result.data!,
+        (json) => () {}(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<DoctorMateResponse<PatientAppointmentModel>> rescheduleAppointment({
+    required String appointmentId,
+    required Map<String, String> rescheduleData,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(rescheduleData);
+    final _options =
+        _setStreamType<DoctorMateResponse<PatientAppointmentModel>>(
+          Options(method: 'PUT', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'appointments/${appointmentId}/reschedule',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late DoctorMateResponse<PatientAppointmentModel> _value;
+    try {
+      _value = DoctorMateResponse<PatientAppointmentModel>.fromJson(
+        _result.data!,
+        (json) =>
+            PatientAppointmentModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
+    if (T != dynamic &&
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
+      if (T == String) {
+        requestOptions.responseType = ResponseType.plain;
+      } else {
+        requestOptions.responseType = ResponseType.json;
+      }
+    }
+    return requestOptions;
+  }
+
+  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
+  }
+}

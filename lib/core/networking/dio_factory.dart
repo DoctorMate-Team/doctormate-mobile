@@ -1,0 +1,59 @@
+import 'package:dio/dio.dart';
+import 'package:doctor_mate/core/helper/cache_helper.dart';
+import 'package:doctor_mate/core/helper/constants.dart';
+import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+class DioFactory {
+  /// private constructor as I don't want to allow creating an instance of this class
+  DioFactory._();
+
+  static Dio? dio;
+
+  static Future<Dio> getDio() async {
+    Duration timeOut = const Duration(seconds: 30);
+
+    if (dio == null) {
+      dio = Dio();
+      dio!
+        ..options.connectTimeout = timeOut
+        ..options.receiveTimeout = timeOut;
+      await addDioHeaders();
+      addDioInterceptor();
+      return dio!;
+    } else {
+      // Update headers each time to ensure fresh token
+      await addDioHeaders();
+      return dio!;
+    }
+  }
+
+  static Future<void> addDioHeaders() async {
+    final token = await CacheHelper.getSecuredValue(
+      AppConstants.tokenKey,
+      type: String,
+    );
+    dio?.options.headers = {
+      "Accept": 'application/json',
+      "Authorization": 'Bearer ${token ?? ''}',
+    };
+  }
+
+  static void setTokenIntoHeaderAfterLogin(String token) {
+    dio?.options.headers = {'Authorization': 'Bearer $token'};
+  }
+
+  static void addDioInterceptor() {
+    if (!kDebugMode) {
+      return;
+    }
+
+    dio?.interceptors.add(
+      PrettyDioLogger(
+        requestBody: true,
+        requestHeader: true,
+        responseHeader: true,
+      ),
+    );
+  }
+}

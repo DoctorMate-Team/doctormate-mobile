@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "395649526681",
+    "project_id": "doctor-mate-c7ca5",
+    "storage_bucket": "doctor-mate-c7ca5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395649526681:android:48de0f30a3e37481e64108",
+        "android_client_info": {
+          "package_name": "com.doctormate.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYckPuwovdm4U0yPo4iYP_w5vb2OX9cUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

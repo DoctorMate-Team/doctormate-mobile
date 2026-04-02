@@ -1,0 +1,42 @@
+class Routes {
+  static const String splash = '/splash';
+  static const String onBoarding = '/onBoarding';
+  static const String auth = '/auth';
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String otpScreen = '/otpScreen';
+  static const String forgetPassword = '/forgetPassword';
+  static const String resetPassword = '/resetPassword';
+  static const String completeProfile = '/completeProfile';
+  static const String mainLayout = '/mainLayout';
+  static const String home = '/home';
+  static const String detailsScreen = '/detailsScreen';
+  static const String profileScreen = '/profileScreen';
+  static const String editProfileScreen = '/editProfileScreen';
+  static const String appointmentScreen = '/appointmentScreen';
+  static const String bookingConfirmation = '/bookingConfirmation';
+  static const String rescheduleAppointment = '/rescheduleAppointment';
+  static const String appointmentDetails = '/appointmentDetails';
+  static const String appointmentManageScreen = '/appointmentManageScreen';
+  static const String medicalRecordScreen = '/medicalRecordScreen';
+  static const String dignosesScreen = '/dignosesScreen';
+  static const String prescriptionsScreen = '/prescriptionsScreen';
+  static const String smartCheckupScreen = '/smartCheckupScreen';
+  static const String smartCheckupResultScreen = '/smartCheckupResultScreen';
+  static const String chatScreen = '/chatScreen';
+  static const String chatConversationScreen = '/chatConversationScreen';
+  static const String searchScreen = '/searchScreen';
+  static const String viewAllScreen = '/viewAllScreen';
+  static const String notificationsScreen = '/notificationsScreen';
+  static const String qrScannerScreen = '/qrScannerScreen';
+  static const String agoraCallScreen = '/agoraCallScreen';
+  static const String paymentWebviewScreen = '/paymentWebviewScreen';
+  static const String securityScreen = '/securityScreen';
+  static const String paymentHistoryScreen = '/paymentHistoryScreen';
+  static const String notificationsSettingsScreen =
+      '/notificationsSettingsScreen';
+  static const String helpCenterScreen = '/helpCenterScreen';
+  static const String contactUsScreen = '/contactUsScreen';
+  static const String termsConditionsScreen = '/termsConditionsScreen';
+  static const String privacyPolicyScreen = '/privacyPolicyScreen';
+}
