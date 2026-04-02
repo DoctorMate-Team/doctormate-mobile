@@ -2,6 +2,7 @@ import 'package:doctor_mate/core/helper/spacing.dart';
 import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_color.dart';
 import 'package:doctor_mate/core/widgets/custom_material_button.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
 import 'package:doctor_mate/features/booking_appointment/logic/cubit/appointment_cubit.dart';
 import 'package:doctor_mate/features/booking_appointment/logic/cubit/appointment_state.dart';
 import 'package:doctor_mate/features/booking_appointment/ui/widgets/app_bar_appointment_screen.dart';
@@ -38,6 +39,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   late String doctorId;
   List<String> workingDays = [];
   List<DateTime> availableSlots = [];
+
+  // Store the appointment model for confirmation
+  AppointmentModel? _bookedAppointment;
 
   final List<String> _stepTitles = [
     'Date & Time',
@@ -223,12 +227,16 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             ? 'voice'
             : 'in_person';
 
+    final paymentMethod =
+        selectedPaymentMethod == 'Cash Payment' ? 'cash' : 'online';
+
     context.read<AppointmentCubit>().bookAppointment(
       doctorId: doctorId,
       date: selectedDate!,
       time: selectedTime!,
       reason: selectedReason!,
       appointmentType: appointmentType,
+      paymentMethod: paymentMethod,
     );
   }
 
@@ -245,6 +253,18 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     final isLastStep = _currentStep == _totalSteps - 1;
 
     return BlocListener<AppointmentCubit, AppointmentState>(
+      listenWhen:
+          (previous, current) => current.maybeWhen(
+            availableSlotsLoaded: (slots) => true,
+            availableSlotsError: (message) => true,
+            bookAppointmentLoading: () => true,
+            bookAppointmentSuccess: (response) => true,
+            bookAppointmentError: (message) => true,
+            initiatePaymentLoading: () => true,
+            initiatePaymentSuccess: (response) => true,
+            initiatePaymentError: (message) => true,
+            orElse: () => false,
+          ),
       listener: (context, state) {
         state.whenOrNull(
           availableSlotsLoaded: (slots) {
@@ -274,12 +294,53 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           },
           bookAppointmentSuccess: (response) {
             Navigator.pop(context); // Close loading dialog
-            context.pushNamed(
-              Routes.bookingConfirmation,
-              extra: response.appointment,
-            );
+            _bookedAppointment = response.appointment;
+
+            if (selectedPaymentMethod == 'Credit Card' ||
+                selectedPaymentMethod == 'Digital Wallet') {
+              context.read<AppointmentCubit>().initiatePayment(
+                appointmentId: response.appointment.id,
+                provider: 'paymob',
+              );
+            } else {
+              context.pushReplacementNamed(
+                Routes.bookingConfirmation,
+                extra: _bookedAppointment,
+              );
+            }
           },
           bookAppointmentError: (message) {
+            Navigator.pop(context); // Close loading dialog
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(message), backgroundColor: Colors.red),
+            );
+          },
+          initiatePaymentLoading: () {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder:
+                  (context) => const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorsManager.primaryColor,
+                    ),
+                  ),
+            );
+          },
+          initiatePaymentSuccess: (response) async {
+            Navigator.pop(context); // Close loading dialog
+            if (mounted && _bookedAppointment != null) {
+              context.pushNamed(
+                Routes.paymentWebviewScreen,
+                extra: {
+                  'paymentUrl': response.redirectUrl,
+                  'appointment': _bookedAppointment!,
+                  'paymentId': response.paymentId,
+                },
+              );
+            }
+          },
+          initiatePaymentError: (message) {
             Navigator.pop(context); // Close loading dialog
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(message), backgroundColor: Colors.red),

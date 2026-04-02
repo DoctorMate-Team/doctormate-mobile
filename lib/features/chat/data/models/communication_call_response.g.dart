@@ -12,6 +12,7 @@ CommunicationCallResponse _$CommunicationCallResponseFromJson(
   provider: json['provider'] as String,
   channel: json['channel'] as String,
   token: json['token'] as String,
+  callType: json['callType'] as String?,
   expiresAt: DateTime.parse(json['expiresAt'] as String),
 );
 
@@ -21,5 +22,6 @@ Map<String, dynamic> _$CommunicationCallResponseToJson(
   'provider': instance.provider,
   'channel': instance.channel,
   'token': instance.token,
+  'callType': instance.callType,
   'expiresAt': instance.expiresAt.toIso8601String(),
 };

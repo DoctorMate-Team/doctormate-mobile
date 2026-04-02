@@ -6,6 +6,9 @@ import 'package:doctor_mate/features/booking_appointment/data/apis/appointment_a
 import 'package:doctor_mate/features/booking_appointment/data/models/appointment_request_body.dart';
 import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
 import 'package:doctor_mate/features/booking_appointment/data/models/available_slots_response.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/initiate_payment_request.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/initiate_payment_response.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/update_payment_status_request.dart';
 
 class AppointmentRepos {
   final AppointmentApiServices _appointmentApiServices;
@@ -30,6 +33,31 @@ class AppointmentRepos {
     try {
       final response = await _appointmentApiServices.bookAppointment(
         appointmentData,
+      );
+      return ApiResult.success(response);
+    } catch (e) {
+      return ApiResult.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  Future<ApiResult<DoctorMateResponse<InitiatePaymentResponse>>>
+  initiatePayment({required InitiatePaymentRequest request}) async {
+    try {
+      final response = await _appointmentApiServices.initiatePayment(request);
+      return ApiResult.success(response);
+    } catch (e) {
+      return ApiResult.failure(ErrorHandler.handle(e));
+    }
+  }
+
+  Future<ApiResult<DoctorMateResponse<void>>> updatePaymentStatus({
+    required String paymentId,
+    required UpdatePaymentStatusRequest request,
+  }) async {
+    try {
+      final response = await _appointmentApiServices.updatePaymentStatus(
+        paymentId,
+        request,
       );
       return ApiResult.success(response);
     } catch (e) {

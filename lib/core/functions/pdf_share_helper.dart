@@ -595,7 +595,7 @@ class PdfShareHelper {
                             ],
                           ),
                         );
-                      }).toList(),
+                      }),
                     ],
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:doctor_mate/features/profile/logic/payment_history_cubit/payment_history_cubit.dart';
 import 'package:doctor_mate/core/networking/device_token_api_service.dart';
 import 'package:doctor_mate/core/networking/device_token_repository.dart';
 import 'package:doctor_mate/core/networking/dio_factory.dart';
@@ -15,6 +16,8 @@ import 'package:doctor_mate/features/appointment_details/data/apis/appointment_d
 import 'package:doctor_mate/features/appointment_details/data/repos/appointment_details_repos.dart';
 import 'package:doctor_mate/features/appointment_details/logic/cubit/appointment_details_cubit.dart';
 import 'package:doctor_mate/features/chat/data/apis/chat_api_services.dart';
+import 'package:doctor_mate/features/chat/data/services/firestore_chat_service.dart';
+import 'package:doctor_mate/features/chat/logic/chat_list_cubit.dart';
 import 'package:doctor_mate/features/chat/logic/communication_cubit.dart';
 import 'package:doctor_mate/features/details/data/apis/details_apis_services.dart';
 import 'package:doctor_mate/features/details/data/repos/details_repos.dart';
@@ -86,6 +89,9 @@ Future<void> setupGetIt() async {
   );
   getIt.registerLazySingleton<ProfileRepos>(() => ProfileRepos(getIt()));
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
+  getIt.registerFactory<PaymentHistoryCubit>(
+    () => PaymentHistoryCubit(getIt()),
+  );
 
   // Appointment
   getIt.registerLazySingleton<AppointmentApiServices>(
@@ -138,8 +144,19 @@ Future<void> setupGetIt() async {
 
   // Chat & Communication
   getIt.registerLazySingleton<ChatApiServices>(() => ChatApiServices(dio));
+  getIt.registerLazySingleton<FirestoreChatService>(
+    () => FirestoreChatService(),
+  );
   getIt.registerFactory<CommunicationCubit>(
     () => CommunicationCubit(getIt<ChatApiServices>()),
+  );
+  getIt.registerFactory<ChatListCubit>(
+    () => ChatListCubit(
+      getIt<AppointmentManageApiServices>(),
+      getIt<ChatApiServices>(),
+      getIt<FirestoreChatService>(),
+      getIt<ProfileRepos>(),
+    ),
   );
 
   // Appointment Details

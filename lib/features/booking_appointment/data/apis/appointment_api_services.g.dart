@@ -90,6 +90,77 @@ class _AppointmentApiServices implements AppointmentApiServices {
   }
 
   @override
+  Future<DoctorMateResponse<InitiatePaymentResponse>> initiatePayment(
+    InitiatePaymentRequest request,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _options =
+        _setStreamType<DoctorMateResponse<InitiatePaymentResponse>>(
+          Options(method: 'POST', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                'payments/initiate',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late DoctorMateResponse<InitiatePaymentResponse> _value;
+    try {
+      _value = DoctorMateResponse<InitiatePaymentResponse>.fromJson(
+        _result.data!,
+        (json) =>
+            InitiatePaymentResponse.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<DoctorMateResponse<void>> updatePaymentStatus(
+    String paymentId,
+    UpdatePaymentStatusRequest request,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
+    final _options = _setStreamType<DoctorMateResponse<void>>(
+      Options(method: 'PUT', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'payments/{appointmentId}/status',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late DoctorMateResponse<void> _value;
+    try {
+      _value = DoctorMateResponse<void>.fromJson(
+        _result.data!,
+        (json) => () {}(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<DoctorMateResponse<void>> uploadMedicalImage(FormData formData) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

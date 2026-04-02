@@ -23,8 +23,14 @@ class NotificationNavigationHandler {
       return;
     }
 
-    if (data.clickAction == NotificationClickAction.openAppointmentDetails) {
+    if (data.clickAction == NotificationClickAction.openAppointmentDetails ||
+        data.clickAction == NotificationClickAction.openPaymentDetails) {
       _navigateToAppointmentDetails(data, router);
+      return;
+    }
+
+    if (data.clickAction == NotificationClickAction.openNotifications) {
+      router.push(Routes.notificationsScreen);
       return;
     }
 
@@ -37,6 +43,8 @@ class NotificationNavigationHandler {
       case NotificationType.appointmentReminder:
       case NotificationType.appointmentConfirmed:
       case NotificationType.appointmentCancelled:
+      case NotificationType.appointmentExpired:
+      case NotificationType.paymentSuccess:
         _navigateToAppointmentDetails(data, router);
         break;
 

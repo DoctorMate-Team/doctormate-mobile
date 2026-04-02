@@ -193,7 +193,10 @@ class HomeScreenState extends State<HomeScreen>
                           verticalSpacing(16),
 
                           // Doctors List - Show when specialist is selected
-                          if (showDoctors) const DoctorsBlocBuilder(),
+                          if (showDoctors)
+                            DoctorsBlocBuilder(
+                              specialtyId: selectedSpecialtyId,
+                            ),
 
                           // Health Tips Card
                           const HealthTipsCard(),

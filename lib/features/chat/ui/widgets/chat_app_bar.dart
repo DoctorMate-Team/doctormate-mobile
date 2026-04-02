@@ -52,42 +52,6 @@ class ChatAppBar extends StatelessWidget {
           ),
           horizantialSpacing(12),
           _buildDoctorInfo(),
-          const Spacer(),
-          GestureDetector(
-            onTap: onCallTap,
-            child: Container(
-              width: 40.w,
-              height: 40.h,
-              decoration: BoxDecoration(
-                color: ColorsManager.primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Icon(
-                Iconsax.call,
-                color: ColorsManager.primaryColor,
-                size: 20.sp,
-              ),
-            ),
-          ),
-          horizantialSpacing(8),
-          GestureDetector(
-            onTap: () {
-              // TODO: More options
-            },
-            child: Container(
-              width: 40.w,
-              height: 40.h,
-              decoration: BoxDecoration(
-                color: ColorsManager.primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Icon(
-                Iconsax.more,
-                color: ColorsManager.primaryColor,
-                size: 20.sp,
-              ),
-            ),
-          ),
         ],
       ),
     );
@@ -161,63 +125,9 @@ class ChatAppBar extends StatelessWidget {
             ],
           ),
           horizantialSpacing(10),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  conversation.doctorName ?? 'Doctor',
-                  style: TextStyles.font16DarkGreenBold,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                verticalSpacing(2),
-                Row(
-                  children: [
-                    if (conversation.isOnline ?? false)
-                      Container(
-                        width: 6.w,
-                        height: 6.h,
-                        decoration: const BoxDecoration(
-                          color: Colors.green,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    if (conversation.isOnline ?? false) horizantialSpacing(4),
-                    Text(
-                      (conversation.isOnline ?? false) ? 'Online' : 'Offline',
-                      style: TextStyles.font12DarkGreenRegular.copyWith(
-                        color:
-                            (conversation.isOnline ?? false)
-                                ? Colors.green
-                                : Colors.grey.shade600,
-                      ),
-                    ),
-                    if (conversation.doctorSpecialty != null) ...[
-                      horizantialSpacing(4),
-                      Text(
-                        '•',
-                        style: TextStyles.font12DarkGreenRegular.copyWith(
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                      horizantialSpacing(4),
-                      Flexible(
-                        child: Text(
-                          conversation.doctorSpecialty!,
-                          style: TextStyles.font12DarkGreenRegular.copyWith(
-                            color: Colors.grey.shade600,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ],
-            ),
+          Text(
+            conversation.doctorName ?? 'Doctor',
+            style: TextStyles.font16DarkGreenBold,
           ),
         ],
       ),

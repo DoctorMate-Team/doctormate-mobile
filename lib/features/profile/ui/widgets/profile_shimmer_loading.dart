@@ -8,65 +8,68 @@ class ProfileShimmerLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 20.0.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Profile Image and Info
-          Align(
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                // Profile Image
-                CustomShimmerLoading(
-                  width: 100.w,
-                  height: 100.h,
-                  borderRadius: 50.r,
-                ),
-                verticalSpacing(12),
-                // Name
-                CustomShimmerLoading(
-                  width: 150.w,
-                  height: 16.h,
-                  borderRadius: 8.r,
-                ),
-                verticalSpacing(4),
-                // Email
-                CustomShimmerLoading(
-                  width: 180.w,
-                  height: 14.h,
-                  borderRadius: 7.r,
-                ),
-              ],
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 20.0.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Profile Image and Info
+            Align(
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  // Profile Image
+                  CustomShimmerLoading(
+                    width: 100.w,
+                    height: 100.h,
+                    borderRadius: 50.r,
+                  ),
+                  verticalSpacing(12),
+                  // Name
+                  CustomShimmerLoading(
+                    width: 150.w,
+                    height: 16.h,
+                    borderRadius: 8.r,
+                  ),
+                  verticalSpacing(4),
+                  // Email
+                  CustomShimmerLoading(
+                    width: 180.w,
+                    height: 14.h,
+                    borderRadius: 7.r,
+                  ),
+                ],
+              ),
             ),
-          ),
-          verticalSpacing(20),
+            verticalSpacing(20),
 
-          // Account Settings Section
-          CustomShimmerLoading(width: 140.w, height: 16.h, borderRadius: 8.r),
-          verticalSpacing(12),
-          const _ActionButtonShimmer(),
-          verticalSpacing(12),
-          const _ActionButtonShimmer(),
-          verticalSpacing(12),
-          const _ActionButtonShimmer(),
-          verticalSpacing(12),
-          const _ActionButtonShimmer(),
+            // Account Settings Section
+            CustomShimmerLoading(width: 140.w, height: 16.h, borderRadius: 8.r),
+            verticalSpacing(12),
+            const _ActionButtonShimmer(),
+            verticalSpacing(12),
+            const _ActionButtonShimmer(),
+            verticalSpacing(12),
+            const _ActionButtonShimmer(),
+            verticalSpacing(12),
+            const _ActionButtonShimmer(),
 
-          verticalSpacing(20),
+            verticalSpacing(20),
 
-          // Help & Support Section
-          CustomShimmerLoading(width: 140.w, height: 16.h, borderRadius: 8.r),
-          verticalSpacing(12),
-          const _ActionButtonShimmer(),
-          verticalSpacing(12),
-          const _ActionButtonShimmer(),
-          verticalSpacing(12),
-          const _ActionButtonShimmer(),
-          verticalSpacing(12),
-          const _ActionButtonShimmer(),
-        ],
+            // Help & Support Section
+            CustomShimmerLoading(width: 140.w, height: 16.h, borderRadius: 8.r),
+            verticalSpacing(12),
+            const _ActionButtonShimmer(),
+            verticalSpacing(12),
+            const _ActionButtonShimmer(),
+            verticalSpacing(12),
+            const _ActionButtonShimmer(),
+            verticalSpacing(12),
+            const _ActionButtonShimmer(),
+          ],
+        ),
       ),
     );
   }

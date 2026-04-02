@@ -8,9 +8,11 @@ import 'package:doctor_mate/features/appointment/ui/reschedule_appointment_scree
 import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
 import 'package:doctor_mate/features/booking_appointment/logic/cubit/appointment_cubit.dart';
 import 'package:doctor_mate/features/booking_appointment/ui/appointment_screen.dart';
+import 'package:doctor_mate/features/booking_appointment/ui/payment_webview_screen.dart';
 import 'package:doctor_mate/features/booking_appointment/ui/widgets/appointment_success_screen.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_cubit.dart';
 import 'package:doctor_mate/features/chat/logic/communication_cubit.dart';
+import 'package:doctor_mate/features/chat/ui/agora_call_screen.dart';
 import 'package:doctor_mate/features/details/data/models/doctor_details_model.dart';
 import 'package:doctor_mate/features/details/logic/cubit/details_cubit.dart';
 import 'package:doctor_mate/features/auth/ui/screens/auth_screen.dart';
@@ -23,13 +25,26 @@ import 'package:doctor_mate/features/dignoses/ui/dignoses_screen.dart';
 import 'package:doctor_mate/features/medical-record/data/models/medical_record_list_response.dart';
 import 'package:doctor_mate/features/main_navigation/logic/cubit/main_cubit.dart';
 import 'package:doctor_mate/features/main_navigation/ui/main_navigation_screen.dart';
+import 'package:doctor_mate/features/medical-record/logic/cubit/medical_records_cubit.dart';
 import 'package:doctor_mate/features/medical-record/ui/medical_record_screen.dart';
 import 'package:doctor_mate/features/notifications/logic/notifications_cubit.dart';
 import 'package:doctor_mate/features/notifications/ui/notifications_screen.dart';
 import 'package:doctor_mate/features/onBoarding/ui/onBoarding_screen.dart';
 import 'package:doctor_mate/features/prescriptions/logic/cubit/prescriptions_cubit.dart';
 import 'package:doctor_mate/features/prescriptions/ui/prescriptions_screen.dart';
+import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
+import 'package:doctor_mate/features/profile/logic/cubit/security_cubit.dart';
+import 'package:doctor_mate/features/profile/logic/cubit/contact_cubit.dart';
+import 'package:doctor_mate/features/profile/data/models/profile_response_model.dart';
+import 'package:doctor_mate/features/profile/ui/screens/edit_profile_screen.dart';
 import 'package:doctor_mate/features/profile/ui/profile_screen.dart';
+import 'package:doctor_mate/features/profile/ui/screens/security_screen.dart';
+import 'package:doctor_mate/features/profile/ui/screens/payment_history_screen.dart';
+import 'package:doctor_mate/features/profile/ui/screens/notifications_settings_screen.dart';
+import 'package:doctor_mate/features/profile/ui/screens/help_center_screen.dart';
+import 'package:doctor_mate/features/profile/ui/screens/contact_us_screen.dart';
+import 'package:doctor_mate/features/profile/ui/screens/terms_conditions_screen.dart';
+import 'package:doctor_mate/features/profile/ui/screens/privacy_policy_screen.dart';
 import 'package:doctor_mate/features/qr_scanner/ui/qr_scanner_screen.dart';
 import 'package:doctor_mate/features/reviews/logic/cubit/reviews_cubit.dart';
 import 'package:doctor_mate/features/smart-checkup/data/models/smart_check_response.dart';
@@ -37,12 +52,14 @@ import 'package:doctor_mate/features/smart-checkup/logic/cubit/smart_checkup_cub
 import 'package:doctor_mate/features/smart-checkup/ui/smart_checkup_result_screen.dart';
 import 'package:doctor_mate/features/smart-checkup/ui/smart_checkup_screen.dart';
 import 'package:doctor_mate/features/chat/data/models/chat_message_response.dart';
-import 'package:doctor_mate/features/chat/ui/chat_conversation_screen.dart';
+import 'package:doctor_mate/features/chat/ui/chat_conversation_screen_firestore.dart';
 import 'package:doctor_mate/features/chat/ui/chat_screen.dart';
 import 'package:doctor_mate/features/search/logic/cubit/search_cubit.dart';
 import 'package:doctor_mate/features/search/ui/search_screen.dart';
+import 'package:doctor_mate/features/home/ui/view_all/view_all_screen.dart';
 import 'package:doctor_mate/features/splash/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:doctor_mate/features/profile/logic/payment_history_cubit/payment_history_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -63,6 +80,17 @@ class AppRouter {
           path: Routes.profileScreen,
           name: Routes.profileScreen,
           builder: (context, state) => const ProfileScreen(),
+        ),
+        GoRoute(
+          path: Routes.editProfileScreen,
+          name: Routes.editProfileScreen,
+          builder: (context, state) {
+            final profile = state.extra as ProfileResponseModel;
+            return BlocProvider(
+              create: (context) => getIt<ProfileCubit>(),
+              child: EditProfileScreen(profile: profile),
+            );
+          },
         ),
         GoRoute(
           path: Routes.splash,
@@ -291,7 +319,7 @@ class AppRouter {
           name: Routes.chatConversationScreen,
           builder: (context, state) {
             final conversation = state.extra as ChatConversationResponse?;
-            return ChatConversationScreen(
+            return ChatConversationScreenFirestore(
               conversation:
                   conversation ??
                   ChatConversationResponse(id: 'default', doctorName: 'Doctor'),
@@ -308,11 +336,32 @@ class AppRouter {
               ),
         ),
         GoRoute(
+          path: Routes.viewAllScreen,
+          name: Routes.viewAllScreen,
+          builder: (context, state) {
+            final specialtyId = state.extra as String?;
+            return BlocProvider(
+              create: (context) => getIt<SearchCubit>(),
+              child: ViewAllScreen(specialtyId: specialtyId),
+            );
+          },
+        ),
+        GoRoute(
           path: Routes.medicalRecordScreen,
           name: Routes.medicalRecordScreen,
           builder: (context, state) {
-            return BlocProvider(
-              create: (context) => getIt<AppointmentManageCubit>(),
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => getIt<AppointmentManageCubit>(),
+                ),
+                BlocProvider(
+                  create:
+                      (context) =>
+                          getIt<MedicalRecordsCubit>()
+                            ..getPatientMedicalRecords(page: 1, limit: 10),
+                ),
+              ],
               child: MedicalRecordScreen(),
             );
           },
@@ -332,6 +381,85 @@ class AppRouter {
           path: Routes.qrScannerScreen,
           name: Routes.qrScannerScreen,
           builder: (context, state) => const QrScannerScreen(),
+        ),
+        GoRoute(
+          path: Routes.agoraCallScreen,
+          name: Routes.agoraCallScreen,
+          builder: (context, state) {
+            final token = state.uri.queryParameters['token'];
+            final channel = state.uri.queryParameters['channel'];
+            final callType = state.uri.queryParameters['callType'];
+            return AgoraCallScreen(
+              token: token!,
+              channelName: channel!,
+              callType: callType!,
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.paymentWebviewScreen,
+          name: Routes.paymentWebviewScreen,
+          builder: (context, state) {
+            final params = state.extra as Map<String, dynamic>;
+            return BlocProvider(
+              create: (context) => getIt<AppointmentCubit>(),
+              child: PaymentWebViewScreen(
+                paymentUrl: params['paymentUrl'] as String,
+                appointment: params['appointment'] as AppointmentModel,
+                paymentId: params['paymentId'] as String,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.securityScreen,
+          name: Routes.securityScreen,
+          builder: (context, state) {
+            return BlocProvider(
+              create: (context) => SecurityCubit(),
+              child: const SecurityScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.paymentHistoryScreen,
+          name: Routes.paymentHistoryScreen,
+          builder:
+              (context, state) => BlocProvider(
+                create:
+                    (context) => getIt<PaymentHistoryCubit>()..getMyPayments(),
+                child: const PaymentHistoryScreen(),
+              ),
+        ),
+        GoRoute(
+          path: Routes.notificationsSettingsScreen,
+          name: Routes.notificationsSettingsScreen,
+          builder: (context, state) => const NotificationsSettingsScreen(),
+        ),
+        GoRoute(
+          path: Routes.helpCenterScreen,
+          name: Routes.helpCenterScreen,
+          builder: (context, state) => const HelpCenterScreen(),
+        ),
+        GoRoute(
+          path: Routes.contactUsScreen,
+          name: Routes.contactUsScreen,
+          builder: (context, state) {
+            return BlocProvider(
+              create: (context) => ContactCubit(),
+              child: const ContactUsScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.termsConditionsScreen,
+          name: Routes.termsConditionsScreen,
+          builder: (context, state) => const TermsConditionsScreen(),
+        ),
+        GoRoute(
+          path: Routes.privacyPolicyScreen,
+          name: Routes.privacyPolicyScreen,
+          builder: (context, state) => const PrivacyPolicyScreen(),
         ),
       ],
       errorBuilder:

@@ -16,6 +16,9 @@ class ApiConstants {
   static const updateProfileDetails = "$profileManagement/update";
   static const availableSlots = "doctors/{doctorId}/available-slots";
   static const appointments = "appointments";
+  static const initiatePayment = "payments/initiate";
+  static const updatePaymentStatus = "payments/{appointmentId}/status";
+  static const myPayments = "payments/my";
   static const patientAppointments = "$appointments/patient";
   static const updateAppointmentStatus = "$appointments/{appointmentId}/status";
   static const rescheduleAppointment =

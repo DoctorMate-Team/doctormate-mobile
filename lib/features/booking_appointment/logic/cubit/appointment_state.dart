@@ -1,5 +1,6 @@
 import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
 import 'package:doctor_mate/features/booking_appointment/data/models/available_slots_response.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/initiate_payment_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'appointment_state.freezed.dart';
@@ -27,6 +28,25 @@ class AppointmentState with _$AppointmentState {
   const factory AppointmentState.bookAppointmentError({
     required String message,
   }) = BookAppointmentError;
+
+  // Initiate Payment States
+  const factory AppointmentState.initiatePaymentLoading() =
+      InitiatePaymentLoading;
+  const factory AppointmentState.initiatePaymentSuccess(
+    InitiatePaymentResponse response,
+  ) = InitiatePaymentSuccess;
+  const factory AppointmentState.initiatePaymentError({
+    required String message,
+  }) = InitiatePaymentError;
+
+  // Update Payment Status States
+  const factory AppointmentState.updatePaymentStatusLoading() =
+      UpdatePaymentStatusLoading;
+  const factory AppointmentState.updatePaymentStatusSuccess() =
+      UpdatePaymentStatusSuccess;
+  const factory AppointmentState.updatePaymentStatusError({
+    required String message,
+  }) = UpdatePaymentStatusError;
 
   // Upload Medical Image States
   const factory AppointmentState.uploadMedicalImageLoading() =

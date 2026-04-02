@@ -24,6 +24,7 @@ class CommunicationCubit extends Cubit<CommunicationState> {
             sessionId: response.data.sessionId,
             channelName:
                 response.data.sessionId, // Use sessionId as channel name
+            sessionType: response.data.type, // 'chat', 'voice', or 'video'
           ),
         );
       } else {
@@ -51,27 +52,28 @@ class CommunicationCubit extends Cubit<CommunicationState> {
   /// Get call token for voice or video call
   /// Step 3: Start Call (Voice / Video)
   Future<void> getCallToken({
-    required String sessionId,
+    required String appointmentId,
     required String callType, // 'voice' or 'video'
   }) async {
     emit(const CommunicationState.gettingCallToken());
 
     try {
       final response = await _chatApiServices.getCallToken(
-        body: {'sessionId': sessionId, 'callType': callType},
+        body: {'appointmentId': appointmentId},
       );
 
       if (response.code == 200) {
         // Calculate expiry in seconds
         final now = DateTime.now();
         final expirySeconds = response.data.expiresAt.difference(now).inSeconds;
+        final resolvedCallType = response.data.callType ?? callType;
 
         emit(
           CommunicationState.callTokenRetrieved(
             token: response.data.token,
             channelName: response.data.channel,
             expiry: expirySeconds > 0 ? expirySeconds : 3600, // Default 1 hour
-            callType: callType,
+            callType: resolvedCallType,
           ),
         );
       } else {
@@ -88,11 +90,16 @@ class CommunicationCubit extends Cubit<CommunicationState> {
   }
 
   /// Reset to session active state (after call token flow completes)
-  void returnToSessionActive(String sessionId, String channelName) {
+  void returnToSessionActive(
+    String sessionId,
+    String channelName,
+    String sessionType,
+  ) {
     emit(
       CommunicationState.sessionActive(
         sessionId: sessionId,
         channelName: channelName,
+        sessionType: sessionType,
       ),
     );
   }
