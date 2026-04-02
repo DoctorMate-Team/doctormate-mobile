@@ -16,8 +16,6 @@ DoctorMate is a comprehensive medical appointment booking platform that connects
 
 ## 📸 Screenshots
 
-*(Replace the `src` paths below with the actual paths to your screenshot files)*
-
 <table align="center">
   <tr>
     <td><img src="assets/screenshots/splash.png" width="200" alt="Splash Screen"/></td>
