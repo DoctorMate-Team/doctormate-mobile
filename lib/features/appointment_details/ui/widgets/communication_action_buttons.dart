@@ -13,6 +13,7 @@ class CommunicationActionButtons extends StatelessWidget {
   final VoidCallback onChatPressed;
   final VoidCallback onVoiceCallPressed;
   final VoidCallback onVideoCallPressed;
+  final String? sessionType; // Current session type from backend
 
   const CommunicationActionButtons({
     super.key,
@@ -20,6 +21,7 @@ class CommunicationActionButtons extends StatelessWidget {
     required this.onChatPressed,
     required this.onVoiceCallPressed,
     required this.onVideoCallPressed,
+    this.sessionType,
   });
 
   @override
@@ -30,15 +32,21 @@ class CommunicationActionButtons extends StatelessWidget {
           initial: () => const SizedBox.shrink(),
           checkingSession: () => _buildLoadingState(),
           sessionActive:
-              (sessionId, channelName) =>
-                  _buildActiveButtons(context, isEnabled: true),
+              (sessionId, channelName, sessionType) => _buildActiveButtons(
+                context,
+                isEnabled: true,
+                sessionType: sessionType,
+              ),
           sessionNotAvailable:
               (message) => _buildDisabledButtons(context, message: message),
           sessionCheckError: (error) => _buildErrorState(error),
           gettingCallToken: () => _buildLoadingState(),
           callTokenRetrieved:
-              (token, channel, expiry, callType) =>
-                  _buildActiveButtons(context, isEnabled: true),
+              (token, channel, expiry, callType) => _buildActiveButtons(
+                context,
+                isEnabled: true,
+                sessionType: sessionType,
+              ),
           callTokenError: (error) => _buildErrorState(error),
         );
       },
@@ -77,7 +85,15 @@ class CommunicationActionButtons extends StatelessWidget {
     );
   }
 
-  Widget _buildActiveButtons(BuildContext context, {required bool isEnabled}) {
+  Widget _buildActiveButtons(
+    BuildContext context, {
+    required bool isEnabled,
+    String? sessionType,
+  }) {
+    // Determine which buttons to show based on session type
+    final bool showChat = true; // Chat always available
+    final bool showVoice = sessionType == 'voice' || sessionType == 'video';
+    final bool showVideo = sessionType == 'video';
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
@@ -156,32 +172,35 @@ class CommunicationActionButtons extends StatelessWidget {
           verticalSpacing(16),
           Row(
             children: [
-              Expanded(
-                child: _buildActionButton(
-                  icon: Iconsax.message_text,
-                  label: 'Chat',
-                  color: Colors.blue,
-                  onPressed: isEnabled ? onChatPressed : null,
+              if (showChat)
+                Expanded(
+                  child: _buildActionButton(
+                    icon: Iconsax.message_text,
+                    label: 'Chat',
+                    color: Colors.blue,
+                    onPressed: isEnabled ? onChatPressed : null,
+                  ),
                 ),
-              ),
-              horizantialSpacing(12),
-              Expanded(
-                child: _buildActionButton(
-                  icon: Iconsax.call,
-                  label: 'Voice Call',
-                  color: Colors.green,
-                  onPressed: isEnabled ? onVoiceCallPressed : null,
+              if (showChat && showVoice) horizantialSpacing(12),
+              if (showVoice)
+                Expanded(
+                  child: _buildActionButton(
+                    icon: Iconsax.call,
+                    label: 'Voice Call',
+                    color: Colors.green,
+                    onPressed: isEnabled ? onVoiceCallPressed : null,
+                  ),
                 ),
-              ),
-              horizantialSpacing(12),
-              Expanded(
-                child: _buildActionButton(
-                  icon: Iconsax.video,
-                  label: 'Video Call',
-                  color: Colors.purple,
-                  onPressed: isEnabled ? onVideoCallPressed : null,
+              if (showVoice && showVideo) horizantialSpacing(12),
+              if (showVideo)
+                Expanded(
+                  child: _buildActionButton(
+                    icon: Iconsax.video,
+                    label: 'Video Call',
+                    color: Colors.purple,
+                    onPressed: isEnabled ? onVideoCallPressed : null,
+                  ),
                 ),
-              ),
             ],
           ),
         ],

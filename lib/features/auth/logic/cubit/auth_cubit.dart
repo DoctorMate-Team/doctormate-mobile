@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:doctor_mate/core/di/dependency_injection.dart';
 import 'package:doctor_mate/core/functions/custom_image_picker_and_compress.dart';
 import 'package:doctor_mate/core/helper/cache_helper.dart';
 import 'package:doctor_mate/core/helper/constants.dart';
+import 'package:doctor_mate/core/networking/device_token_repository.dart';
 import 'package:doctor_mate/core/networking/dio_factory.dart';
 import 'package:doctor_mate/features/auth/data/models/complete_profile_request_body.dart';
 import 'package:doctor_mate/features/auth/data/models/send_otp_request_body.dart';
@@ -13,6 +15,7 @@ import 'package:doctor_mate/features/auth/data/models/reset_password_request_bod
 import 'package:doctor_mate/features/auth/data/models/verify_otp_request_body.dart';
 import 'package:doctor_mate/features/auth/data/repos/auth_repos.dart';
 import 'package:doctor_mate/features/auth/logic/cubit/auth_state.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,10 +53,25 @@ class AuthCubit extends Cubit<AuthState> {
             AppConstants.tokenKey,
             auth.data.token,
           );
+          await CacheHelper.setSecuredValue('user_id', auth.data.user.id);
           // Update Dio headers with the new token
           DioFactory.setTokenIntoHeaderAfterLogin(auth.data.token);
         }
         AppConstants.userTokenProvider = auth.data.token;
+        try {
+          final token = await FirebaseMessaging.instance.getToken();
+          if (token != null) {
+            await getIt<DeviceTokenRepository>().registerDeviceToken(
+              token: token,
+              deviceType: Platform.isAndroid ? 'Android' : 'iOS',
+              deviceName:
+                  '${Platform.operatingSystem} ${Platform.operatingSystemVersion}',
+              userId: auth.data.user.id,
+            );
+          }
+        } catch (e) {
+          debugPrint('Failed to register notification token: $e');
+        }
         emit(AuthState.loginSuccess(auth.data));
       },
       failure: (error) {

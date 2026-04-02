@@ -14,6 +14,7 @@ class CommunicationState with _$CommunicationState {
   const factory CommunicationState.sessionActive({
     required String sessionId,
     required String channelName,
+    required String sessionType, // 'chat', 'voice', or 'video'
   }) = SessionActive;
 
   // No session available - communication not allowed

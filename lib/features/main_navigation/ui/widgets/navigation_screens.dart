@@ -13,29 +13,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NavigationScreens {
-  static final List<Widget> screens = [
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => getIt<HomeCubit>()..getSpecialties()),
-        BlocProvider(create: (context) => getIt<NotificationsCubit>()..getUnreadCount()),
-      ],
-      child: const HomeScreen(),
-    ),
-    BlocProvider(
-      create: (context) => getIt<AppointmentManageCubit>(),
-      child: const AppointmentManagementScreen(),
-    ),
-    BlocProvider(
-      create:
-          (context) =>
-              getIt<MedicalRecordsCubit>()
-                ..getPatientMedicalRecords(page: 1, limit: 10),
-      child: const MedicalRecordScreen(),
-    ),
-    const ChatScreen(),
-    BlocProvider(
-      create: (context) => getIt<ProfileCubit>()..getProfile(),
-      child: const ProfileScreen(),
-    ),
-  ];
+  static Widget buildScreen(int index) {
+    switch (index) {
+      case 0:
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<HomeCubit>()..getSpecialties(),
+            ),
+            BlocProvider(
+              create:
+                  (context) => getIt<NotificationsCubit>()..getUnreadCount(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<ProfileCubit>()..getProfile(),
+            ),
+          ],
+          child: const HomeScreen(),
+        );
+      case 1:
+        return BlocProvider(
+          create: (context) => getIt<AppointmentManageCubit>(),
+          child: const AppointmentManagementScreen(),
+        );
+      case 2:
+        return BlocProvider(
+          create:
+              (context) =>
+                  getIt<MedicalRecordsCubit>()
+                    ..getPatientMedicalRecords(page: 1, limit: 10),
+          child: const MedicalRecordScreen(),
+        );
+      case 3:
+        return const ChatScreen();
+      case 4:
+      default:
+        return BlocProvider(
+          create: (context) => getIt<ProfileCubit>()..getProfile(),
+          child: const ProfileScreen(),
+        );
+    }
+  }
 }

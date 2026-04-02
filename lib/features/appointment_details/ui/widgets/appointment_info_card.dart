@@ -117,7 +117,7 @@ class AppointmentInfoCard extends StatelessWidget {
           AppointmentDetailRowWidget(
             icon: Iconsax.dollar_circle,
             label: 'Consultation Fee',
-            value: '\$${appointmentDetails.price.toStringAsFixed(2)}',
+            value: 'EGP ${appointmentDetails.price.toStringAsFixed(2)}',
             iconColor: Colors.green,
           ),
         ],

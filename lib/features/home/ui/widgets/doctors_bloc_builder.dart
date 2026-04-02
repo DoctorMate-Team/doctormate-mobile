@@ -1,4 +1,5 @@
 import 'package:doctor_mate/core/helper/spacing.dart';
+import 'package:doctor_mate/core/routing/routes.dart';
 import 'package:doctor_mate/core/theme/app_styles.dart';
 import 'package:doctor_mate/features/home/logic/cubit/home_cubit.dart';
 import 'package:doctor_mate/features/home/logic/cubit/home_state.dart';
@@ -7,9 +8,18 @@ import 'package:doctor_mate/features/home/ui/widgets/doctors_shimmer_loading.dar
 import 'package:doctor_mate/features/home/ui/widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class DoctorsBlocBuilder extends StatelessWidget {
-  const DoctorsBlocBuilder({super.key});
+  /// The currently selected specialty ID — forwarded to ViewAllScreen so
+  /// "View All" shows only doctors of this specialty.
+  final String? specialtyId;
+
+  const DoctorsBlocBuilder({super.key, this.specialtyId});
+
+  void _goViewAll(BuildContext context) {
+    context.pushNamed(Routes.viewAllScreen, extra: specialtyId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +34,10 @@ class DoctorsBlocBuilder extends StatelessWidget {
           getDoctorsBySpecialtyLoading:
               () => Column(
                 children: [
-                  const SectionHeader(
+                  SectionHeader(
                     title: 'Best Doctors',
                     actionText: 'View All',
+                    onActionTap: () => _goViewAll(context),
                   ),
                   verticalSpacing(12),
                   const DoctorsShimmerLoading(),
@@ -37,9 +48,10 @@ class DoctorsBlocBuilder extends StatelessWidget {
               (doctors) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SectionHeader(
+                  SectionHeader(
                     title: 'Best Doctors',
                     actionText: 'View All',
+                    onActionTap: () => _goViewAll(context),
                   ),
                   verticalSpacing(12),
                   DoctorsListForSpecialist(doctors: doctors),
@@ -49,9 +61,10 @@ class DoctorsBlocBuilder extends StatelessWidget {
           getDoctorsBySpecialtyError:
               (message) => Column(
                 children: [
-                  const SectionHeader(
+                  SectionHeader(
                     title: 'Best Doctors',
                     actionText: 'View All',
+                    onActionTap: () => _goViewAll(context),
                   ),
                   verticalSpacing(12),
                   Center(

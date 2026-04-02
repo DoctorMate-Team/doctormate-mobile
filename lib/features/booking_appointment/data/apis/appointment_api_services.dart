@@ -4,6 +4,9 @@ import 'package:doctor_mate/core/networking/api_constants.dart';
 import 'package:doctor_mate/features/booking_appointment/data/models/appointment_request_body.dart';
 import 'package:doctor_mate/features/booking_appointment/data/models/appointment_response_body.dart';
 import 'package:doctor_mate/features/booking_appointment/data/models/available_slots_response.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/initiate_payment_request.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/initiate_payment_response.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/update_payment_status_request.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
@@ -13,7 +16,7 @@ part 'appointment_api_services.g.dart';
 abstract class AppointmentApiServices {
   factory AppointmentApiServices(Dio dio, {String? baseUrl}) =
       _AppointmentApiServices;
-  //{{baseUrl}}doctors/{{doctor_id}}/available-slots?date=2025-12-24
+
   @GET(ApiConstants.availableSlots)
   Future<DoctorMateResponse<AvailableSlotsResponse>> getAvailableSlots(
     @Path("doctorId") String doctorId,
@@ -23,6 +26,17 @@ abstract class AppointmentApiServices {
   @POST(ApiConstants.appointments)
   Future<DoctorMateResponse<AppointmentResponseBody>> bookAppointment(
     @Body() AppointmentRequestBody appointmentData,
+  );
+
+  @POST(ApiConstants.initiatePayment)
+  Future<DoctorMateResponse<InitiatePaymentResponse>> initiatePayment(
+    @Body() InitiatePaymentRequest request,
+  );
+
+  @PUT(ApiConstants.updatePaymentStatus)
+  Future<DoctorMateResponse<void>> updatePaymentStatus(
+    @Path("paymentId") String paymentId,
+    @Body() UpdatePaymentStatusRequest request,
   );
 
   @POST(ApiConstants.medicalImages)

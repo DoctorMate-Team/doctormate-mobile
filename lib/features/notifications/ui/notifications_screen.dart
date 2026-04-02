@@ -66,7 +66,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               notification.notificationType ==
                   NotificationType.appointmentConfirmed ||
               notification.notificationType ==
-                  NotificationType.appointmentCancelled;
+                  NotificationType.appointmentCancelled ||
+              notification.notificationType ==
+                  NotificationType.appointmentExpired;
         case 'Diagnosis':
           return notification.notificationType ==
               NotificationType.diagnosisAdded;
@@ -96,6 +98,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       case NotificationType.appointmentConfirmed:
       case NotificationType.appointmentCancelled:
       case NotificationType.appointmentReminder:
+      case NotificationType.appointmentExpired:
+      case NotificationType.paymentSuccess:
         final appointmentId = notification.appointmentId;
         if (appointmentId != null) {
           context.pushNamed(

@@ -11,7 +11,7 @@ class DeviceTokenRepository {
   Future<ApiResult<void>> registerDeviceToken({
     required String token,
     required String deviceType,
-    required String deviceName,
+    required String deviceName, required String userId,
   }) async {
     try {
       final request = DeviceTokenRegisterRequest(

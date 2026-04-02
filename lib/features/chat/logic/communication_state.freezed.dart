@@ -21,7 +21,11 @@ mixin _$CommunicationState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() checkingSession,
-    required TResult Function(String sessionId, String channelName)
+    required TResult Function(
+      String sessionId,
+      String channelName,
+      String sessionType,
+    )
     sessionActive,
     required TResult Function(String message) sessionNotAvailable,
     required TResult Function(String error) sessionCheckError,
@@ -39,7 +43,8 @@ mixin _$CommunicationState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? checkingSession,
-    TResult? Function(String sessionId, String channelName)? sessionActive,
+    TResult? Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult? Function(String message)? sessionNotAvailable,
     TResult? Function(String error)? sessionCheckError,
     TResult? Function()? gettingCallToken,
@@ -56,7 +61,8 @@ mixin _$CommunicationState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? checkingSession,
-    TResult Function(String sessionId, String channelName)? sessionActive,
+    TResult Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult Function(String message)? sessionNotAvailable,
     TResult Function(String error)? sessionCheckError,
     TResult Function()? gettingCallToken,
@@ -173,7 +179,11 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() checkingSession,
-    required TResult Function(String sessionId, String channelName)
+    required TResult Function(
+      String sessionId,
+      String channelName,
+      String sessionType,
+    )
     sessionActive,
     required TResult Function(String message) sessionNotAvailable,
     required TResult Function(String error) sessionCheckError,
@@ -195,7 +205,8 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? checkingSession,
-    TResult? Function(String sessionId, String channelName)? sessionActive,
+    TResult? Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult? Function(String message)? sessionNotAvailable,
     TResult? Function(String error)? sessionCheckError,
     TResult? Function()? gettingCallToken,
@@ -216,7 +227,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? checkingSession,
-    TResult Function(String sessionId, String channelName)? sessionActive,
+    TResult Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult Function(String message)? sessionNotAvailable,
     TResult Function(String error)? sessionCheckError,
     TResult Function()? gettingCallToken,
@@ -335,7 +347,11 @@ class _$CheckingSessionImpl implements CheckingSession {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() checkingSession,
-    required TResult Function(String sessionId, String channelName)
+    required TResult Function(
+      String sessionId,
+      String channelName,
+      String sessionType,
+    )
     sessionActive,
     required TResult Function(String message) sessionNotAvailable,
     required TResult Function(String error) sessionCheckError,
@@ -357,7 +373,8 @@ class _$CheckingSessionImpl implements CheckingSession {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? checkingSession,
-    TResult? Function(String sessionId, String channelName)? sessionActive,
+    TResult? Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult? Function(String message)? sessionNotAvailable,
     TResult? Function(String error)? sessionCheckError,
     TResult? Function()? gettingCallToken,
@@ -378,7 +395,8 @@ class _$CheckingSessionImpl implements CheckingSession {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? checkingSession,
-    TResult Function(String sessionId, String channelName)? sessionActive,
+    TResult Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult Function(String message)? sessionNotAvailable,
     TResult Function(String error)? sessionCheckError,
     TResult Function()? gettingCallToken,
@@ -459,7 +477,7 @@ abstract class _$$SessionActiveImplCopyWith<$Res> {
     $Res Function(_$SessionActiveImpl) then,
   ) = __$$SessionActiveImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String sessionId, String channelName});
+  $Res call({String sessionId, String channelName, String sessionType});
 }
 
 /// @nodoc
@@ -475,7 +493,11 @@ class __$$SessionActiveImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? sessionId = null, Object? channelName = null}) {
+  $Res call({
+    Object? sessionId = null,
+    Object? channelName = null,
+    Object? sessionType = null,
+  }) {
     return _then(
       _$SessionActiveImpl(
         sessionId:
@@ -488,6 +510,11 @@ class __$$SessionActiveImplCopyWithImpl<$Res>
                 ? _value.channelName
                 : channelName // ignore: cast_nullable_to_non_nullable
                     as String,
+        sessionType:
+            null == sessionType
+                ? _value.sessionType
+                : sessionType // ignore: cast_nullable_to_non_nullable
+                    as String,
       ),
     );
   }
@@ -499,16 +526,19 @@ class _$SessionActiveImpl implements SessionActive {
   const _$SessionActiveImpl({
     required this.sessionId,
     required this.channelName,
+    required this.sessionType,
   });
 
   @override
   final String sessionId;
   @override
   final String channelName;
+  @override
+  final String sessionType;
 
   @override
   String toString() {
-    return 'CommunicationState.sessionActive(sessionId: $sessionId, channelName: $channelName)';
+    return 'CommunicationState.sessionActive(sessionId: $sessionId, channelName: $channelName, sessionType: $sessionType)';
   }
 
   @override
@@ -519,11 +549,14 @@ class _$SessionActiveImpl implements SessionActive {
             (identical(other.sessionId, sessionId) ||
                 other.sessionId == sessionId) &&
             (identical(other.channelName, channelName) ||
-                other.channelName == channelName));
+                other.channelName == channelName) &&
+            (identical(other.sessionType, sessionType) ||
+                other.sessionType == sessionType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sessionId, channelName);
+  int get hashCode =>
+      Object.hash(runtimeType, sessionId, channelName, sessionType);
 
   /// Create a copy of CommunicationState
   /// with the given fields replaced by the non-null parameter values.
@@ -538,7 +571,11 @@ class _$SessionActiveImpl implements SessionActive {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() checkingSession,
-    required TResult Function(String sessionId, String channelName)
+    required TResult Function(
+      String sessionId,
+      String channelName,
+      String sessionType,
+    )
     sessionActive,
     required TResult Function(String message) sessionNotAvailable,
     required TResult Function(String error) sessionCheckError,
@@ -552,7 +589,7 @@ class _$SessionActiveImpl implements SessionActive {
     callTokenRetrieved,
     required TResult Function(String error) callTokenError,
   }) {
-    return sessionActive(sessionId, channelName);
+    return sessionActive(sessionId, channelName, sessionType);
   }
 
   @override
@@ -560,7 +597,8 @@ class _$SessionActiveImpl implements SessionActive {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? checkingSession,
-    TResult? Function(String sessionId, String channelName)? sessionActive,
+    TResult? Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult? Function(String message)? sessionNotAvailable,
     TResult? Function(String error)? sessionCheckError,
     TResult? Function()? gettingCallToken,
@@ -573,7 +611,7 @@ class _$SessionActiveImpl implements SessionActive {
     callTokenRetrieved,
     TResult? Function(String error)? callTokenError,
   }) {
-    return sessionActive?.call(sessionId, channelName);
+    return sessionActive?.call(sessionId, channelName, sessionType);
   }
 
   @override
@@ -581,7 +619,8 @@ class _$SessionActiveImpl implements SessionActive {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? checkingSession,
-    TResult Function(String sessionId, String channelName)? sessionActive,
+    TResult Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult Function(String message)? sessionNotAvailable,
     TResult Function(String error)? sessionCheckError,
     TResult Function()? gettingCallToken,
@@ -596,7 +635,7 @@ class _$SessionActiveImpl implements SessionActive {
     required TResult orElse(),
   }) {
     if (sessionActive != null) {
-      return sessionActive(sessionId, channelName);
+      return sessionActive(sessionId, channelName, sessionType);
     }
     return orElse();
   }
@@ -655,10 +694,12 @@ abstract class SessionActive implements CommunicationState {
   const factory SessionActive({
     required final String sessionId,
     required final String channelName,
+    required final String sessionType,
   }) = _$SessionActiveImpl;
 
   String get sessionId;
   String get channelName;
+  String get sessionType;
 
   /// Create a copy of CommunicationState
   /// with the given fields replaced by the non-null parameter values.
@@ -743,7 +784,11 @@ class _$SessionNotAvailableImpl implements SessionNotAvailable {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() checkingSession,
-    required TResult Function(String sessionId, String channelName)
+    required TResult Function(
+      String sessionId,
+      String channelName,
+      String sessionType,
+    )
     sessionActive,
     required TResult Function(String message) sessionNotAvailable,
     required TResult Function(String error) sessionCheckError,
@@ -765,7 +810,8 @@ class _$SessionNotAvailableImpl implements SessionNotAvailable {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? checkingSession,
-    TResult? Function(String sessionId, String channelName)? sessionActive,
+    TResult? Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult? Function(String message)? sessionNotAvailable,
     TResult? Function(String error)? sessionCheckError,
     TResult? Function()? gettingCallToken,
@@ -786,7 +832,8 @@ class _$SessionNotAvailableImpl implements SessionNotAvailable {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? checkingSession,
-    TResult Function(String sessionId, String channelName)? sessionActive,
+    TResult Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult Function(String message)? sessionNotAvailable,
     TResult Function(String error)? sessionCheckError,
     TResult Function()? gettingCallToken,
@@ -945,7 +992,11 @@ class _$SessionCheckErrorImpl implements SessionCheckError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() checkingSession,
-    required TResult Function(String sessionId, String channelName)
+    required TResult Function(
+      String sessionId,
+      String channelName,
+      String sessionType,
+    )
     sessionActive,
     required TResult Function(String message) sessionNotAvailable,
     required TResult Function(String error) sessionCheckError,
@@ -967,7 +1018,8 @@ class _$SessionCheckErrorImpl implements SessionCheckError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? checkingSession,
-    TResult? Function(String sessionId, String channelName)? sessionActive,
+    TResult? Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult? Function(String message)? sessionNotAvailable,
     TResult? Function(String error)? sessionCheckError,
     TResult? Function()? gettingCallToken,
@@ -988,7 +1040,8 @@ class _$SessionCheckErrorImpl implements SessionCheckError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? checkingSession,
-    TResult Function(String sessionId, String channelName)? sessionActive,
+    TResult Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult Function(String message)? sessionNotAvailable,
     TResult Function(String error)? sessionCheckError,
     TResult Function()? gettingCallToken,
@@ -1116,7 +1169,11 @@ class _$GettingCallTokenImpl implements GettingCallToken {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() checkingSession,
-    required TResult Function(String sessionId, String channelName)
+    required TResult Function(
+      String sessionId,
+      String channelName,
+      String sessionType,
+    )
     sessionActive,
     required TResult Function(String message) sessionNotAvailable,
     required TResult Function(String error) sessionCheckError,
@@ -1138,7 +1195,8 @@ class _$GettingCallTokenImpl implements GettingCallToken {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? checkingSession,
-    TResult? Function(String sessionId, String channelName)? sessionActive,
+    TResult? Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult? Function(String message)? sessionNotAvailable,
     TResult? Function(String error)? sessionCheckError,
     TResult? Function()? gettingCallToken,
@@ -1159,7 +1217,8 @@ class _$GettingCallTokenImpl implements GettingCallToken {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? checkingSession,
-    TResult Function(String sessionId, String channelName)? sessionActive,
+    TResult Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult Function(String message)? sessionNotAvailable,
     TResult Function(String error)? sessionCheckError,
     TResult Function()? gettingCallToken,
@@ -1346,7 +1405,11 @@ class _$CallTokenRetrievedImpl implements CallTokenRetrieved {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() checkingSession,
-    required TResult Function(String sessionId, String channelName)
+    required TResult Function(
+      String sessionId,
+      String channelName,
+      String sessionType,
+    )
     sessionActive,
     required TResult Function(String message) sessionNotAvailable,
     required TResult Function(String error) sessionCheckError,
@@ -1368,7 +1431,8 @@ class _$CallTokenRetrievedImpl implements CallTokenRetrieved {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? checkingSession,
-    TResult? Function(String sessionId, String channelName)? sessionActive,
+    TResult? Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult? Function(String message)? sessionNotAvailable,
     TResult? Function(String error)? sessionCheckError,
     TResult? Function()? gettingCallToken,
@@ -1389,7 +1453,8 @@ class _$CallTokenRetrievedImpl implements CallTokenRetrieved {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? checkingSession,
-    TResult Function(String sessionId, String channelName)? sessionActive,
+    TResult Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult Function(String message)? sessionNotAvailable,
     TResult Function(String error)? sessionCheckError,
     TResult Function()? gettingCallToken,
@@ -1555,7 +1620,11 @@ class _$CallTokenErrorImpl implements CallTokenError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() checkingSession,
-    required TResult Function(String sessionId, String channelName)
+    required TResult Function(
+      String sessionId,
+      String channelName,
+      String sessionType,
+    )
     sessionActive,
     required TResult Function(String message) sessionNotAvailable,
     required TResult Function(String error) sessionCheckError,
@@ -1577,7 +1646,8 @@ class _$CallTokenErrorImpl implements CallTokenError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? checkingSession,
-    TResult? Function(String sessionId, String channelName)? sessionActive,
+    TResult? Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult? Function(String message)? sessionNotAvailable,
     TResult? Function(String error)? sessionCheckError,
     TResult? Function()? gettingCallToken,
@@ -1598,7 +1668,8 @@ class _$CallTokenErrorImpl implements CallTokenError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? checkingSession,
-    TResult Function(String sessionId, String channelName)? sessionActive,
+    TResult Function(String sessionId, String channelName, String sessionType)?
+    sessionActive,
     TResult Function(String message)? sessionNotAvailable,
     TResult Function(String error)? sessionCheckError,
     TResult Function()? gettingCallToken,

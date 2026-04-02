@@ -12,6 +12,11 @@ abstract class AppTheme {
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
       fontFamily: GoogleFonts.inter().fontFamily,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: ColorsManager.primaryColor,
+        selectionColor: ColorsManager.primaryColor.withOpacity(0.3),
+        selectionHandleColor: ColorsManager.primaryColor,
+      ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: ColorsManager.primaryColor,
         unselectedItemColor: ColorsManager.lightGreen,

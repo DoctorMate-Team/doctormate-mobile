@@ -1,4 +1,6 @@
 import 'package:doctor_mate/features/booking_appointment/data/models/appointment_request_body.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/initiate_payment_request.dart';
+import 'package:doctor_mate/features/booking_appointment/data/models/update_payment_status_request.dart';
 import 'package:doctor_mate/features/booking_appointment/data/repos/appointment_repos.dart';
 import 'package:doctor_mate/features/booking_appointment/logic/cubit/appointment_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,6 +40,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     required String time,
     required String reason,
     required String appointmentType,
+    required String paymentMethod,
   }) async {
     emit(AppointmentState.bookAppointmentLoading());
     final result = await _appointmentRepos.bookAppointment(
@@ -47,6 +50,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
         appointmentTime: time,
         reason: reason,
         appointmentType: appointmentType,
+        paymentMethod: paymentMethod,
       ),
     );
     result.when(
@@ -59,6 +63,60 @@ class AppointmentCubit extends Cubit<AppointmentState> {
         emit(
           AppointmentState.bookAppointmentError(
             message: error.apiErrorModel.message!,
+          ),
+        );
+      },
+    );
+  }
+
+  void initiatePayment({
+    required String appointmentId,
+    required String provider,
+  }) async {
+    emit(AppointmentState.initiatePaymentLoading());
+    final result = await _appointmentRepos.initiatePayment(
+      request: InitiatePaymentRequest(
+        appointmentId: appointmentId,
+        provider: provider,
+      ),
+    );
+    result.when(
+      success: (response) {
+        emit(AppointmentState.initiatePaymentSuccess(response.data));
+      },
+      failure: (error) {
+        emit(
+          AppointmentState.initiatePaymentError(
+            message: error.apiErrorModel.message!,
+          ),
+        );
+      },
+    );
+  }
+
+  void updatePaymentStatus({
+    required String paymentId,
+    required String status,
+    String? providerRef,
+  }) async {
+    emit(AppointmentState.updatePaymentStatusLoading());
+    final result = await _appointmentRepos.updatePaymentStatus(
+      paymentId: paymentId,
+      request: UpdatePaymentStatusRequest(
+        status: status,
+        providerRef: providerRef,
+      ),
+    );
+    result.when(
+      success: (_) {
+        emit(AppointmentState.updatePaymentStatusSuccess());
+      },
+      failure: (error) {
+        emit(
+          AppointmentState.updatePaymentStatusError(
+            message:
+                error.apiErrorModel.message ??
+                'Failed to update payment status',
           ),
         );
       },

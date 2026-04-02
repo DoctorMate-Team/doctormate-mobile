@@ -12,6 +12,7 @@ class Routes {
   static const String home = '/home';
   static const String detailsScreen = '/detailsScreen';
   static const String profileScreen = '/profileScreen';
+  static const String editProfileScreen = '/editProfileScreen';
   static const String appointmentScreen = '/appointmentScreen';
   static const String bookingConfirmation = '/bookingConfirmation';
   static const String rescheduleAppointment = '/rescheduleAppointment';
@@ -25,6 +26,17 @@ class Routes {
   static const String chatScreen = '/chatScreen';
   static const String chatConversationScreen = '/chatConversationScreen';
   static const String searchScreen = '/searchScreen';
+  static const String viewAllScreen = '/viewAllScreen';
   static const String notificationsScreen = '/notificationsScreen';
   static const String qrScannerScreen = '/qrScannerScreen';
+  static const String agoraCallScreen = '/agoraCallScreen';
+  static const String paymentWebviewScreen = '/paymentWebviewScreen';
+  static const String securityScreen = '/securityScreen';
+  static const String paymentHistoryScreen = '/paymentHistoryScreen';
+  static const String notificationsSettingsScreen =
+      '/notificationsSettingsScreen';
+  static const String helpCenterScreen = '/helpCenterScreen';
+  static const String contactUsScreen = '/contactUsScreen';
+  static const String termsConditionsScreen = '/termsConditionsScreen';
+  static const String privacyPolicyScreen = '/privacyPolicyScreen';
 }

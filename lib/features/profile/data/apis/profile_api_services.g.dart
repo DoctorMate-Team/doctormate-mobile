@@ -80,11 +80,13 @@ class _ProfileApiServices implements ProfileApiServices {
   }
 
   @override
-  Future<DoctorMateResponse<void>> updateProfileDetails() async {
+  Future<DoctorMateResponse<void>> updateProfileDetails(
+    FormData formData,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = formData;
     final _options = _setStreamType<DoctorMateResponse<void>>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
@@ -101,6 +103,39 @@ class _ProfileApiServices implements ProfileApiServices {
       _value = DoctorMateResponse<void>.fromJson(
         _result.data!,
         (json) => () {}(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<DoctorMateResponse<PaymentHistoryResponse>> getMyPayments(
+    int page,
+    int limit,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page, r'limit': limit};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<DoctorMateResponse<PaymentHistoryResponse>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'payments/my',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late DoctorMateResponse<PaymentHistoryResponse> _value;
+    try {
+      _value = DoctorMateResponse<PaymentHistoryResponse>.fromJson(
+        _result.data!,
+        (json) => PaymentHistoryResponse.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

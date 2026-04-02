@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:doctor_mate/core/helper/cache_helper.dart';
 import 'package:doctor_mate/core/helper/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioFactory {
@@ -43,6 +44,10 @@ class DioFactory {
   }
 
   static void addDioInterceptor() {
+    if (!kDebugMode) {
+      return;
+    }
+
     dio?.interceptors.add(
       PrettyDioLogger(
         requestBody: true,

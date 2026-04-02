@@ -14,6 +14,7 @@ AppointmentRequestBody _$AppointmentRequestBodyFromJson(
   appointmentTime: json['appointmentTime'] as String,
   reason: json['reason'] as String,
   appointmentType: json['appointmentType'] as String,
+  paymentMethod: json['paymentMethod'] as String,
 );
 
 Map<String, dynamic> _$AppointmentRequestBodyToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$AppointmentRequestBodyToJson(
   'appointmentTime': instance.appointmentTime,
   'reason': instance.reason,
   'appointmentType': instance.appointmentType,
+  'paymentMethod': instance.paymentMethod,
 };

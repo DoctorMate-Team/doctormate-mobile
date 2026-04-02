@@ -52,6 +52,11 @@ class NotificationData {
   String? get prescriptionId => metadata['prescriptionId'] as String?;
   int? get medicationCount => metadata['medicationCount'] as int?;
 
+  // Payment metadata helpers
+  String? get paymentId => metadata['paymentId'] as String?;
+  double? get amount => (metadata['amount'] as num?)?.toDouble();
+  String? get currency => metadata['currency'] as String?;
+
   Map<String, dynamic> toMap() {
     return {
       'notificationId': notificationId,

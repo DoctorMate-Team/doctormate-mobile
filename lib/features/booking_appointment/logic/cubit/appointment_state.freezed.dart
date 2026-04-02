@@ -28,6 +28,13 @@ mixin _$AppointmentState {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -43,6 +50,12 @@ mixin _$AppointmentState {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -58,6 +71,12 @@ mixin _$AppointmentState {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -75,6 +94,17 @@ mixin _$AppointmentState {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -91,6 +121,14 @@ mixin _$AppointmentState {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -106,6 +144,14 @@ mixin _$AppointmentState {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -189,6 +235,13 @@ class _$InitialImpl implements _Initial {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -208,6 +261,12 @@ class _$InitialImpl implements _Initial {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -227,6 +286,12 @@ class _$InitialImpl implements _Initial {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -251,6 +316,17 @@ class _$InitialImpl implements _Initial {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -271,6 +347,14 @@ class _$InitialImpl implements _Initial {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -290,6 +374,14 @@ class _$InitialImpl implements _Initial {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -361,6 +453,13 @@ class _$AvailableSlotsLoadingImpl implements AvailableSlotsLoading {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -380,6 +479,12 @@ class _$AvailableSlotsLoadingImpl implements AvailableSlotsLoading {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -399,6 +504,12 @@ class _$AvailableSlotsLoadingImpl implements AvailableSlotsLoading {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -423,6 +534,17 @@ class _$AvailableSlotsLoadingImpl implements AvailableSlotsLoading {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -443,6 +565,14 @@ class _$AvailableSlotsLoadingImpl implements AvailableSlotsLoading {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -462,6 +592,14 @@ class _$AvailableSlotsLoadingImpl implements AvailableSlotsLoading {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -564,6 +702,13 @@ class _$AvailableSlotsLoadedImpl implements AvailableSlotsLoaded {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -583,6 +728,12 @@ class _$AvailableSlotsLoadedImpl implements AvailableSlotsLoaded {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -602,6 +753,12 @@ class _$AvailableSlotsLoadedImpl implements AvailableSlotsLoaded {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -626,6 +783,17 @@ class _$AvailableSlotsLoadedImpl implements AvailableSlotsLoaded {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -646,6 +814,14 @@ class _$AvailableSlotsLoadedImpl implements AvailableSlotsLoaded {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -665,6 +841,14 @@ class _$AvailableSlotsLoadedImpl implements AvailableSlotsLoaded {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -776,6 +960,13 @@ class _$AvailableSlotsErrorImpl implements AvailableSlotsError {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -795,6 +986,12 @@ class _$AvailableSlotsErrorImpl implements AvailableSlotsError {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -814,6 +1011,12 @@ class _$AvailableSlotsErrorImpl implements AvailableSlotsError {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -838,6 +1041,17 @@ class _$AvailableSlotsErrorImpl implements AvailableSlotsError {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -858,6 +1072,14 @@ class _$AvailableSlotsErrorImpl implements AvailableSlotsError {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -877,6 +1099,14 @@ class _$AvailableSlotsErrorImpl implements AvailableSlotsError {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -957,6 +1187,13 @@ class _$BookAppointmentLoadingImpl implements BookAppointmentLoading {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -976,6 +1213,12 @@ class _$BookAppointmentLoadingImpl implements BookAppointmentLoading {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -995,6 +1238,12 @@ class _$BookAppointmentLoadingImpl implements BookAppointmentLoading {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -1019,6 +1268,17 @@ class _$BookAppointmentLoadingImpl implements BookAppointmentLoading {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -1039,6 +1299,14 @@ class _$BookAppointmentLoadingImpl implements BookAppointmentLoading {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -1058,6 +1326,14 @@ class _$BookAppointmentLoadingImpl implements BookAppointmentLoading {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -1163,6 +1439,13 @@ class _$BookAppointmentSuccessImpl implements BookAppointmentSuccess {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -1182,6 +1465,12 @@ class _$BookAppointmentSuccessImpl implements BookAppointmentSuccess {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -1201,6 +1490,12 @@ class _$BookAppointmentSuccessImpl implements BookAppointmentSuccess {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -1225,6 +1520,17 @@ class _$BookAppointmentSuccessImpl implements BookAppointmentSuccess {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -1245,6 +1551,14 @@ class _$BookAppointmentSuccessImpl implements BookAppointmentSuccess {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -1264,6 +1578,14 @@ class _$BookAppointmentSuccessImpl implements BookAppointmentSuccess {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -1376,6 +1698,13 @@ class _$BookAppointmentErrorImpl implements BookAppointmentError {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -1395,6 +1724,12 @@ class _$BookAppointmentErrorImpl implements BookAppointmentError {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -1414,6 +1749,12 @@ class _$BookAppointmentErrorImpl implements BookAppointmentError {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -1438,6 +1779,17 @@ class _$BookAppointmentErrorImpl implements BookAppointmentError {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -1458,6 +1810,14 @@ class _$BookAppointmentErrorImpl implements BookAppointmentError {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -1477,6 +1837,14 @@ class _$BookAppointmentErrorImpl implements BookAppointmentError {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -1501,6 +1869,1434 @@ abstract class BookAppointmentError implements AppointmentState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BookAppointmentErrorImplCopyWith<_$BookAppointmentErrorImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InitiatePaymentLoadingImplCopyWith<$Res> {
+  factory _$$InitiatePaymentLoadingImplCopyWith(
+    _$InitiatePaymentLoadingImpl value,
+    $Res Function(_$InitiatePaymentLoadingImpl) then,
+  ) = __$$InitiatePaymentLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InitiatePaymentLoadingImplCopyWithImpl<$Res>
+    extends _$AppointmentStateCopyWithImpl<$Res, _$InitiatePaymentLoadingImpl>
+    implements _$$InitiatePaymentLoadingImplCopyWith<$Res> {
+  __$$InitiatePaymentLoadingImplCopyWithImpl(
+    _$InitiatePaymentLoadingImpl _value,
+    $Res Function(_$InitiatePaymentLoadingImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InitiatePaymentLoadingImpl implements InitiatePaymentLoading {
+  const _$InitiatePaymentLoadingImpl();
+
+  @override
+  String toString() {
+    return 'AppointmentState.initiatePaymentLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InitiatePaymentLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() availableSlotsLoading,
+    required TResult Function(AvailableSlotsResponse availableSlotsResponse)
+    availableSlotsLoaded,
+    required TResult Function(String message) availableSlotsError,
+    required TResult Function() bookAppointmentLoading,
+    required TResult Function(AppointmentResponseBody appointmentResponseBody)
+    bookAppointmentSuccess,
+    required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
+    required TResult Function() uploadMedicalImageLoading,
+    required TResult Function() uploadMedicalImageSuccess,
+    required TResult Function(String message) uploadMedicalImageError,
+  }) {
+    return initiatePaymentLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? availableSlotsLoading,
+    TResult? Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult? Function(String message)? availableSlotsError,
+    TResult? Function()? bookAppointmentLoading,
+    TResult? Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
+    TResult? Function()? uploadMedicalImageLoading,
+    TResult? Function()? uploadMedicalImageSuccess,
+    TResult? Function(String message)? uploadMedicalImageError,
+  }) {
+    return initiatePaymentLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? availableSlotsLoading,
+    TResult Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult Function(String message)? availableSlotsError,
+    TResult Function()? bookAppointmentLoading,
+    TResult Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
+    TResult Function()? uploadMedicalImageLoading,
+    TResult Function()? uploadMedicalImageSuccess,
+    TResult Function(String message)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (initiatePaymentLoading != null) {
+      return initiatePaymentLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(AvailableSlotsLoading value)
+    availableSlotsLoading,
+    required TResult Function(AvailableSlotsLoaded value) availableSlotsLoaded,
+    required TResult Function(AvailableSlotsError value) availableSlotsError,
+    required TResult Function(BookAppointmentLoading value)
+    bookAppointmentLoading,
+    required TResult Function(BookAppointmentSuccess value)
+    bookAppointmentSuccess,
+    required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
+    required TResult Function(UploadMedicalImageLoading value)
+    uploadMedicalImageLoading,
+    required TResult Function(UploadMedicalImageSuccess value)
+    uploadMedicalImageSuccess,
+    required TResult Function(UploadMedicalImageError value)
+    uploadMedicalImageError,
+  }) {
+    return initiatePaymentLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult? Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult? Function(AvailableSlotsError value)? availableSlotsError,
+    TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult? Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult? Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult? Function(UploadMedicalImageError value)? uploadMedicalImageError,
+  }) {
+    return initiatePaymentLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult Function(AvailableSlotsError value)? availableSlotsError,
+    TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult Function(UploadMedicalImageError value)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (initiatePaymentLoading != null) {
+      return initiatePaymentLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InitiatePaymentLoading implements AppointmentState {
+  const factory InitiatePaymentLoading() = _$InitiatePaymentLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$InitiatePaymentSuccessImplCopyWith<$Res> {
+  factory _$$InitiatePaymentSuccessImplCopyWith(
+    _$InitiatePaymentSuccessImpl value,
+    $Res Function(_$InitiatePaymentSuccessImpl) then,
+  ) = __$$InitiatePaymentSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({InitiatePaymentResponse response});
+}
+
+/// @nodoc
+class __$$InitiatePaymentSuccessImplCopyWithImpl<$Res>
+    extends _$AppointmentStateCopyWithImpl<$Res, _$InitiatePaymentSuccessImpl>
+    implements _$$InitiatePaymentSuccessImplCopyWith<$Res> {
+  __$$InitiatePaymentSuccessImplCopyWithImpl(
+    _$InitiatePaymentSuccessImpl _value,
+    $Res Function(_$InitiatePaymentSuccessImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? response = null}) {
+    return _then(
+      _$InitiatePaymentSuccessImpl(
+        null == response
+            ? _value.response
+            : response // ignore: cast_nullable_to_non_nullable
+                as InitiatePaymentResponse,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$InitiatePaymentSuccessImpl implements InitiatePaymentSuccess {
+  const _$InitiatePaymentSuccessImpl(this.response);
+
+  @override
+  final InitiatePaymentResponse response;
+
+  @override
+  String toString() {
+    return 'AppointmentState.initiatePaymentSuccess(response: $response)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InitiatePaymentSuccessImpl &&
+            (identical(other.response, response) ||
+                other.response == response));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, response);
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InitiatePaymentSuccessImplCopyWith<_$InitiatePaymentSuccessImpl>
+  get copyWith =>
+      __$$InitiatePaymentSuccessImplCopyWithImpl<_$InitiatePaymentSuccessImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() availableSlotsLoading,
+    required TResult Function(AvailableSlotsResponse availableSlotsResponse)
+    availableSlotsLoaded,
+    required TResult Function(String message) availableSlotsError,
+    required TResult Function() bookAppointmentLoading,
+    required TResult Function(AppointmentResponseBody appointmentResponseBody)
+    bookAppointmentSuccess,
+    required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
+    required TResult Function() uploadMedicalImageLoading,
+    required TResult Function() uploadMedicalImageSuccess,
+    required TResult Function(String message) uploadMedicalImageError,
+  }) {
+    return initiatePaymentSuccess(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? availableSlotsLoading,
+    TResult? Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult? Function(String message)? availableSlotsError,
+    TResult? Function()? bookAppointmentLoading,
+    TResult? Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
+    TResult? Function()? uploadMedicalImageLoading,
+    TResult? Function()? uploadMedicalImageSuccess,
+    TResult? Function(String message)? uploadMedicalImageError,
+  }) {
+    return initiatePaymentSuccess?.call(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? availableSlotsLoading,
+    TResult Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult Function(String message)? availableSlotsError,
+    TResult Function()? bookAppointmentLoading,
+    TResult Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
+    TResult Function()? uploadMedicalImageLoading,
+    TResult Function()? uploadMedicalImageSuccess,
+    TResult Function(String message)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (initiatePaymentSuccess != null) {
+      return initiatePaymentSuccess(response);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(AvailableSlotsLoading value)
+    availableSlotsLoading,
+    required TResult Function(AvailableSlotsLoaded value) availableSlotsLoaded,
+    required TResult Function(AvailableSlotsError value) availableSlotsError,
+    required TResult Function(BookAppointmentLoading value)
+    bookAppointmentLoading,
+    required TResult Function(BookAppointmentSuccess value)
+    bookAppointmentSuccess,
+    required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
+    required TResult Function(UploadMedicalImageLoading value)
+    uploadMedicalImageLoading,
+    required TResult Function(UploadMedicalImageSuccess value)
+    uploadMedicalImageSuccess,
+    required TResult Function(UploadMedicalImageError value)
+    uploadMedicalImageError,
+  }) {
+    return initiatePaymentSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult? Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult? Function(AvailableSlotsError value)? availableSlotsError,
+    TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult? Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult? Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult? Function(UploadMedicalImageError value)? uploadMedicalImageError,
+  }) {
+    return initiatePaymentSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult Function(AvailableSlotsError value)? availableSlotsError,
+    TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult Function(UploadMedicalImageError value)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (initiatePaymentSuccess != null) {
+      return initiatePaymentSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InitiatePaymentSuccess implements AppointmentState {
+  const factory InitiatePaymentSuccess(final InitiatePaymentResponse response) =
+      _$InitiatePaymentSuccessImpl;
+
+  InitiatePaymentResponse get response;
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InitiatePaymentSuccessImplCopyWith<_$InitiatePaymentSuccessImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InitiatePaymentErrorImplCopyWith<$Res> {
+  factory _$$InitiatePaymentErrorImplCopyWith(
+    _$InitiatePaymentErrorImpl value,
+    $Res Function(_$InitiatePaymentErrorImpl) then,
+  ) = __$$InitiatePaymentErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$InitiatePaymentErrorImplCopyWithImpl<$Res>
+    extends _$AppointmentStateCopyWithImpl<$Res, _$InitiatePaymentErrorImpl>
+    implements _$$InitiatePaymentErrorImplCopyWith<$Res> {
+  __$$InitiatePaymentErrorImplCopyWithImpl(
+    _$InitiatePaymentErrorImpl _value,
+    $Res Function(_$InitiatePaymentErrorImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? message = null}) {
+    return _then(
+      _$InitiatePaymentErrorImpl(
+        message:
+            null == message
+                ? _value.message
+                : message // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$InitiatePaymentErrorImpl implements InitiatePaymentError {
+  const _$InitiatePaymentErrorImpl({required this.message});
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'AppointmentState.initiatePaymentError(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InitiatePaymentErrorImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InitiatePaymentErrorImplCopyWith<_$InitiatePaymentErrorImpl>
+  get copyWith =>
+      __$$InitiatePaymentErrorImplCopyWithImpl<_$InitiatePaymentErrorImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() availableSlotsLoading,
+    required TResult Function(AvailableSlotsResponse availableSlotsResponse)
+    availableSlotsLoaded,
+    required TResult Function(String message) availableSlotsError,
+    required TResult Function() bookAppointmentLoading,
+    required TResult Function(AppointmentResponseBody appointmentResponseBody)
+    bookAppointmentSuccess,
+    required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
+    required TResult Function() uploadMedicalImageLoading,
+    required TResult Function() uploadMedicalImageSuccess,
+    required TResult Function(String message) uploadMedicalImageError,
+  }) {
+    return initiatePaymentError(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? availableSlotsLoading,
+    TResult? Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult? Function(String message)? availableSlotsError,
+    TResult? Function()? bookAppointmentLoading,
+    TResult? Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
+    TResult? Function()? uploadMedicalImageLoading,
+    TResult? Function()? uploadMedicalImageSuccess,
+    TResult? Function(String message)? uploadMedicalImageError,
+  }) {
+    return initiatePaymentError?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? availableSlotsLoading,
+    TResult Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult Function(String message)? availableSlotsError,
+    TResult Function()? bookAppointmentLoading,
+    TResult Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
+    TResult Function()? uploadMedicalImageLoading,
+    TResult Function()? uploadMedicalImageSuccess,
+    TResult Function(String message)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (initiatePaymentError != null) {
+      return initiatePaymentError(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(AvailableSlotsLoading value)
+    availableSlotsLoading,
+    required TResult Function(AvailableSlotsLoaded value) availableSlotsLoaded,
+    required TResult Function(AvailableSlotsError value) availableSlotsError,
+    required TResult Function(BookAppointmentLoading value)
+    bookAppointmentLoading,
+    required TResult Function(BookAppointmentSuccess value)
+    bookAppointmentSuccess,
+    required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
+    required TResult Function(UploadMedicalImageLoading value)
+    uploadMedicalImageLoading,
+    required TResult Function(UploadMedicalImageSuccess value)
+    uploadMedicalImageSuccess,
+    required TResult Function(UploadMedicalImageError value)
+    uploadMedicalImageError,
+  }) {
+    return initiatePaymentError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult? Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult? Function(AvailableSlotsError value)? availableSlotsError,
+    TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult? Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult? Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult? Function(UploadMedicalImageError value)? uploadMedicalImageError,
+  }) {
+    return initiatePaymentError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult Function(AvailableSlotsError value)? availableSlotsError,
+    TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult Function(UploadMedicalImageError value)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (initiatePaymentError != null) {
+      return initiatePaymentError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InitiatePaymentError implements AppointmentState {
+  const factory InitiatePaymentError({required final String message}) =
+      _$InitiatePaymentErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InitiatePaymentErrorImplCopyWith<_$InitiatePaymentErrorImpl>
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdatePaymentStatusLoadingImplCopyWith<$Res> {
+  factory _$$UpdatePaymentStatusLoadingImplCopyWith(
+    _$UpdatePaymentStatusLoadingImpl value,
+    $Res Function(_$UpdatePaymentStatusLoadingImpl) then,
+  ) = __$$UpdatePaymentStatusLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UpdatePaymentStatusLoadingImplCopyWithImpl<$Res>
+    extends
+        _$AppointmentStateCopyWithImpl<$Res, _$UpdatePaymentStatusLoadingImpl>
+    implements _$$UpdatePaymentStatusLoadingImplCopyWith<$Res> {
+  __$$UpdatePaymentStatusLoadingImplCopyWithImpl(
+    _$UpdatePaymentStatusLoadingImpl _value,
+    $Res Function(_$UpdatePaymentStatusLoadingImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$UpdatePaymentStatusLoadingImpl implements UpdatePaymentStatusLoading {
+  const _$UpdatePaymentStatusLoadingImpl();
+
+  @override
+  String toString() {
+    return 'AppointmentState.updatePaymentStatusLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdatePaymentStatusLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() availableSlotsLoading,
+    required TResult Function(AvailableSlotsResponse availableSlotsResponse)
+    availableSlotsLoaded,
+    required TResult Function(String message) availableSlotsError,
+    required TResult Function() bookAppointmentLoading,
+    required TResult Function(AppointmentResponseBody appointmentResponseBody)
+    bookAppointmentSuccess,
+    required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
+    required TResult Function() uploadMedicalImageLoading,
+    required TResult Function() uploadMedicalImageSuccess,
+    required TResult Function(String message) uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? availableSlotsLoading,
+    TResult? Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult? Function(String message)? availableSlotsError,
+    TResult? Function()? bookAppointmentLoading,
+    TResult? Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
+    TResult? Function()? uploadMedicalImageLoading,
+    TResult? Function()? uploadMedicalImageSuccess,
+    TResult? Function(String message)? uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? availableSlotsLoading,
+    TResult Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult Function(String message)? availableSlotsError,
+    TResult Function()? bookAppointmentLoading,
+    TResult Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
+    TResult Function()? uploadMedicalImageLoading,
+    TResult Function()? uploadMedicalImageSuccess,
+    TResult Function(String message)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (updatePaymentStatusLoading != null) {
+      return updatePaymentStatusLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(AvailableSlotsLoading value)
+    availableSlotsLoading,
+    required TResult Function(AvailableSlotsLoaded value) availableSlotsLoaded,
+    required TResult Function(AvailableSlotsError value) availableSlotsError,
+    required TResult Function(BookAppointmentLoading value)
+    bookAppointmentLoading,
+    required TResult Function(BookAppointmentSuccess value)
+    bookAppointmentSuccess,
+    required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
+    required TResult Function(UploadMedicalImageLoading value)
+    uploadMedicalImageLoading,
+    required TResult Function(UploadMedicalImageSuccess value)
+    uploadMedicalImageSuccess,
+    required TResult Function(UploadMedicalImageError value)
+    uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult? Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult? Function(AvailableSlotsError value)? availableSlotsError,
+    TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult? Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult? Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult? Function(UploadMedicalImageError value)? uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult Function(AvailableSlotsError value)? availableSlotsError,
+    TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult Function(UploadMedicalImageError value)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (updatePaymentStatusLoading != null) {
+      return updatePaymentStatusLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdatePaymentStatusLoading implements AppointmentState {
+  const factory UpdatePaymentStatusLoading() = _$UpdatePaymentStatusLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$UpdatePaymentStatusSuccessImplCopyWith<$Res> {
+  factory _$$UpdatePaymentStatusSuccessImplCopyWith(
+    _$UpdatePaymentStatusSuccessImpl value,
+    $Res Function(_$UpdatePaymentStatusSuccessImpl) then,
+  ) = __$$UpdatePaymentStatusSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UpdatePaymentStatusSuccessImplCopyWithImpl<$Res>
+    extends
+        _$AppointmentStateCopyWithImpl<$Res, _$UpdatePaymentStatusSuccessImpl>
+    implements _$$UpdatePaymentStatusSuccessImplCopyWith<$Res> {
+  __$$UpdatePaymentStatusSuccessImplCopyWithImpl(
+    _$UpdatePaymentStatusSuccessImpl _value,
+    $Res Function(_$UpdatePaymentStatusSuccessImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$UpdatePaymentStatusSuccessImpl implements UpdatePaymentStatusSuccess {
+  const _$UpdatePaymentStatusSuccessImpl();
+
+  @override
+  String toString() {
+    return 'AppointmentState.updatePaymentStatusSuccess()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdatePaymentStatusSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() availableSlotsLoading,
+    required TResult Function(AvailableSlotsResponse availableSlotsResponse)
+    availableSlotsLoaded,
+    required TResult Function(String message) availableSlotsError,
+    required TResult Function() bookAppointmentLoading,
+    required TResult Function(AppointmentResponseBody appointmentResponseBody)
+    bookAppointmentSuccess,
+    required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
+    required TResult Function() uploadMedicalImageLoading,
+    required TResult Function() uploadMedicalImageSuccess,
+    required TResult Function(String message) uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? availableSlotsLoading,
+    TResult? Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult? Function(String message)? availableSlotsError,
+    TResult? Function()? bookAppointmentLoading,
+    TResult? Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
+    TResult? Function()? uploadMedicalImageLoading,
+    TResult? Function()? uploadMedicalImageSuccess,
+    TResult? Function(String message)? uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? availableSlotsLoading,
+    TResult Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult Function(String message)? availableSlotsError,
+    TResult Function()? bookAppointmentLoading,
+    TResult Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
+    TResult Function()? uploadMedicalImageLoading,
+    TResult Function()? uploadMedicalImageSuccess,
+    TResult Function(String message)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (updatePaymentStatusSuccess != null) {
+      return updatePaymentStatusSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(AvailableSlotsLoading value)
+    availableSlotsLoading,
+    required TResult Function(AvailableSlotsLoaded value) availableSlotsLoaded,
+    required TResult Function(AvailableSlotsError value) availableSlotsError,
+    required TResult Function(BookAppointmentLoading value)
+    bookAppointmentLoading,
+    required TResult Function(BookAppointmentSuccess value)
+    bookAppointmentSuccess,
+    required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
+    required TResult Function(UploadMedicalImageLoading value)
+    uploadMedicalImageLoading,
+    required TResult Function(UploadMedicalImageSuccess value)
+    uploadMedicalImageSuccess,
+    required TResult Function(UploadMedicalImageError value)
+    uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult? Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult? Function(AvailableSlotsError value)? availableSlotsError,
+    TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult? Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult? Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult? Function(UploadMedicalImageError value)? uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult Function(AvailableSlotsError value)? availableSlotsError,
+    TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult Function(UploadMedicalImageError value)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (updatePaymentStatusSuccess != null) {
+      return updatePaymentStatusSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdatePaymentStatusSuccess implements AppointmentState {
+  const factory UpdatePaymentStatusSuccess() = _$UpdatePaymentStatusSuccessImpl;
+}
+
+/// @nodoc
+abstract class _$$UpdatePaymentStatusErrorImplCopyWith<$Res> {
+  factory _$$UpdatePaymentStatusErrorImplCopyWith(
+    _$UpdatePaymentStatusErrorImpl value,
+    $Res Function(_$UpdatePaymentStatusErrorImpl) then,
+  ) = __$$UpdatePaymentStatusErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$UpdatePaymentStatusErrorImplCopyWithImpl<$Res>
+    extends _$AppointmentStateCopyWithImpl<$Res, _$UpdatePaymentStatusErrorImpl>
+    implements _$$UpdatePaymentStatusErrorImplCopyWith<$Res> {
+  __$$UpdatePaymentStatusErrorImplCopyWithImpl(
+    _$UpdatePaymentStatusErrorImpl _value,
+    $Res Function(_$UpdatePaymentStatusErrorImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? message = null}) {
+    return _then(
+      _$UpdatePaymentStatusErrorImpl(
+        message:
+            null == message
+                ? _value.message
+                : message // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$UpdatePaymentStatusErrorImpl implements UpdatePaymentStatusError {
+  const _$UpdatePaymentStatusErrorImpl({required this.message});
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'AppointmentState.updatePaymentStatusError(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdatePaymentStatusErrorImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdatePaymentStatusErrorImplCopyWith<_$UpdatePaymentStatusErrorImpl>
+  get copyWith => __$$UpdatePaymentStatusErrorImplCopyWithImpl<
+    _$UpdatePaymentStatusErrorImpl
+  >(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() availableSlotsLoading,
+    required TResult Function(AvailableSlotsResponse availableSlotsResponse)
+    availableSlotsLoaded,
+    required TResult Function(String message) availableSlotsError,
+    required TResult Function() bookAppointmentLoading,
+    required TResult Function(AppointmentResponseBody appointmentResponseBody)
+    bookAppointmentSuccess,
+    required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
+    required TResult Function() uploadMedicalImageLoading,
+    required TResult Function() uploadMedicalImageSuccess,
+    required TResult Function(String message) uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusError(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? availableSlotsLoading,
+    TResult? Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult? Function(String message)? availableSlotsError,
+    TResult? Function()? bookAppointmentLoading,
+    TResult? Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
+    TResult? Function()? uploadMedicalImageLoading,
+    TResult? Function()? uploadMedicalImageSuccess,
+    TResult? Function(String message)? uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusError?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? availableSlotsLoading,
+    TResult Function(AvailableSlotsResponse availableSlotsResponse)?
+    availableSlotsLoaded,
+    TResult Function(String message)? availableSlotsError,
+    TResult Function()? bookAppointmentLoading,
+    TResult Function(AppointmentResponseBody appointmentResponseBody)?
+    bookAppointmentSuccess,
+    TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
+    TResult Function()? uploadMedicalImageLoading,
+    TResult Function()? uploadMedicalImageSuccess,
+    TResult Function(String message)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (updatePaymentStatusError != null) {
+      return updatePaymentStatusError(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(AvailableSlotsLoading value)
+    availableSlotsLoading,
+    required TResult Function(AvailableSlotsLoaded value) availableSlotsLoaded,
+    required TResult Function(AvailableSlotsError value) availableSlotsError,
+    required TResult Function(BookAppointmentLoading value)
+    bookAppointmentLoading,
+    required TResult Function(BookAppointmentSuccess value)
+    bookAppointmentSuccess,
+    required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
+    required TResult Function(UploadMedicalImageLoading value)
+    uploadMedicalImageLoading,
+    required TResult Function(UploadMedicalImageSuccess value)
+    uploadMedicalImageSuccess,
+    required TResult Function(UploadMedicalImageError value)
+    uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult? Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult? Function(AvailableSlotsError value)? availableSlotsError,
+    TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult? Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult? Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult? Function(UploadMedicalImageError value)? uploadMedicalImageError,
+  }) {
+    return updatePaymentStatusError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(AvailableSlotsLoading value)? availableSlotsLoading,
+    TResult Function(AvailableSlotsLoaded value)? availableSlotsLoaded,
+    TResult Function(AvailableSlotsError value)? availableSlotsError,
+    TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
+    TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
+    TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
+    TResult Function(UploadMedicalImageLoading value)?
+    uploadMedicalImageLoading,
+    TResult Function(UploadMedicalImageSuccess value)?
+    uploadMedicalImageSuccess,
+    TResult Function(UploadMedicalImageError value)? uploadMedicalImageError,
+    required TResult orElse(),
+  }) {
+    if (updatePaymentStatusError != null) {
+      return updatePaymentStatusError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdatePaymentStatusError implements AppointmentState {
+  const factory UpdatePaymentStatusError({required final String message}) =
+      _$UpdatePaymentStatusErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppointmentState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdatePaymentStatusErrorImplCopyWith<_$UpdatePaymentStatusErrorImpl>
   get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1558,6 +3354,13 @@ class _$UploadMedicalImageLoadingImpl implements UploadMedicalImageLoading {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -1577,6 +3380,12 @@ class _$UploadMedicalImageLoadingImpl implements UploadMedicalImageLoading {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -1596,6 +3405,12 @@ class _$UploadMedicalImageLoadingImpl implements UploadMedicalImageLoading {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -1620,6 +3435,17 @@ class _$UploadMedicalImageLoadingImpl implements UploadMedicalImageLoading {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -1640,6 +3466,14 @@ class _$UploadMedicalImageLoadingImpl implements UploadMedicalImageLoading {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -1659,6 +3493,14 @@ class _$UploadMedicalImageLoadingImpl implements UploadMedicalImageLoading {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -1731,6 +3573,13 @@ class _$UploadMedicalImageSuccessImpl implements UploadMedicalImageSuccess {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -1750,6 +3599,12 @@ class _$UploadMedicalImageSuccessImpl implements UploadMedicalImageSuccess {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -1769,6 +3624,12 @@ class _$UploadMedicalImageSuccessImpl implements UploadMedicalImageSuccess {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -1793,6 +3654,17 @@ class _$UploadMedicalImageSuccessImpl implements UploadMedicalImageSuccess {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -1813,6 +3685,14 @@ class _$UploadMedicalImageSuccessImpl implements UploadMedicalImageSuccess {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -1832,6 +3712,14 @@ class _$UploadMedicalImageSuccessImpl implements UploadMedicalImageSuccess {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?
@@ -1932,6 +3820,13 @@ class _$UploadMedicalImageErrorImpl implements UploadMedicalImageError {
     required TResult Function(AppointmentResponseBody appointmentResponseBody)
     bookAppointmentSuccess,
     required TResult Function(String message) bookAppointmentError,
+    required TResult Function() initiatePaymentLoading,
+    required TResult Function(InitiatePaymentResponse response)
+    initiatePaymentSuccess,
+    required TResult Function(String message) initiatePaymentError,
+    required TResult Function() updatePaymentStatusLoading,
+    required TResult Function() updatePaymentStatusSuccess,
+    required TResult Function(String message) updatePaymentStatusError,
     required TResult Function() uploadMedicalImageLoading,
     required TResult Function() uploadMedicalImageSuccess,
     required TResult Function(String message) uploadMedicalImageError,
@@ -1951,6 +3846,12 @@ class _$UploadMedicalImageErrorImpl implements UploadMedicalImageError {
     TResult? Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult? Function(String message)? bookAppointmentError,
+    TResult? Function()? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult? Function(String message)? initiatePaymentError,
+    TResult? Function()? updatePaymentStatusLoading,
+    TResult? Function()? updatePaymentStatusSuccess,
+    TResult? Function(String message)? updatePaymentStatusError,
     TResult? Function()? uploadMedicalImageLoading,
     TResult? Function()? uploadMedicalImageSuccess,
     TResult? Function(String message)? uploadMedicalImageError,
@@ -1970,6 +3871,12 @@ class _$UploadMedicalImageErrorImpl implements UploadMedicalImageError {
     TResult Function(AppointmentResponseBody appointmentResponseBody)?
     bookAppointmentSuccess,
     TResult Function(String message)? bookAppointmentError,
+    TResult Function()? initiatePaymentLoading,
+    TResult Function(InitiatePaymentResponse response)? initiatePaymentSuccess,
+    TResult Function(String message)? initiatePaymentError,
+    TResult Function()? updatePaymentStatusLoading,
+    TResult Function()? updatePaymentStatusSuccess,
+    TResult Function(String message)? updatePaymentStatusError,
     TResult Function()? uploadMedicalImageLoading,
     TResult Function()? uploadMedicalImageSuccess,
     TResult Function(String message)? uploadMedicalImageError,
@@ -1994,6 +3901,17 @@ class _$UploadMedicalImageErrorImpl implements UploadMedicalImageError {
     required TResult Function(BookAppointmentSuccess value)
     bookAppointmentSuccess,
     required TResult Function(BookAppointmentError value) bookAppointmentError,
+    required TResult Function(InitiatePaymentLoading value)
+    initiatePaymentLoading,
+    required TResult Function(InitiatePaymentSuccess value)
+    initiatePaymentSuccess,
+    required TResult Function(InitiatePaymentError value) initiatePaymentError,
+    required TResult Function(UpdatePaymentStatusLoading value)
+    updatePaymentStatusLoading,
+    required TResult Function(UpdatePaymentStatusSuccess value)
+    updatePaymentStatusSuccess,
+    required TResult Function(UpdatePaymentStatusError value)
+    updatePaymentStatusError,
     required TResult Function(UploadMedicalImageLoading value)
     uploadMedicalImageLoading,
     required TResult Function(UploadMedicalImageSuccess value)
@@ -2014,6 +3932,14 @@ class _$UploadMedicalImageErrorImpl implements UploadMedicalImageError {
     TResult? Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult? Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult? Function(BookAppointmentError value)? bookAppointmentError,
+    TResult? Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult? Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult? Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult? Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult? Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult? Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult? Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult? Function(UploadMedicalImageSuccess value)?
@@ -2033,6 +3959,14 @@ class _$UploadMedicalImageErrorImpl implements UploadMedicalImageError {
     TResult Function(BookAppointmentLoading value)? bookAppointmentLoading,
     TResult Function(BookAppointmentSuccess value)? bookAppointmentSuccess,
     TResult Function(BookAppointmentError value)? bookAppointmentError,
+    TResult Function(InitiatePaymentLoading value)? initiatePaymentLoading,
+    TResult Function(InitiatePaymentSuccess value)? initiatePaymentSuccess,
+    TResult Function(InitiatePaymentError value)? initiatePaymentError,
+    TResult Function(UpdatePaymentStatusLoading value)?
+    updatePaymentStatusLoading,
+    TResult Function(UpdatePaymentStatusSuccess value)?
+    updatePaymentStatusSuccess,
+    TResult Function(UpdatePaymentStatusError value)? updatePaymentStatusError,
     TResult Function(UploadMedicalImageLoading value)?
     uploadMedicalImageLoading,
     TResult Function(UploadMedicalImageSuccess value)?

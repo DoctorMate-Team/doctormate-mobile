@@ -178,6 +178,10 @@ class NotificationCard extends StatelessWidget {
         return Colors.green.shade600;
       case NotificationType.appointmentCancelled:
         return Colors.red.shade600;
+      case NotificationType.appointmentExpired:
+        return Colors.red.shade800;
+      case NotificationType.paymentSuccess:
+        return Colors.teal.shade600;
       case NotificationType.prescriptionCreated:
         return Colors.purple.shade600;
       case NotificationType.unknown:
@@ -195,6 +199,10 @@ class NotificationCard extends StatelessWidget {
         return Iconsax.tick_circle;
       case NotificationType.appointmentCancelled:
         return Iconsax.close_circle;
+      case NotificationType.appointmentExpired:
+        return Iconsax.clock;
+      case NotificationType.paymentSuccess:
+        return Iconsax.wallet_money;
       case NotificationType.prescriptionCreated:
         return Iconsax.note_21;
       case NotificationType.unknown:
@@ -212,6 +220,10 @@ class NotificationCard extends StatelessWidget {
         return 'Confirmed';
       case NotificationType.appointmentCancelled:
         return 'Cancelled';
+      case NotificationType.appointmentExpired:
+        return 'Expired';
+      case NotificationType.paymentSuccess:
+        return 'Payment';
       case NotificationType.prescriptionCreated:
         return 'Prescription';
       case NotificationType.unknown:

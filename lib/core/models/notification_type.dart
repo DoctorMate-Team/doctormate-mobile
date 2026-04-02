@@ -3,7 +3,9 @@ enum NotificationType {
   appointmentReminder('AppointmentReminder'),
   appointmentConfirmed('AppointmentConfirmed'),
   appointmentCancelled('AppointmentCancelled'),
+  appointmentExpired('AppointmentExpired'),
   prescriptionCreated('PrescriptionCreated'),
+  paymentSuccess('PaymentSuccess'),
   unknown('Unknown');
 
   final String value;
@@ -23,6 +25,8 @@ enum NotificationClickAction {
   openMedicalRecord('OPEN_MEDICAL_RECORD'),
   openAppointment('OPEN_APPOINTMENT'),
   openAppointmentDetails('OPEN_APPOINTMENT_DETAILS'),
+  openNotifications('OPEN_NOTIFICATIONS'),
+  openPaymentDetails('OPEN_PAYMENT_DETAILS'),
   none('');
 
   final String value;

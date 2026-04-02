@@ -9,74 +9,99 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
+import 'package:doctor_mate/features/profile/logic/cubit/profile_cubit.dart';
+import 'package:doctor_mate/features/profile/logic/cubit/profile_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class ModernAppBar extends StatelessWidget {
   const ModernAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        // Simplified Profile Section
-        Container(
-          width: 48.w,
-          height: 48.h,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: ColorsManager.primaryColor.withOpacity(0.3),
-              width: 2.w,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.08),
-                blurRadius: 6,
-                offset: const Offset(0, 2),
+    return BlocBuilder<ProfileCubit, ProfileState>(
+      buildWhen: (previous, current) => current is GetProfileSuccess,
+      builder: (context, state) {
+        String userName = 'Guest';
+        String? profileImage;
+
+        if (state is GetProfileSuccess) {
+          userName = state.profile.fullName;
+          profileImage = state.profile.imageUrl;
+        }
+
+        return Row(
+          children: [
+            // Simplified Profile Section
+            Container(
+              width: 48.w,
+              height: 48.h,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: ColorsManager.primaryColor.withOpacity(0.3),
+                  width: 2.w,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 6,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+                image: DecorationImage(
+                  image:
+                      profileImage != null && profileImage.isNotEmpty
+                          ? NetworkImage(profileImage) as ImageProvider
+                          : const AssetImage(AppImages.onBoarding1),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ],
-            image: const DecorationImage(
-              image: AssetImage(AppImages.onBoarding1),
-              fit: BoxFit.cover,
             ),
-          ),
-        ),
-        horizantialSpacing(12),
+            horizantialSpacing(12),
 
-        // Clean Greeting Section
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Welcome back,", style: TextStyles.font12GrayRegular),
-              verticalSpacing(2),
-              Text('Mohammad Reda', style: TextStyles.font18DarkGreySemiBold),
-            ],
-          ),
-        ),
+            // Clean Greeting Section
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Welcome back,", style: TextStyles.font12GrayRegular),
+                  verticalSpacing(2),
+                  Text(
+                    userName,
+                    style: TextStyles.font18DarkGreySemiBold,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
 
-        // Minimalist Action Buttons
-        const NotificationBadgeButton(),
-        horizantialSpacing(8),
-        GestureDetector(
-          onTap: () {
-            context.pushNamed(Routes.searchScreen);
-          },
-          child: Container(
-            width: 40.w,
-            height: 40.h,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(color: Colors.grey.shade200, width: 1),
+            // Minimalist Action Buttons
+            const NotificationBadgeButton(),
+            horizantialSpacing(8),
+            GestureDetector(
+              onTap: () {
+                context.pushNamed(Routes.searchScreen);
+              },
+              child: Container(
+                width: 40.w,
+                height: 40.h,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(10.r),
+                  border: Border.all(color: Colors.grey.shade200, width: 1),
+                ),
+                child: Icon(
+                  Iconsax.search_normal_copy,
+                  color: Colors.grey.shade600,
+                  size: 20.sp,
+                ),
+              ),
             ),
-            child: Icon(
-              Iconsax.search_normal_copy,
-              color: Colors.grey.shade600,
-              size: 20.sp,
-            ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

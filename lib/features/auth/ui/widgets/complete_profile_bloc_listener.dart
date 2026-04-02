@@ -59,6 +59,7 @@ class CompleteProfileBlocListener extends StatelessWidget {
                       AppConstants.tokenKey,
                       AppConstants.userTokenProvider,
                     );
+                    // User ID should already be saved during login
                     context.goNamed(
                       Routes.mainLayout,
                     ); // Navigate to main app or dashboard

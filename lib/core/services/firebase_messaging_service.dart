@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doctor_mate/core/helper/cache_helper.dart';
 import 'package:doctor_mate/core/models/notification_data.dart';
 import 'package:doctor_mate/core/models/notification_type.dart';
 import 'package:doctor_mate/core/networking/device_token_repository.dart';
@@ -42,6 +43,8 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 class FirebaseMessagingService {
+  static bool _isInitialized = false;
+
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final LocalNotificationService _localNotificationService =
       LocalNotificationService();
@@ -52,6 +55,7 @@ class FirebaseMessagingService {
 
   // Store current token
   String? _currentToken;
+  bool _isRegisteringToken = false;
 
   FirebaseMessagingService({DeviceTokenRepository? deviceTokenRepository})
     : _deviceTokenRepository = deviceTokenRepository;
@@ -63,6 +67,12 @@ class FirebaseMessagingService {
 
   /// Initialize Firebase Messaging
   Future<void> initialize() async {
+    if (_isInitialized) {
+      return;
+    }
+
+    _isInitialized = true;
+
     // Request permission for iOS
     await requestPermission();
 
@@ -197,6 +207,7 @@ class FirebaseMessagingService {
         // Inline navigation logic
         _navigateBasedOnNotification(data);
       }
+
       NotificationNavigationHandler();
     } else {
       debugPrint('Router not set. Cannot navigate.');
@@ -216,7 +227,13 @@ class FirebaseMessagingService {
       return;
     }
 
-    if (data.clickAction == NotificationClickAction.openAppointmentDetails) {
+    if (data.clickAction == NotificationClickAction.openNotifications) {
+      _router?.push('/notificationsScreen');
+      return;
+    }
+
+    if (data.clickAction == NotificationClickAction.openAppointmentDetails ||
+        data.clickAction == NotificationClickAction.openPaymentDetails) {
       if (data.appointmentId != null) {
         debugPrint('Navigating to appointment details: ${data.appointmentId}');
         _router?.pushNamed(
@@ -238,6 +255,8 @@ class FirebaseMessagingService {
       case NotificationType.appointmentReminder:
       case NotificationType.appointmentConfirmed:
       case NotificationType.appointmentCancelled:
+      case NotificationType.appointmentExpired:
+      case NotificationType.paymentSuccess:
         if (data.appointmentId != null) {
           _router?.pushNamed(
             '/appointmentDetails',
@@ -340,7 +359,16 @@ class FirebaseMessagingService {
       return;
     }
 
+    if (_isRegisteringToken) {
+      return;
+    }
+
+    if (_currentToken == token) {
+      return;
+    }
+
     try {
+      _isRegisteringToken = true;
       _currentToken = token;
       final deviceType = Platform.isAndroid ? 'android' : 'ios';
       final deviceName = Platform.isAndroid ? 'Android Device' : 'iOS Device';
@@ -349,6 +377,8 @@ class FirebaseMessagingService {
         token: token,
         deviceType: deviceType,
         deviceName: deviceName,
+        userId:
+            await CacheHelper.getSecuredValue('user_id', type: String) ?? '',
       );
 
       result.when(
@@ -363,6 +393,8 @@ class FirebaseMessagingService {
       );
     } catch (e) {
       debugPrint('Exception registering device token: $e');
+    } finally {
+      _isRegisteringToken = false;
     }
   }
 

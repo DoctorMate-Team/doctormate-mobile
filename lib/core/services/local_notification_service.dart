@@ -213,6 +213,25 @@ class LocalNotificationService {
         }
         break;
 
+      case NotificationType.appointmentExpired:
+        title = '⏳ Appointment Expired';
+        if (data.doctorName != null) {
+          body = 'Your appointment with Dr. ${data.doctorName} has expired';
+        } else {
+          body = 'Your appointment has expired';
+        }
+        break;
+
+      case NotificationType.paymentSuccess:
+        title = '💰 Payment Successful';
+        if (data.amount != null && data.currency != null) {
+          body =
+              'Your payment of ${data.amount} ${data.currency} was successful';
+        } else {
+          body = 'Your payment was successful';
+        }
+        break;
+
       case NotificationType.prescriptionCreated:
         title = '💊 New Prescription';
         if (data.doctorName != null && data.medicationCount != null) {

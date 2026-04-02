@@ -6,7 +6,6 @@ import 'package:doctor_mate/features/appointment_details/logic/cubit/appointment
 import 'package:doctor_mate/features/appointment_details/ui/widgets/appointment_details_app_bar.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/appointment_details_shimmer_loading.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/appointment_info_card.dart';
-import 'package:doctor_mate/features/appointment_details/ui/widgets/call_token_dialog.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/communication_action_buttons.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/diagnosis_section_card.dart';
 import 'package:doctor_mate/features/appointment_details/ui/widgets/medical_images_section_card.dart';
@@ -37,6 +36,7 @@ class AppointmentDetailsScreen extends StatefulWidget {
 class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
   String? _sessionId;
   String? _channelName;
+  String? _sessionType; // 'chat', 'voice', or 'video'
   ReviewModel? _myReview;
 
   @override
@@ -58,16 +58,24 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
     return MultiBlocListener(
       listeners: [
         BlocListener<CommunicationCubit, CommunicationState>(
+          listenWhen:
+              (previous, current) => current.maybeWhen(
+                orElse: () => false,
+                sessionActive: (_, __, ___) => true,
+                callTokenRetrieved: (_, __, ___, ____) => true,
+                callTokenError: (_) => true,
+              ),
           listener: (context, state) {
             state.whenOrNull(
-              sessionActive: (sessionId, channelName) {
+              sessionActive: (sessionId, channelName, sessionType) {
                 setState(() {
                   _sessionId = sessionId;
                   _channelName = channelName;
+                  _sessionType = sessionType;
                 });
               },
               callTokenRetrieved: (token, channel, expiry, callType) {
-                _showCallTokenDialog(token, channel, expiry, callType);
+                _startAgoraCall(token, channel, callType);
               },
               callTokenError: (error) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -138,6 +146,13 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
         backgroundColor: Colors.grey[50],
         body: SafeArea(
           child: BlocBuilder<AppointmentDetailsCubit, AppointmentDetailsState>(
+            buildWhen:
+                (previous, current) => current.maybeWhen(
+                  orElse: () => false,
+                  getAppointmentDetailsLoading: () => true,
+                  getAppointmentDetailsSuccess: (_) => true,
+                  getAppointmentDetailsError: (_) => true,
+                ),
             builder: (context, state) {
               return state.maybeWhen(
                 getAppointmentDetailsLoading: () => _buildLoadingState(),
@@ -183,6 +198,7 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
                   onChatPressed: () => _handleChatPressed(details),
                   onVoiceCallPressed: _handleVoiceCallPressed,
                   onVideoCallPressed: _handleVideoCallPressed,
+                  sessionType: _sessionType,
                 ),
                 verticalSpacing(16),
                 MedicalRecordSectionCard(
@@ -293,47 +309,40 @@ class _AppointmentDetailsScreenState extends State<AppointmentDetailsScreen> {
   }
 
   void _handleVoiceCallPressed() {
-    if (_sessionId == null) return;
-
     context.read<CommunicationCubit>().getCallToken(
-      sessionId: _sessionId!,
+      appointmentId: widget.appointmentId,
       callType: 'voice',
     );
   }
 
   void _handleVideoCallPressed() {
-    if (_sessionId == null) return;
-
     context.read<CommunicationCubit>().getCallToken(
-      sessionId: _sessionId!,
+      appointmentId: widget.appointmentId,
       callType: 'video',
     );
   }
 
-  void _showCallTokenDialog(
-    String token,
-    String channel,
-    int expiry,
-    String callType,
-  ) {
-    showDialog(
-      context: context,
-      builder:
-          (context) => CallTokenDialog(
-            token: token,
-            channel: channel,
-            expiry: expiry,
-            callType: callType,
-            onClose: _returnToSessionActive,
-          ),
-    );
+  void _startAgoraCall(String token, String channel, String callType) {
+    context
+        .pushNamed(
+          Routes.agoraCallScreen,
+          queryParameters: {
+            'token': token,
+            'channel': channel,
+            'callType': callType,
+          },
+        )
+        .then((_) {
+          _returnToSessionActive();
+        });
   }
 
   void _returnToSessionActive() {
-    if (_sessionId != null && _channelName != null) {
+    if (_sessionId != null && _channelName != null && _sessionType != null) {
       context.read<CommunicationCubit>().returnToSessionActive(
         _sessionId!,
         _channelName!,
+        _sessionType!,
       );
     }
   }

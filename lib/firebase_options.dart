@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyATA3f-5kSJZRbobyrelSKaz3BrZ66m1c8',
-    appId: '1:767064413529:android:3e29341839398fc64ca848',
-    messagingSenderId: '767064413529',
-    projectId: 'doctormate-e4eef',
-    storageBucket: 'doctormate-e4eef.firebasestorage.app',
+    apiKey: 'AIzaSyBYckPuwovdm4U0yPo4iYP_w5vb2OX9cUk',
+    appId: '1:395649526681:android:48de0f30a3e37481e64108',
+    messagingSenderId: '395649526681',
+    projectId: 'doctor-mate-c7ca5',
+    storageBucket: 'doctor-mate-c7ca5.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAsNhq9V5kio_p5voj42T_Q4RPkBE0Pt5I',
-    appId: '1:767064413529:ios:ea6dcb47256fc28c4ca848',
-    messagingSenderId: '767064413529',
-    projectId: 'doctormate-e4eef',
-    storageBucket: 'doctormate-e4eef.firebasestorage.app',
+    apiKey: 'AIzaSyCILTCb9_vtEWzuB_gim1_uEG6GZYuTym0',
+    appId: '1:395649526681:ios:17811a21458349e0e64108',
+    messagingSenderId: '395649526681',
+    projectId: 'doctor-mate-c7ca5',
+    storageBucket: 'doctor-mate-c7ca5.firebasestorage.app',
     iosBundleId: 'com.doctormate.app',
   );
 }
